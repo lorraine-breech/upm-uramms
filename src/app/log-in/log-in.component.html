@@ -1,0 +1,15 @@
+<p>
+  log-in works!
+</p>
+<p>
+  <button (click) = "login()"  *ngIf="!authService.isLoggedIn">Log in</button>
+</p>
+<div>
+  <nav>
+    <a routerLink="/about" routerLinkActive="active"> About </a>
+    <a routerLink="/help" routerLinkActive="active"> Help </a>
+    <a routerLink="/student/requests/request-list" routerLinkActive="active"> Student </a>
+    <a routerLink="/panel-member/requests/request-list" routerLinkActive="active"> Panel Member </a>
+    <a routerLink="/others/requests/request-list" routerLinkActive="active"> Others </a>
+  </nav>
+</div>

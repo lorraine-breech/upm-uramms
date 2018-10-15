@@ -1,0 +1,14 @@
+<p>
+  >student-navbar works!
+</p>
+<nav>
+  <a routerLink="/student/requests/request-list" routerLinkActive="active"> Requests </a>
+  <a routerLink="/student/my-calendar" routerLinkActive="active"> My Calendar </a>
+  <a routerLink="/student/my-panel" routerLinkActive="active"> My Panel </a>
+  <a routerLink="/student/my-study" routerLinkActive="active"> My Study </a>
+  <a routerLink="/student/my-account" routerLinkActive="active"> My Account </a>
+  <a routerLink="/login" routerLinkActive="active"> Log Out </a>
+  <p>
+    <button (click) = "logout()" *ngIf="authService.isLoggedIn">Log out</button>
+  </p>
+</nav>
