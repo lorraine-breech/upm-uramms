@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <p class="h4 text-center mb-4">Add Student Form</p>
+  <div class="jumbotron">
+    <form>
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputEmail3" placeholder="First Name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword2" class="col-sm-2 col-form-label">Middle Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputPassword2" placeholder="Middle Name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputPassword3" placeholder="Last Name">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="studentNumber" class="col-sm-2 col-form-label">Student Number</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="studentNumber" placeholder="Student Number">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="year" class="col-sm-2 col-form-label">Year</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="year" placeholder="Year">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="courses" class="col-sm-2 col-form-label">Course</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="courses">
+                <option></option>
+                <option>Course 1</option>
+                <option>Course 2</option>
+                <option>Course 3</option>
+                
+            </select>
+          </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-7">
+          
+        </div>
+        <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="gotoStudentsList()">Cancel</button>
+        <button type="submit" class="col-sm-2 btn btn-primary">Submit</button>
+      </div>
+     
+    </form>
+  </div>
+    
+</div>

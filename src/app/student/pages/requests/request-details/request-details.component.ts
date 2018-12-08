@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../request-list/dataService';
 
 @Component({
   selector: 'app-request-details',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-details.component.css']
 })
 export class RequestDetailsComponent implements OnInit {
-
-  constructor() { }
+  selectedRequest:any;
+  constructor(private dataService:DataService) { }
 
   ngOnInit() {
+    this.selectedRequest = this.dataService.getSelectedRequest();
   }
 
 }

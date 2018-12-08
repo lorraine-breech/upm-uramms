@@ -7,7 +7,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 // Connect
 const connection = (closure) => {
-    return MongoClient.connect('mongodb://localhost:27017/mean', { useNewUrlParser: true }, (err, db) => {
+    return MongoClient.connect('mongodb://localhost:27017/upm-uramms', { useNewUrlParser: true }, (err, db) => {
         if (err) return console.log(err);
 
         closure(db);
@@ -31,7 +31,7 @@ let response = {
 // Get users
 router.get('/users', (req, res) => {
     connection((db) => {
-        const myDB = db.db('mean');
+        const myDB = db.db('upm-uramms');
         myDB.collection('users')
             .find()
             .toArray()
@@ -45,4 +45,61 @@ router.get('/users', (req, res) => {
     });
 });
 
+router.get('/superusers', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('upm-uramms');
+        myDB.collection('superusers')
+            .find()
+            .toArray()
+            .then((superusers) => {
+                if (superusers) {
+                    response.data = superusers;
+                    res.json(superusers);
+                } else {
+                    res.json(false);
+                }
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+/*
+// Get super users
+router.get('/superusers', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('upm-uramms');
+        myDB.collection('superusers')
+            .find()
+            .toArray()
+            .then((users) => {
+                response.data = users;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+*/
+
 module.exports = router;
+
+/*/ Get users (MEAN DB) when testing
+router.get('/users', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('mean');
+        myDB.collection('users')
+            .find()
+            .toArray()
+            .then((users) => {
+                response.data = users;
+                res.json(response);
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+*/

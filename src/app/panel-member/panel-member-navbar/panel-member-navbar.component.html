@@ -1,3 +1,29 @@
-<p>
-  panel-member-navbar works!
-</p>
+<div class="container-fluid-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary pt-4">
+        <a class="navbar-brand" href="#">PANEL MEMBER</a>
+        <!--Add here -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--Add here -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/panel-member/requests" routerLinkActive="active">Requests</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/panel-member/my-calendar" routerLinkActive="active">My Calendar</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/panel-member/students" routerLinkActive="active">Students</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/panel-member/my-account" routerLinkActive="active">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home/login" routerLinkActive="active">Log out</a>
+                </li>
+              </ul>
+          </div>
+    </nav>
+</div>

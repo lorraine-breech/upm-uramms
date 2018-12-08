@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <p class="h4 text-center mb-4">My Study Details</p>
+  <div class="jumbotron"> 
+    <form>
+      <div class="form-group row">
+        <label for="title" class="col-sm-2 col-form-label">Title:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="title" value="Title">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="abstract" value="Abstract">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="file" class="col-sm-2 col-form-label">My Study File</label>
+        <button type="button" class="mr-3 col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">View File</button>
+        <button type="button" class="col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">Upload File</button>
+      </div>
+
+      <div class="form-group row">
+        <label for="rstatus" class="col-sm-2 col-form-label">Research Status:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="rstatus" value="Research Status">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changeProposalRequest()">Change Proposal</button>
+      </div>
+
+    </form>
+    
+  </div>
+</div>

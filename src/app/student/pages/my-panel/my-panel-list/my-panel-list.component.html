@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <p class="h4 text-center mb-4">Proposal Panel</p>
+  <div class="jumbotron"> 
+    <form>
+      <div *ngIf="showAdviser" class="form-group row">
+        <label for="adviser" class="col-sm-2 col-form-label">Adviser:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="adviser" value="Panel Adviser">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changePanelMemberRequest()">Change</button>
+      </div>
+
+      <div *ngIf="showCoAdviser" class="form-group row">
+        <label for="coAdviser" class="col-sm-2 col-form-label">Co-adviser:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="coAdviser" value="Panel Co-adviser">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changePanelMemberRequest()">Change</button>
+      </div>
+
+      <div *ngIf="showPanelist1" class="form-group row">
+        <label for="panelist1" class="col-sm-2 col-form-label">Panelist 1:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="panelist1" value="Panelist 1">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changePanelMemberRequest()">Change</button>
+      </div>
+
+      <div *ngIf="showPanelist2" class="form-group row">
+        <label for="panelist2" class="col-sm-2 col-form-label">Panelist 2:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="panelist2" value="Panelist 2">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changePanelMemberRequest()">Change</button>
+      </div>
+
+      <div *ngIf="showPanelist3" class="form-group row">
+        <label for="panelist3" class="col-sm-2 col-form-label">Panelist 3:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="panelist3" value="Panelist 3">
+        </div>
+        <button type="button" class="col-sm-2 btn btn-primary" (click)="changePanelMemberRequest()">Change</button>
+      </div>
+    </form>
+    
+  </div>
+  <button *ngIf="isNoCoAdviser" type="button" class="mr-3 col-sm-2 btn btn-primary" (click)="addPanelMemberRequest()">Add Co-adviser</button>
+  <button type="button" class="col-sm-2 btn btn-primary" (click)="addPanelMemberRequest()" >Add Panel Member</button>
+</div>

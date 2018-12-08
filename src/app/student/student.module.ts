@@ -12,12 +12,20 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { RequestListComponent } from './pages/requests/request-list/request-list.component';
 import { RequestDetailsComponent } from './pages/requests/request-details/request-details.component';
 import { CancelAppointmentComponent } from './pages/requests/cancel-appointment/cancel-appointment.component';
-import { CreateRequestComponent } from './pages/requests/create-request/create-request.component';
 import { SubmitRevisionComponent } from './pages/requests/submit-revision/submit-revision.component';
 import { CancelRequestComponent } from './pages/requests/cancel-request/cancel-request.component';
-import { ApprovalRequestComponent } from './pages/requests/create-request/approval-request/approval-request.component';
-import { PresentationRequestComponent } from './pages/requests/create-request/presentation-request/presentation-request.component';
-import { ChangeProposalRequestComponent } from './pages/requests/create-request/change-proposal-request/change-proposal-request.component';
+import { DataService } from './pages/requests/request-list/dataService';
+import { PresentationScheduleComponent } from './pages/requests/request-details/presentation-schedule/presentation-schedule.component';
+import { PaperApprovalComponent } from './pages/requests/request-details/paper-approval/paper-approval.component';
+import { ChangeProposalComponent } from './pages/requests/request-details/change-proposal/change-proposal.component';
+import { AddChangePanelMemberComponent } from './pages/requests/request-details/add-change-panel-member/add-change-panel-member.component';
+import { ChangePanelMemberRequestComponent } from './pages/my-panel/change-panel-member-request/change-panel-member-request.component';
+import { MyPanelListComponent } from './pages/my-panel/my-panel-list/my-panel-list.component';
+import { MyStudyDetailsComponent } from './pages/my-study/my-study-details/my-study-details.component';
+import { ChangeProposalRequestComponent } from './pages/my-study/change-proposal-request/change-proposal-request.component';
+import { CreatePresentationScheduleRequestComponent } from './pages/requests/create-presentation-schedule-request/create-presentation-schedule-request.component';
+import { CreatePaperApprovalRequestComponent } from './pages/requests/create-paper-approval-request/create-paper-approval-request.component';
+import { AddPanelMemberRequestComponent } from './pages/my-panel/add-panel-member-request/add-panel-member-request.component';
 
 
 @NgModule({
@@ -34,13 +42,21 @@ import { ChangeProposalRequestComponent } from './pages/requests/create-request/
     RequestsComponent,
     RequestListComponent,
     RequestDetailsComponent,
-    CreateRequestComponent,
     CancelAppointmentComponent,
     CancelRequestComponent,
     SubmitRevisionComponent,
-    ApprovalRequestComponent,
-    PresentationRequestComponent,
-    ChangeProposalRequestComponent
-  ]
+    PresentationScheduleComponent,
+    PaperApprovalComponent,
+    ChangeProposalComponent,
+    ChangeProposalRequestComponent,
+    AddChangePanelMemberComponent,
+    ChangePanelMemberRequestComponent,
+    MyPanelListComponent,
+    MyStudyDetailsComponent,
+    CreatePresentationScheduleRequestComponent,
+    CreatePaperApprovalRequestComponent,
+    AddPanelMemberRequestComponent
+  ],
+  providers: [ DataService ]
 })
 export class StudentModule { }

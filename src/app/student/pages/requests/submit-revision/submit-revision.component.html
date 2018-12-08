@@ -1,4 +1,43 @@
-<p>
-  submit-revision works!
-</p>
-<a routerLink="/student/requests/request-list" routerLinkActive="active"> Requests </a>
+<div class="container mt-4">
+    <p class="h4 text-center mb-4">Submit a Revised Paper</p>
+    <div class="jumbotron"> 
+      <form>
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">Title:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control-plaintext" id="title" value="Title">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control-plaintext" id="abstract" value="Abstract">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="file" class="col-sm-2 col-form-label">My Study File</label>
+          <button type="button" class="mr-3 col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">View File</button>
+          <button type="button" class="col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">Upload File</button>
+        </div>
+  
+        <div class="form-group row">
+          <label for="srevision" class="col-sm-2 col-form-label">Summary of Revision:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="srevision" placeholder="Write the summary of revision here.">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-7">
+          </div>
+          <button type="button" class="mr-3 col-sm-2 btn btn-primary" (click)="gotoRequests()">Cancel</button>
+          <button type="button" class="col-sm-2 btn btn-danger" >Proceed</button>
+        </div>
+
+  
+      </form>
+      
+    </div>
+  </div>

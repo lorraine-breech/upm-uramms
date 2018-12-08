@@ -19,7 +19,7 @@ const panelMemberRoutes: Routes = [
         path: 'requests',
         component: RequestsComponent,
         children: [
-          { path: 'request-list', component: RequestListComponent },
+          { path: '', component: RequestListComponent },
           { path: 'ask-for-revision', component: AskForRevisionComponent }
         ]
       },

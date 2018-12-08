@@ -1,10 +1,41 @@
-<p>
-  request-list works!
-</p>
+<div class="container mt-4 " >
 
-<nav>
-  <a routerLink="/student/requests/create-request" routerLinkActive="active"> Create Request </a>
-  <a routerLink="/student/requests/cancel-request" routerLinkActive="active"> Cancel Request </a>
-  <a routerLink="/student/requests/cancel-appointment" routerLinkActive="active"> Cancel Appointment</a>
-  <a routerLink="/student/requests/submit-revision" routerLinkActive="active"> Submit Revision </a>
-</nav>
+  <div class="row">
+    <div class="col">
+      <table class="table table-sm table-hover ml-1">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Request Type</th>
+            <th scope="col">Request Status</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <tr *ngFor="let request of requests" (click)="onSelect(request)">
+            <th scope="row">1</th>
+            <td>October 19, 2018 {{request.id}} </td>
+            <td>Request: Proposal {{request.name}}</td>
+            <td>Unread (2/3)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <nav>
+    <a routerLink="/student/requests/cancel-request" routerLinkActive="active"> Cancel Request </a>
+    <a routerLink="/student/requests/cancel-appointment" routerLinkActive="active"> Cancel Appointment</a>
+    <a routerLink="/student/requests/submit-revision" routerLinkActive="active"> Submit Revision </a>
+  </nav>
+</div>
+
+<div class="align-self-left fixed-bottom" >
+  <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="createPSRequestForm()">Create Presentation Request</a>
+  <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="createPARequestForm()">Create Paper Approval Request</a>
+  <div class="p-3 bg-primary ">
+
+  </div>
+  
+</div>

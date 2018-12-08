@@ -1,14 +1,32 @@
-<p>
-  >student-navbar works!
-</p>
-<nav>
-  <a routerLink="/student/requests/request-list" routerLinkActive="active"> Requests </a>
-  <a routerLink="/student/my-calendar" routerLinkActive="active"> My Calendar </a>
-  <a routerLink="/student/my-panel" routerLinkActive="active"> My Panel </a>
-  <a routerLink="/student/my-study" routerLinkActive="active"> My Study </a>
-  <a routerLink="/student/my-account" routerLinkActive="active"> My Account </a>
-  <a routerLink="/login" routerLinkActive="active"> Log Out </a>
-  <p>
-    <button (click) = "logout()" *ngIf="authService.isLoggedIn">Log out</button>
-  </p>
-</nav>
+<div class="container-fluid-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary pt-4">
+        <a class="navbar-brand" href="#">STUDENT</a>
+        <!--Add here -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--Add here -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/student/requests" routerLinkActive="active">Requests</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/student/my-calendar" routerLinkActive="active">My Calendar</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/student/my-panel" routerLinkActive="active">My Panel</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/student/my-study" routerLinkActive="active">My Study</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/student/my-account" routerLinkActive="active">My Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home/login" routerLinkActive="active">Log out</a>
+                </li>
+              </ul>
+          </div>
+    </nav>
+</div>

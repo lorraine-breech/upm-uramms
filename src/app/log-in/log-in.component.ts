@@ -19,6 +19,15 @@ export class LogInComponent implements OnInit {
   }
 
   login(){
+    this.router.navigate(['/super/students']);
+  }
+/*
+  login(){
+    this.router.navigate(['/student/requests']);
+  }
+
+  /*
+  login(){
     this.message = 'Trying to log in ...';
 
     this.authService.login().subscribe(()=> {
@@ -33,7 +42,7 @@ export class LogInComponent implements OnInit {
       }
     });
   }
-  /*
+
   logout(){
     this.authService.logout();
     this.setMessage();

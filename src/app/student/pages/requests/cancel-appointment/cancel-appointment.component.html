@@ -1,4 +1,46 @@
-<p>
-  cancel-appointment works!
-</p>
-<a routerLink="/student/requests/request-list" routerLinkActive="active"> Requests </a>
+<div class="container mt-4">
+    <p class="h4 text-center mb-4">Cancel Presentation Appointment</p>
+    <div class="jumbotron"> 
+      <form>
+        <div class="form-group row">
+          <label for="date" class="col-sm-1 col-form-label">Date:</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control-plaintext" id="date" value="January 5, 2018">
+          </div>
+          <label for="time" class="col-sm-1 col-form-label">Time: </label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control-plaintext" id="time" value="10:00am - 12:00 pm">
+          </div>
+          <label for="place" class="col-sm-1 col-form-label">Place: </label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control-plaintext" id="place" value="CSM">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <input type="text" class="form-control-plaintext" value="The presentation appointment has been successfully made. Are you sure you want to cancel the appointment? If so, write your reason/s below. 
+            ">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="reason" class="col-sm-2 col-form-label">Reason:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="reason" placeholder="Write your reason here.">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-7">
+
+          </div>
+          <button type="button" class="mr-3 col-sm-2 btn btn-primary" (click)="gotoRequests()">Cancel</button>
+          <button type="button" class="col-sm-2 btn btn-danger" >Proceed</button>
+        </div>
+        
+  
+      </form>
+      
+    </div>
+  </div>

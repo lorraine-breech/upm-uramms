@@ -1,0 +1,60 @@
+<div class="container mt-4 " >
+
+    <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="goToAddSuperUserForm()">Add New Super User</a>
+    <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="goToViewActivities()">View Activities</a>
+  
+  
+    <div class="row">
+      <div class="col">
+        <table class="table table-sm table-hover ml-1">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Emp Num</th>
+              <th scope="col">Position</th>
+              <th scope="col">Title</th>
+              <th scope="col">Department</th>
+              <th scope="col">College</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <tr>
+                <th scope="row">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Emp Num</th>
+                <th scope="col">Position</th>
+                <th scope="col">Title</th>
+                <th scope="col">Department</th>
+                <th scope="col">College</th>
+                <th scope="col">
+                    <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
+                </th>
+            </tr>
+
+            <tr>
+              <th scope="row">#</th>
+              <th scope="col">{{superUser.super_fname}}</th>
+              <th scope="col">Emp Num</th>
+              <th scope="col">Position</th>
+              <th scope="col">Title</th>
+              <th scope="col">Department</th>
+              <th scope="col">College</th>
+              <th scope="col">
+                  <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
+              </th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <div class="align-self-left fixed-bottom" >
+    <div class="p-3 bg-primary ">
+  
+    </div>
+    
+  </div>

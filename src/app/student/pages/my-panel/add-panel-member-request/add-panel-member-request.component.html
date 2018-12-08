@@ -1,0 +1,57 @@
+<div class="container mt-4">
+    <p class="h4 text-center mb-4">Add Panel Member Request</p>
+    <div class="jumbotron"> 
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="role" class="col-sm-3 col-form-label">Role:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" id="role" value="Panel Member Role (e.g. Adviser)">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="professor" class="col-sm-3 col-form-label">Professor:</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="professor">
+                <!-- List of Professors will be taken from the database -->
+                <option>Jon Henly O. Santillan</option>
+                <option>Maureen Agrazamendez</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="effectivity" class="col-sm-3 col-form-label">Effectivity:</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="effectivity">
+                <option>1st Semester</option>
+                <option>2nd Semester</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <select class="form-control" id="effectivity">
+                <option>A.Y. 2019-2020</option>
+                <option>A.Y. 2020-2021</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="optmessage" class="col-sm-3 col-form-label">Optional Message:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="optmessage" placeholder="Write your message here.">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-7">
+            
+          </div>
+          <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="goToMyPanelList()">Cancel</button>
+          <button type="submit" class="col-sm-2 btn btn-primary">Submit</button>
+        </div>
+        
+        
+      </form>
+    
+    </div>
+    
+  </div>
