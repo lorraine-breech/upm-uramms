@@ -21,31 +21,18 @@
           </thead>
         
           <tbody>
-            <tr>
-                <th scope="row">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Emp Num</th>
-                <th scope="col">Position</th>
-                <th scope="col">Title</th>
-                <th scope="col">Department</th>
-                <th scope="col">College</th>
-                <th scope="col">
-                    <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
-                </th>
-            </tr>
-
-            <tr>
+            <tr *ngFor="let superuser of superUsers">
               <th scope="row">#</th>
-              <th scope="col">{{superUser.super_fname}}</th>
-              <th scope="col">Emp Num</th>
-              <th scope="col">Position</th>
-              <th scope="col">Title</th>
-              <th scope="col">Department</th>
+              <th scope="col">{{ superuser.super_fname }}</th>
+              <th scope="col">{{ superuser.super_emp_num }}</th>
+              <th scope="col">{{ superuser.super_position }}</th>
+              <th scope="col">{{ superuser.super_title }}</th>
+              <th scope="col">{{ superuser.super_dept_id }}</th>
               <th scope="col">College</th>
               <th scope="col">
                   <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
               </th>
-          </tr>
+            </tr>
           </tbody>
         </table>
       </div>

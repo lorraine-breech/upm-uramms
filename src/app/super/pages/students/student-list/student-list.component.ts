@@ -11,10 +11,15 @@ export class StudentListComponent implements OnInit {
 
   users: Object;
 
+  constructor(public router: Router ){
+
+  }
+/*
   constructor(private _userService: UserService, public router: Router) { 
     this._userService.getUsers()
         .subscribe(res => this.users = res);
   }
+  */
 
   ngOnInit() {
   }

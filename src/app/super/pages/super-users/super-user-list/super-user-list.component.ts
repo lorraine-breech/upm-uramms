@@ -9,9 +9,14 @@ import { SuperUserService } from '../../../../shared/services/super-user.service
   styleUrls: ['./super-user-list.component.css']
 })
 export class SuperUserListComponent implements OnInit {
+  //superUser: SuperUser;
+  superUsers: SuperUser[];
+  //superUsers: any;
+  /*
+  constructor(public router: Router ){
 
-  //superUsers: SuperUser;
-  superUsers: any;
+  }
+  */
   constructor(public router: Router, private superUserService: SuperUserService ) { }
 
   ngOnInit() {
@@ -22,7 +27,7 @@ export class SuperUserListComponent implements OnInit {
     this.superUserService.getSuperUsers()
         .subscribe(res => this.superUsers = res );
   }
-
+ 
   goToAddSuperUserForm(){
     this.router.navigate(['/super/super-users/add-super-user-form']);
   }

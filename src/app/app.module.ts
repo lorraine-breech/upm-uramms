@@ -11,9 +11,10 @@ import { CanDeactivateGuard } from './shared/services/can-deactivate-guard.servi
 import { HomeModule } from './home/home.module';
 import { UserService } from './shared/services/user.service';
 import { SuperUserService } from './shared/services/super-user.service';
-import {
-  HttpClientModule
-} from '@angular/common/http';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import {
     AuthGuard,
     AuthService,
     CanDeactivateGuard,
-    UserService,
-    SuperUserService
+    SuperUserService,
+    //UserService,
 
   ],
   bootstrap: [AppComponent]
