@@ -23,10 +23,13 @@ export class StudentListComponent implements OnInit {
   ngOnInit() {
     this.getStudentUsers();
   }
-  
+
   getStudentUsers(){
     this.studentUserService.getStudentUsers()
-        .subscribe(res => this.studentUsers = res );
+        .subscribe(res => {
+          console.warn(res); 
+          this.studentUsers = res; 
+        } );
     
   }
 
