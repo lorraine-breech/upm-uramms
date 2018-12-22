@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SuperUser } from '../../../../shared/models/user-super';
+
 import { SuperUserService } from '../../../../shared/services/super-user.service';
 
 @Component({
@@ -9,15 +10,12 @@ import { SuperUserService } from '../../../../shared/services/super-user.service
   styleUrls: ['./super-user-list.component.css']
 })
 export class SuperUserListComponent implements OnInit {
-  //superUser: SuperUser;
-  superUsers: SuperUser[];
-  //superUsers: any;
-  /*
-  constructor(public router: Router ){
+  private superUsers: SuperUser[];
 
-  }
-  */
-  constructor(public router: Router, private superUserService: SuperUserService ) { }
+  constructor(
+    public router: Router, 
+    private superUserService: SuperUserService
+    ) { }
 
   ngOnInit() {
     this.getSuperUsers();

@@ -12,17 +12,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
- 
+ /*
   login(){
     this.router.navigate(['/panel-member/requests']);
   }
+*/
 
-
-  /*
+  
   login(){
     this.router.navigate(['/super/students']);
   }
-  */
 
   /* 
   login(){

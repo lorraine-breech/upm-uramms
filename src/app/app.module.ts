@@ -11,6 +11,8 @@ import { CanDeactivateGuard } from './shared/services/can-deactivate-guard.servi
 import { HomeModule } from './home/home.module';
 import { UserService } from './shared/services/user.service';
 import { SuperUserService } from './shared/services/super-user.service';
+import { StudentUserService } from './shared/services/student-user.service';
+import { ProfessorService } from './shared/services/professor.service';
 
 
 
@@ -31,6 +33,8 @@ import { SuperUserService } from './shared/services/super-user.service';
     AuthService,
     CanDeactivateGuard,
     SuperUserService,
+    StudentUserService,
+    ProfessorService
     //UserService,
 
   ],

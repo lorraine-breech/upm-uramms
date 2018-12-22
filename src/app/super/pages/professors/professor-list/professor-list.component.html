@@ -23,12 +23,12 @@
           </thead>
         
           <tbody>
-            <tr>
+            <tr *ngFor="let professor of professors">
                 <th scope="row">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Emp Num</th>
-                <th scope="col">Position</th>
-                <th scope="col">Title</th>
+                <th scope="col">{{ professor.prof_lname }}, {{ professor.prof_fname }} {{ professor.prof_mname }}</th>
+                <th scope="col">{{ professor.prof_emp_num }}</th>
+                <th scope="col">{{ professor.prof_position }}</th>
+                <th scope="col">{{ professor.prof_title }}</th>
                 <th scope="col">Department</th>
                 <th scope="col">College</th>
                 <th scope="col">IsPanel Member</th>

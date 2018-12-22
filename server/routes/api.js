@@ -46,6 +46,46 @@ router.get('/superusers', (req, res) => {
     });
 });
 
+router.get('/studentusers', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('upm-uramms');
+        myDB.collection('studentusers')
+            .find()
+            .toArray()
+            .then((studentusers) => {
+                if (studentusers) {
+                    response.data = studentusers;
+                    res.json(studentusers);
+                } else {
+                    res.json(false);
+                }
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+router.get('/professors', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('upm-uramms');
+        myDB.collection('professors')
+            .find()
+            .toArray()
+            .then((professors) => {
+                if (professors) {
+                    response.data = professors;
+                    res.json(professors);
+                } else {
+                    res.json(false);
+                }
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
 
 module.exports = router;
 

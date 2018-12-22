@@ -10,17 +10,8 @@ import { SuperUser } from '../models/user-super';
 export class SuperUserService {
   result: SuperUser[];
   private superUsersUrl = "api/superusers";
-  //result: any;
 
   constructor( private _http: HttpClient ) { }
-
-    /*
-  getSuperUsers(){
-    return this._http.get("/api/users").pipe(
-      map(result => this.result = result[0])
-    );
-  }
-*/
 
   getSuperUsers (): Observable<SuperUser[]> {
     return this._http.get<SuperUser[]>(this.superUsersUrl)

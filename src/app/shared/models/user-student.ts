@@ -7,9 +7,9 @@ export class StudentUser{
     private stud_lname: string;
     private stud_num: string;
     private stud_year: string;
-    private stud_course_id: string;
-    private stud_dept_id: string; //keep this for quick search
-    private stud_col_id: string; //keep this for quick search
+    private stud_course: string;
+    private stud_dept: string; 
+    private stud_college: string; 
     private stud_calendar_id: string;
     private stud_study_id: string;
     private stud_panel: Panel;
@@ -23,9 +23,9 @@ export class StudentUser{
             this.stud_lname = studentUser.stud_lname ? studentUser.stud_lname: "";
             this.stud_num = studentUser.stud_num ? studentUser.stud_num: "";
             this.stud_year = studentUser.stud_year ? studentUser.stud_year : "";
-            this.stud_course_id = studentUser.stud_course_id ? studentUser.stud_course_id : "";
-            this.stud_dept_id = studentUser.stud_dept_id ? studentUser.stud_dept_id : "";
-            this.stud_col_id = studentUser.stud_col_id ? studentUser.stud_col_id : "";
+            this.stud_course = studentUser.stud_course ? studentUser.stud_course : "";
+            this.stud_dept = studentUser.stud_dept ? studentUser.stud_dept : "";
+            this.stud_college = studentUser.stud_college ? studentUser.stud_college : "";
             this.stud_calendar_id = studentUser.stud_calendar_id ? studentUser.stud_calendar_id : "";
             this.stud_study_id = studentUser.stud_study_id ? studentUser.stud_study_id : ""; 
             this.stud_panel = studentUser.stud_panel ? studentUser.stud_panel : new Panel(); 
@@ -37,9 +37,9 @@ export class StudentUser{
             this.stud_lname = "";
             this.stud_num = "";
             this.stud_year = "";
-            this.stud_course_id = "";
-            this.stud_dept_id = "";
-            this.stud_col_id = "";
+            this.stud_course = "";
+            this.stud_dept = "";
+            this.stud_college = "";
             this.stud_calendar_id = "";
             this.stud_study_id = ""; 
             this.stud_panel = new Panel(); 
@@ -53,9 +53,9 @@ export class StudentUser{
         stud_lname,
         stud_num,
         stud_year,
-        stud_course_id,
-        stud_dept_id,
-        stud_col_id,
+        stud_course,
+        stud_dept,
+        stud_college,
         stud_calendar_id,
         stud_study_id,
         stud_panel_id,
@@ -66,9 +66,9 @@ export class StudentUser{
         this.stud_lname = stud_lname;
         this.stud_num = stud_num;
         this.stud_year = stud_year;
-        this.stud_course_id = stud_course_id;
-        this.stud_dept_id = stud_dept_id;
-        this.stud_col_id = stud_col_id;
+        this.stud_course = stud_course;
+        this.stud_dept = stud_dept;
+        this.stud_college = stud_college;
         this.stud_calendar_id = stud_calendar_id;
         this.stud_study_id = stud_study_id; 
         this.stud_panel = stud_panel_id; 
@@ -109,15 +109,15 @@ export class StudentUser{
     }
 
     getStudentUsersCourseId(){
-        return this.stud_course_id;
+        return this.stud_course;
     }
 
     getStudentUserDepartmentId(){
-        return this.stud_dept_id;
+        return this.stud_dept;
     }
 
     getStudentUserColId(){
-        return this.stud_col_id;
+        return this.stud_college;
     }
 
     getStudentUserCalendarId(){
@@ -162,16 +162,16 @@ export class StudentUser{
         this.stud_year = stud_year;
     }
 
-    setStudentUserCourseId(stud_course_id){
-        this.stud_course_id = stud_course_id;
+    setStudentUserCourseId(stud_course){
+        this.stud_course = stud_course;
     }
 
-    setStudentUserDeptId(stud_dept_id){
-        this.stud_dept_id = stud_dept_id;
+    setStudentUserDeptId(stud_dept){
+        this.stud_dept = stud_dept;
     }
 
-    setStudentUserColId(stud_col_id){
-        this.stud_col_id = stud_col_id;
+    setStudentUserColId(stud_college){
+        this.stud_college = stud_college;
     }
 
     setStudentUserCalendarId(stud_calendar_id){

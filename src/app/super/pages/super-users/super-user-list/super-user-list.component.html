@@ -23,12 +23,12 @@
           <tbody>
             <tr *ngFor="let superuser of superUsers">
               <th scope="row">#</th>
-              <th scope="col">{{ superuser.super_fname }}</th>
-              <th scope="col">{{ superuser.super_emp_num }}</th>
+              <th scope="col">{{ superuser.super_lname }}, {{ superuser.super_fname }} {{ superuser.super_mname }}</th>
+              <th scope="col">{{ superuser.super_emp_number }}</th>
               <th scope="col">{{ superuser.super_position }}</th>
               <th scope="col">{{ superuser.super_title }}</th>
-              <th scope="col">{{ superuser.super_dept_id }}</th>
-              <th scope="col">College</th>
+              <th scope="col">{{superuser.super_dept_id}}</th>
+              <th scope="col">{{ superuser._id}}</th>
               <th scope="col">
                   <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
               </th>
