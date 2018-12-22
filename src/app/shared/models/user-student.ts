@@ -2,48 +2,48 @@ import { Panel } from "./panel";
 
 export class StudentUser{
     private _id: string;
-    private stud_fname: string;
-    private stud_mname: string;
-    private stud_lname: string;
+    private fname: string;
+    private mname: string;
+    private lname: string;
     private stud_num: string;
-    private stud_year: string;
-    private stud_course: string;
-    private stud_dept: string; 
-    private stud_college: string; 
-    private stud_calendar_id: string;
-    private stud_study_id: string;
-    private stud_panel: Panel;
-    private stud_presentation_id: string;
+    private year: string;
+    private course: string;
+    private dept: string; 
+    private college: string; 
+    private calendar_id: string;
+    private study_id: string;
+    private panel: Panel;
+    private presentation_id: string;
     
     constructor(studentUser?: any){
         if(studentUser){
             this._id = studentUser._id;
-            this.stud_fname = studentUser.stud_fname ? studentUser.stud_fname : "";
-            this.stud_mname = studentUser.stud_mname ? studentUser.stud_mname : "";
-            this.stud_lname = studentUser.stud_lname ? studentUser.stud_lname: "";
+            this.fname = studentUser.fname ? studentUser.fname : "";
+            this.mname = studentUser.mname ? studentUser.mname : "";
+            this.lname = studentUser.lname ? studentUser.lname: "";
             this.stud_num = studentUser.stud_num ? studentUser.stud_num: "";
-            this.stud_year = studentUser.stud_year ? studentUser.stud_year : "";
-            this.stud_course = studentUser.stud_course ? studentUser.stud_course : "";
-            this.stud_dept = studentUser.stud_dept ? studentUser.stud_dept : "";
-            this.stud_college = studentUser.stud_college ? studentUser.stud_college : "";
-            this.stud_calendar_id = studentUser.stud_calendar_id ? studentUser.stud_calendar_id : "";
-            this.stud_study_id = studentUser.stud_study_id ? studentUser.stud_study_id : ""; 
-            this.stud_panel = studentUser.stud_panel ? studentUser.stud_panel : new Panel(); 
-            this.stud_presentation_id = studentUser.stud_presentation_id ? studentUser.stud_presentation_id : ""; 
+            this.year = studentUser.year ? studentUser.year : "";
+            this.course = studentUser.course ? studentUser.course : "";
+            this.dept = studentUser.dept ? studentUser.dept : "";
+            this.college = studentUser.college ? studentUser.college : "";
+            this.calendar_id = studentUser.calendar_id ? studentUser.calendar_id : "";
+            this.study_id = studentUser.study_id ? studentUser.study_id : ""; 
+            this.panel = studentUser.panel ? studentUser.panel : new Panel(); 
+            this.presentation_id = studentUser.presentation_id ? studentUser.presentation_id : ""; 
         }
         else{
-            this.stud_fname = "";
-            this.stud_mname = "";
-            this.stud_lname = "";
+            this.fname = "";
+            this.mname = "";
+            this.lname = "";
             this.stud_num = "";
-            this.stud_year = "";
-            this.stud_course = "";
-            this.stud_dept = "";
-            this.stud_college = "";
-            this.stud_calendar_id = "";
-            this.stud_study_id = ""; 
-            this.stud_panel = new Panel(); 
-            this.stud_presentation_id = ""; 
+            this.year = "";
+            this.course = "";
+            this.dept = "";
+            this.college = "";
+            this.calendar_id = "";
+            this.study_id = ""; 
+            this.panel = new Panel(); 
+            this.presentation_id = ""; 
         }
 
     }
@@ -61,18 +61,18 @@ export class StudentUser{
         stud_panel_id,
         stud_presentation_id
     ){
-        this.stud_fname = stud_fname;
-        this.stud_mname = stud_mname;
-        this.stud_lname = stud_lname;
+        this.fname = stud_fname;
+        this.mname = stud_mname;
+        this.lname = stud_lname;
         this.stud_num = stud_num;
-        this.stud_year = stud_year;
-        this.stud_course = stud_course;
-        this.stud_dept = stud_dept;
-        this.stud_college = stud_college;
-        this.stud_calendar_id = stud_calendar_id;
-        this.stud_study_id = stud_study_id; 
-        this.stud_panel = stud_panel_id; 
-        this.stud_presentation_id = stud_presentation_id; 
+        this.year = stud_year;
+        this.course = stud_course;
+        this.dept = stud_dept;
+        this.college = stud_college;
+        this.calendar_id = stud_calendar_id;
+        this.study_id = stud_study_id; 
+        this.panel = stud_panel_id; 
+        this.presentation_id = stud_presentation_id; 
     }
 
     getStudentUserId(){
@@ -80,21 +80,21 @@ export class StudentUser{
     }
 
     getStudentFirstName(){
-        return this.stud_fname;
+        return this.fname;
     }
 
     getStudentUserMiddleName(){
-        return this.stud_mname;
+        return this.mname;
     }
 
     getStudentUserLastName(){
-        return this.stud_lname;
+        return this.lname;
     }
 
     getStudentUserFullName(){
-        let firstName: string = this.stud_fname;
-        let middleName: string = this.stud_mname && this.stud_mname.length != 0 ? this.stud_mname[0] + "." : "";
-        let lastName: string = this.stud_lname;
+        let firstName: string = this.fname;
+        let middleName: string = this.mname && this.mname.length != 0 ? this.mname[0] + "." : "";
+        let lastName: string = this.lname;
         let fullName: string = firstName + " " + middleName + " " + lastName;
 
         return fullName;
@@ -105,33 +105,33 @@ export class StudentUser{
     }
     
     getStudentUserYear(){
-        return this.stud_year;
+        return this.year;
     }
 
     getStudentUsersCourseId(){
-        return this.stud_course;
+        return this.course;
     }
 
     getStudentUserDepartmentId(){
-        return this.stud_dept;
+        return this.dept;
     }
 
     getStudentUserColId(){
-        return this.stud_college;
+        return this.college;
     }
 
     getStudentUserCalendarId(){
-        return this.stud_calendar_id;
+        return this.calendar_id;
     }
     getStudentUserStudyId(){
-        return this.stud_study_id;
+        return this.study_id;
     }
     getStudentUserPanel(){
-        return this.stud_panel;
+        return this.panel;
     }
 
     getStudentUserPresentationId(){
-        return this.stud_presentation_id;
+        return this.presentation_id;
     }
 
 
@@ -143,15 +143,15 @@ export class StudentUser{
     }
 
     setStudentUserFname(stud_fname){
-        this.stud_fname = stud_fname;
+        this.fname = stud_fname;
     }
 
     setStudentUserMame(stud_mname){
-        this.stud_mname = stud_mname;
+        this.mname = stud_mname;
     }
 
     setStudentUserLname(stud_lname){
-        this.stud_lname = stud_lname;
+        this.lname = stud_lname;
     }
 
     setStudentUserStudNum(stud_num){
@@ -159,35 +159,35 @@ export class StudentUser{
     }
 
     setStudentUserYear(stud_year){
-        this.stud_year = stud_year;
+        this.year = stud_year;
     }
 
     setStudentUserCourseId(stud_course){
-        this.stud_course = stud_course;
+        this.course = stud_course;
     }
 
     setStudentUserDeptId(stud_dept){
-        this.stud_dept = stud_dept;
+        this.dept = stud_dept;
     }
 
     setStudentUserColId(stud_college){
-        this.stud_college = stud_college;
+        this.college = stud_college;
     }
 
     setStudentUserCalendarId(stud_calendar_id){
-        this.stud_calendar_id = stud_calendar_id;
+        this.calendar_id = stud_calendar_id;
     }
 
     setStudentUserStudyId(stud_study_id){
-        this.stud_study_id = stud_study_id;
+        this.study_id = stud_study_id;
     }
 
     setStudentUserPanel(stud_panel){
-        this.stud_panel = stud_panel;
+        this.panel = stud_panel;
     }
 
     setStudentUserPresentationId(stud_presentation_id){
-        this.stud_presentation_id = stud_presentation_id;
+        this.presentation_id = stud_presentation_id;
     }
 
 }

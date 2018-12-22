@@ -1,7 +1,7 @@
 <div class="container mt-4 " >
 
-    <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="goToAddSuperUserForm()">Add New Super User</a>
-    <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="goToViewActivities()">View Activities</a>
+    <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button" (click)="goToAddSuperUserForm()">Add New Super User</a>
+    <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button" (click)="goToViewActivities()">View Activities</a>
   
   
     <div class="row">
@@ -30,7 +30,7 @@
               <th scope="col">{{superuser.super_dept_id}}</th>
               <th scope="col">{{ superuser._id}}</th>
               <th scope="col">
-                  <a class="btn btn-danger btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
+                  <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
               </th>
             </tr>
           </tbody>
