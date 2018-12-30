@@ -1,6 +1,6 @@
 export class User{
     private _id: string;
-    private user_type: string;
+    private user_type: string; //student, professor, or super
     private user_type_id: string;
     private user_username: string;
     private user_password: string;

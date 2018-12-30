@@ -15,7 +15,8 @@
               <th scope="col">Title</th>
               <th scope="col">Department</th>
               <th scope="col">College</th>
-              <th scope="col">IsPanel Member</th>
+              <th scope="col">Is Other</th>
+              <th scope="col">Is PM</th>
               <th scope="col">Username</th>
               <th scope="col">Password</th>
               <th scope="col"></th>
@@ -25,15 +26,26 @@
           <tbody>
             <tr *ngFor="let professor of professors">
                 <th scope="row">#</th>
-                <th scope="col">{{ professor.lname }}, {{ professor.fname }} {{ professor.mname }}</th>
-                <th scope="col">{{ professor.emp_num }}</th>
-                <th scope="col">{{ professor.position }}</th>
-                <th scope="col">{{ professor.title }}</th>
-                <th scope="col">Department</th>
-                <th scope="col">College</th>
-                <th scope="col">IsPanel Member</th>
-                <th scope="col">Username</th>
-                <th scope="col">Password</th>
+                <th scope="col"><small>{{professor.getProfessorLname()}}, {{professor.getProfessorFname()}} {{professor.getProfessorMname()}}</small></th>
+                <th scope="col"><small>{{professor.getProfessorEmpNum()}}</small></th>
+                <th scope="col"><small>{{professor.getProfessorPosition()}}</small></th>
+                <th scope="col"><small>{{professor.getProfessorTitle()}}</small></th>
+                <th scope="col"><small>{{professor.getProfessorDepartment()}}</small></th>
+                <th scope="col"><small>{{professor.getProfessorCollege()}}</small></th>
+                <th scope="col">
+                  <div *ngIf="isOtherUser(professor.getProfessorIsOtherUser()); else elseBlock"><small>Yes</small></div>
+                  <ng-template #elseBlock> 
+                      <button type="button" class="mb-2 btn btn-sm btn-success">Add</button>
+                  </ng-template>
+                </th>
+                <th scope="col">
+                  <div *ngIf="isPanelMemberUser(professor.getProfessorIsPanelMemberUser()); else elseBlock"><small>Yes</small></div>
+                  <ng-template #elseBlock> 
+                      <button type="button" class="mb-2 btn btn-sm btn-success">Add</button>
+                  </ng-template>
+                </th>
+                <th scope="col"><small>{{getUsername(professor.getProfessorId())}}</small></th>
+                <th scope="col"><small>{{getPassword()}}</small></th>
                 <th scope="col">
                     <button type="button" class="mb-2 btn btn-sm btn-danger">Delete</button>
                     <button type="button" class="ml-2 mb-2 btn btn-sm btn-info">Edit</button>

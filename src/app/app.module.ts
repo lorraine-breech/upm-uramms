@@ -34,8 +34,8 @@ import { ProfessorService } from './shared/services/professor.service';
     CanDeactivateGuard,
     SuperUserService,
     StudentUserService,
-    ProfessorService
-    //UserService,
+    ProfessorService,
+    UserService
 
   ],
   bootstrap: [AppComponent]

@@ -6,7 +6,8 @@ export class SuperUser{
     private super_emp_number: string;
     private super_position: string;
     private super_title: string;
-    private super_dept_id: string;
+    private super_dept: string;
+    private super_college: string;
 
     constructor(superUser? : any){
         if(superUser){
@@ -17,7 +18,9 @@ export class SuperUser{
             this.super_emp_number = superUser.super_emp_number ? superUser.super_emp_number : ""; 
             this.super_position = superUser.super_position ? superUser.super_position : "";
             this.super_title = superUser.super_title ? superUser.super_title : "";  
-            this.super_dept_id = superUser.super_dept_id ? superUser.super_dept_id : ""; 
+            this.super_dept = superUser.super_dept ? superUser.super_dept : ""; 
+            this.super_college = superUser.super_college ? superUser.super_college : "";
+
         }
         else{
             this.super_fname = "";
@@ -26,7 +29,8 @@ export class SuperUser{
             this.super_emp_number = ""; 
             this.super_position = "";
             this.super_title = ""; 
-            this.super_dept_id = ""; 
+            this.super_dept = "";
+            this.super_college = ""; 
         }
     }
 
@@ -37,7 +41,8 @@ export class SuperUser{
         super_emp_number, 
         super_position, 
         super_title,
-        super_dept_id
+        super_dept,
+        super_college
     ){
         this.super_fname = super_fname;
         this.super_mname = super_mname;
@@ -45,7 +50,8 @@ export class SuperUser{
         this.super_emp_number = super_emp_number;
         this.super_position = super_position;
         this.super_title = super_title; 
-        this.super_dept_id = super_dept_id; 
+        this.super_dept = super_dept; 
+        this.super_college = super_college;
     }
 
     getSuperUserId(){
@@ -77,8 +83,11 @@ export class SuperUser{
     getSuperUserTitle(){
         return this.super_title;
     }
-    getSuperDeptId(){
-        return this.super_dept_id;
+    getSuperUserDepartment(){
+        return this.super_dept;
+    }
+    getSuperUserCollege(){
+        return this.super_college;
     }
 
 
@@ -103,7 +112,10 @@ export class SuperUser{
     setSuperUserTitle(super_title){
         this.super_title = super_title;
     }
-    setSuperDeptId(super_dept_id){
-        this.super_dept_id = super_dept_id;
+    setSuperUserDepartment(super_dept_id){
+        this.super_dept = super_dept_id;
+    }
+    setSuperUserCollege(super_college){
+        this.super_college = super_college;
     }
 }

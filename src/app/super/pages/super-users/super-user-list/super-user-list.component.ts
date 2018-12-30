@@ -23,7 +23,9 @@ export class SuperUserListComponent implements OnInit {
 
   getSuperUsers(){
     this.superUserService.getSuperUsers()
-        .subscribe(res => this.superUsers = res );
+        .subscribe(res => {
+          this.superUsers = res.map(user => new SuperUser(user)); 
+        });
   }
  
   goToAddSuperUserForm(){

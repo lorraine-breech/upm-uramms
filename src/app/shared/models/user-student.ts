@@ -13,7 +13,9 @@ export class StudentUser{
     private calendar_id: string;
     private study_id: string;
     private panel: Panel;
+    private adviser: string; //adviser name
     private presentation_id: string;
+    private status: string; //proposal, implementation, manuscript, completed
     
     constructor(studentUser?: any){
         if(studentUser){
@@ -29,7 +31,9 @@ export class StudentUser{
             this.calendar_id = studentUser.calendar_id ? studentUser.calendar_id : "";
             this.study_id = studentUser.study_id ? studentUser.study_id : ""; 
             this.panel = studentUser.panel ? studentUser.panel : new Panel(); 
+            this.adviser = studentUser.adviser ? studentUser.adviser : "";
             this.presentation_id = studentUser.presentation_id ? studentUser.presentation_id : ""; 
+            this.status = studentUser.status ? studentUser.status : "";
         }
         else{
             this.fname = "";
@@ -43,7 +47,9 @@ export class StudentUser{
             this.calendar_id = "";
             this.study_id = ""; 
             this.panel = new Panel(); 
+            this.adviser;
             this.presentation_id = ""; 
+            this.status = "";
         }
 
     }
@@ -59,7 +65,9 @@ export class StudentUser{
         stud_calendar_id,
         stud_study_id,
         stud_panel_id,
-        stud_presentation_id
+        adviser,
+        stud_presentation_id,
+        status
     ){
         this.fname = stud_fname;
         this.mname = stud_mname;
@@ -72,14 +80,16 @@ export class StudentUser{
         this.calendar_id = stud_calendar_id;
         this.study_id = stud_study_id; 
         this.panel = stud_panel_id; 
+        this.adviser = adviser;
         this.presentation_id = stud_presentation_id; 
+        this.status = status;
     }
 
     getStudentUserId(){
         return this._id;
     }
 
-    getStudentFirstName(){
+    getStudentUserFirstName(){
         return this.fname;
     }
 
@@ -108,15 +118,15 @@ export class StudentUser{
         return this.year;
     }
 
-    getStudentUsersCourseId(){
+    getStudentUserCourse(){
         return this.course;
     }
 
-    getStudentUserDepartmentId(){
+    getStudentUserDepartment(){
         return this.dept;
     }
 
-    getStudentUserColId(){
+    getStudentUserCollege(){
         return this.college;
     }
 
@@ -129,9 +139,14 @@ export class StudentUser{
     getStudentUserPanel(){
         return this.panel;
     }
-
+    getStudentUserAdviser(){
+        return this.adviser;
+    }
     getStudentUserPresentationId(){
         return this.presentation_id;
+    }
+    getStudentUserStatus(){
+        return this.status;
     }
 
 
@@ -185,9 +200,14 @@ export class StudentUser{
     setStudentUserPanel(stud_panel){
         this.panel = stud_panel;
     }
-
+    setStudentUserAdviser(adviser){
+        this.adviser = adviser;
+    }
     setStudentUserPresentationId(stud_presentation_id){
         this.presentation_id = stud_presentation_id;
+    }
+    setStudentUserStatus(status){
+        this.status = status;
     }
 
 }

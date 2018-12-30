@@ -6,7 +6,10 @@ export class Professor{
     private emp_num: string;
     private position: string;
     private title: string;
-    private dept_id: string; //I don't have to store the colID in the model
+    private dept: string; 
+    private college: string;
+    private is_other_user: string; //contains otherID if yes; otherwise, null
+    private is_pm_user: string; //contains otherID if yes; otherwise, null
 
     constructor(professor?: any){
         if(professor){
@@ -17,7 +20,10 @@ export class Professor{
             this.emp_num = professor.emp_num ? professor.emp_num : "";
             this.position = professor.position ? professor.position : "";
             this.title = professor.title ? professor.title : "";
-            this.dept_id = professor.dept_id ? professor.dept_id : "";
+            this.dept = professor.dept ? professor.dept : "";
+            this.college = professor.college ? professor.college : ""; 
+            this.is_other_user = professor.is_other_user ? professor.is_other_user : "";
+            this.is_pm_user = professor.is_pm_user ? professor.is_pm_user : "";
         }
         else{
             this.fname = "";
@@ -26,33 +32,50 @@ export class Professor{
             this.emp_num = "";
             this.position = "";
             this.title = "";
-            this.dept_id = "";
+            this.dept = "";
+            this.college = "";
+            this.is_other_user = "";
+            this.is_pm_user = "";
         }
     }
 
-    setProf(prof_fname, prof_mname, prof_lname, prof_emp_num, prof_position, prof_title, prof_dept_id){
+    setProfessor(
+        prof_fname, 
+        prof_mname, 
+        prof_lname, 
+        prof_emp_num, 
+        prof_position, 
+        prof_title, 
+        prof_dept_id,
+        college,
+        is_other_user,
+        is_pm_user
+    ){
         this.fname = prof_fname;
         this.mname = prof_mname;
         this.lname = prof_lname;
         this.emp_num = prof_emp_num;
         this.position = prof_position;
         this.title = prof_title;
-        this.dept_id = prof_dept_id;
+        this.dept = prof_dept_id;
+        this.college = college;
+        this.is_other_user = is_other_user;
+        this.is_pm_user = is_pm_user;
     }
 
-    getProfId(){
+    getProfessorId(){
         return this._id;
     }
-    getProfFname(){
+    getProfessorFname(){
         return this.fname;
     }
-    getProfMname(){
+    getProfessorMname(){
         return this.mname;
     }
-    getProfLname(){
+    getProfessorLname(){
         return this.lname; 
     }
-    getProfFullName(){
+    getProfessorFullName(){
         let firstName: string = this.fname;
         let middleName: string = this.mname && this.mname.length != 0 ? this.mname[0] + "." : "";
         let lastName: string = this.lname;
@@ -60,42 +83,60 @@ export class Professor{
 
         return fullName;
     }
-    getProfEmpNum(){
+    getProfessorEmpNum(){
         return this.emp_num;
     }
-    getProfPosition(){
+    getProfessorPosition(){
         return this.position;
     }
-    getProfTitle(){
+    getProfessorTitle(){
         return this.title;
     }
-    getProfDeptId(){
-        return this.dept_id;
+    getProfessorDepartment(){
+        return this.dept;
+    }
+    getProfessorCollege(){
+        return this.college;
+    }
+    getProfessorIsOtherUser(){
+        return this.is_other_user;
+    }
+    getProfessorIsPanelMemberUser(){
+        return this.is_pm_user;
     }
 
-    setProfId(_id){
+
+    setProfessorId(_id){
         this._id = _id;
     }
-    setProfFname(prof_fname){
+    setProfessorFname(prof_fname){
         this.fname = prof_fname;
     }
-    setProfMname(prof_mname){
+    setProfessorMname(prof_mname){
         this.mname = prof_mname;
     }
-    setProfLname(prof_lname){
+    setProfessorLname(prof_lname){
         this.lname = prof_lname; 
     }
-
-    setProfEmpNum(prof_emp_num){
+    setProfessorEmpNum(prof_emp_num){
         this.emp_num = prof_emp_num;
     }
-    setProfPosition(prof_position){
+    setProfessorPosition(prof_position){
         this.position = prof_position;
     }
-    setProfTitle(prof_title){
+    setProfessorTitle(prof_title){
         this.title = prof_title;
     }
-    setProfDeptId(prof_dept_id){
-        this.dept_id = prof_dept_id;
+    setProfessorDepartment(prof_dept_id){
+        this.dept = prof_dept_id;
+    }
+    setProfessorCollege(college){
+        this.college = college;
+    }
+    setProfessorIsOtherUser(is_other_user){
+        this.is_other_user = is_other_user;
+    }
+    setProfessorIsPanelMemberUser(is_pm_user){
+        this.is_pm_user = is_pm_user;
     }
 }

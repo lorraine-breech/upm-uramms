@@ -19,12 +19,53 @@ const sendError = (err, res) => {
     res.status(501).json(response);
 };
 
-// Response handling
+// Response handling~
 let response = {
     status: 200,
     data: [],
     message: null
 };
+router.get('/users', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('users')
+                .find({ user_type_id: req.query.id })
+                .toArray()
+                .then((users) => {
+                    if (users) {
+                        response.data = users[0];
+                        res.json(users[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('users')
+                .find()
+                .toArray()
+                .then((users) => {
+                    if (users) {
+                        response.data = users;
+                        res.json(users);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
 
 router.get('/superusers', (req, res) => {
     connection((db) => {

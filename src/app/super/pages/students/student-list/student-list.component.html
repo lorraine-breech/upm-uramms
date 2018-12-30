@@ -23,17 +23,17 @@
           </thead>
         
           <tbody>
-            <tr *ngFor="let studentuser of studentUsers">
+            <tr class="h7" *ngFor="let studentuser of studentUsers">
               <th scope="row">#</th>
-              <th scope="col">{{studentuser.lname}}, {{studentuser.fname}} {{studentuser.mname}}</th>
-              <th scope="col">{{studentuser.stud_num}}</th>
-              <th scope="col">{{studentuser.course}}</th>
-              <th scope="col">{{studentuser.dept}}</th>
-              <th scope="col">{{studentuser.college}}</th>
-              <th scope="col">{{studentuser._id}}</th> 
-              <th scope="col">{{studentuser.presentation_id}}</th>
-              <th scope="col">Username</th>
-              <th scope="col">Password</th>
+              <th scope="col"><small>{{studentuser.getStudentUserLastName() }}, {{studentuser.getStudentUserFirstName()}} {{studentuser.getStudentUserMiddleName()}}</small></th>
+              <th scope="col"><small>{{studentuser.getStudentUserStudentNumber()}}</small></th>
+              <th scope="col"><small>{{studentuser.getStudentUserCourse()}}</small></th>
+              <th scope="col"><small>{{studentuser.getStudentUserDepartment()}}</small></th>
+              <th scope="col"><small>{{studentuser.getStudentUserCollege()}}</small></th>
+              <th scope="col"><small>{{studentuser.getStudentUserAdviser() }}</small></th> 
+              <th scope="col"><small>{{studentuser.getStudentUserStatus()}}</small></th>
+              <th scope="col"><small>{{getUsername(studentuser.getStudentUserId())}}</small></th>
+              <th scope="col"><small>{{getPassword()}}</small></th>
               <th scope="col">
                 <button type="button" class="mb-2 btn btn-sm btn-danger">Delete</button>
                 <button type="button" class="ml-2 mb-2 btn btn-sm btn-info">Edit</button>
