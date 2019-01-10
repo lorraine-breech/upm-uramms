@@ -13,7 +13,7 @@ import { UserService } from './shared/services/user.service';
 import { SuperUserService } from './shared/services/super-user.service';
 import { StudentUserService } from './shared/services/student-user.service';
 import { ProfessorService } from './shared/services/professor.service';
-
+import { CourseService } from './shared/services/course.service';
 
 
 
@@ -35,7 +35,8 @@ import { ProfessorService } from './shared/services/professor.service';
     SuperUserService,
     StudentUserService,
     ProfessorService,
-    UserService
+    UserService,
+    CourseService
 
   ],
   bootstrap: [AppComponent]

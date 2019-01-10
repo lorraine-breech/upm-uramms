@@ -13,6 +13,7 @@ export class SuperUserService {
 
   constructor( private _http: HttpClient ) { }
 
+  
   getSuperUsers (): Observable<SuperUser[]> {
     return this._http.get<SuperUser[]>(this.superUsersUrl)
       .pipe(

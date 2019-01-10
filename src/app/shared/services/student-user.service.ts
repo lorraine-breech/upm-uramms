@@ -9,6 +9,7 @@ import { StudentUser } from '../models/user-student';
 export class StudentUserService {
   result: StudentUser[];
   private studentUsersUrl = "api/studentusers";
+  private createStudentUserUrl = "api/createStudentUser";
   private courseName: string; 
 
   constructor( private _http: HttpClient ) { }
@@ -19,6 +20,46 @@ export class StudentUserService {
         tap(_ => this.log('fetched studentUsers')),
         catchError(this.handleError('getStudentUsers', []))
       );
+  }
+
+  addStudentUser(
+    fname,
+    mname,
+    lname,
+    stud_num,
+    year,
+    course,
+    dept,
+    college,
+    panel,
+    adviser,
+    status,
+    user_type,
+    user_username,
+    user_userpassword
+  ){
+    const url = this.createStudentUserUrl;
+    return this._http.post<StudentUser>(url, {
+      fname,
+      mname,
+      lname,
+      stud_num,
+      year,
+      course,
+      dept,
+      college,
+      panel,
+      adviser,
+      status,
+      user_type,
+      user_username,
+      user_userpassword
+    }).pipe(
+      tap(data => {
+        return data;
+      }),
+      catchError(this.handleError<StudentUser>(`create student user error student_name=${fname}`))
+    )
   }
 /*
   getCourseName (courseID: string): Observable<> {

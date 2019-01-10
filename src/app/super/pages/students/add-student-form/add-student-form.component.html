@@ -1,50 +1,64 @@
 <div class="container mt-4">
   <p class="h4 text-center mb-4">Add Student Form</p>
   <div class="jumbotron">
-    <form>
+
+    <form [formGroup]="addStudentUserForm" (ngSubmit)="onSubmit()">
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputEmail3" placeholder="First Name">
+          <input type="text" class="form-control" formControlName="firstName" name="firstName" id="inputEmail3" placeholder="First Name">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputPassword2" class="col-sm-2 col-form-label">Middle Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputPassword2" placeholder="Middle Name">
+          <input type="text" class="form-control" name="middleName"id="inputPassword2" placeholder="Middle Name">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Last Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputPassword3" placeholder="Last Name">
+          <input type="text" class="form-control" name="lastName"id="inputPassword3" placeholder="Last Name">
         </div>
       </div>
       <div class="form-group row">
         <label for="studentNumber" class="col-sm-2 col-form-label">Student Number</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="studentNumber" placeholder="Student Number">
+          <input type="text" class="form-control" name="studentNumber"id="studentNumber" placeholder="Student Number">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="year" class="col-sm-2 col-form-label">Year</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="year" placeholder="Year">
+          <input type="number" class="form-control" name="year" id="year" placeholder="Year">
         </div>
       </div>
       <div class="form-group row">
         <label for="courses" class="col-sm-2 col-form-label">Course</label>
         <div class="col-sm-10">
-            <select class="form-control" id="courses">
+            <select class="form-control" name="course" id="courses">
                 <option></option>
-                <option>Course 1</option>
+                <option>BSCS</option>
                 <option>Course 2</option>
                 <option>Course 3</option>
                 
             </select>
           </div>
       </div>
+      <div class="form-group row">
+        <label for="advisers" class="col-sm-2 col-form-label">Adviser</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="adviser" id="advisers">
+                <option></option>
+                <option>Adviser 1</option>
+                <option>Adviser 2</option>
+                <option>Adviser 3</option>
+                
+            </select>
+          </div>
+      </div>
+      
       <div class="form-group row">
         <div class="col-sm-7">
           

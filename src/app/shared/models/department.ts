@@ -6,7 +6,7 @@ export class Department{
     constructor(department?:any){
         if(department){
             this._id = department._id ? department._id : "";
-            this.col_id = department.dept_id ? department.dept_id : "";
+            this.col_id = department.col_id ? department.col_id : "";
             this.dept_name = department.dept_name ? department.dept_name : "";
         }
         else{
