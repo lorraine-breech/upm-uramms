@@ -14,6 +14,10 @@ import { AddProfessorFormComponent } from './pages/professors/add-professor-form
 import { SuperUserListComponent } from './pages/super-users/super-user-list/super-user-list.component';
 import { AddSuperUserFormComponent } from './pages/super-users/add-super-user-form/add-super-user-form.component';
 import { ViewActivitiesComponent } from './pages/super-users/view-activities/view-activities.component';
+import { ConfirmAddPmComponent } from './pages/professors/confirm-add-pm/confirm-add-pm.component';
+import { ConfirmAddOtherComponent } from './pages/professors/confirm-add-other/confirm-add-other.component';
+import { EditStudentFormComponent } from './pages/students/edit-student-form/edit-student-form.component';
+import { EditProfessorFormComponent } from './pages/professors/edit-professor-form/edit-professor-form.component';
 
 @NgModule({
   imports: [
@@ -33,7 +37,11 @@ import { ViewActivitiesComponent } from './pages/super-users/view-activities/vie
     AddProfessorFormComponent,
     SuperUserListComponent,
     AddSuperUserFormComponent,
-    ViewActivitiesComponent
+    ViewActivitiesComponent,
+    ConfirmAddPmComponent,
+    ConfirmAddOtherComponent,
+    EditStudentFormComponent,
+    EditProfessorFormComponent
   ]
 })
 export class SuperModule { }

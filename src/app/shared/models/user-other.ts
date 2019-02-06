@@ -1,8 +1,10 @@
+//this seems useless now, but will be keeping this for future spanning
+
 export class OtherUser{
     private _id: string;
     private other_prof_id: string;
     private other_type: string;
-    private other_is_panel_member: string; //if so, this will contain the panel id; else, an empty string
+    private other_is_panel_member: string; //if so, this will contain the panel user id; else, an empty string
 
     constructor(otherUser?: any){
         if(otherUser){

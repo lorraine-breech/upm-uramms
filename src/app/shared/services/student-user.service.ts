@@ -4,6 +4,11 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { StudentUser } from '../models/user-student';
+import { Panel } from '../models/panel';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class StudentUserService {
@@ -11,9 +16,17 @@ export class StudentUserService {
   private studentUsersUrl = "api/studentusers";
   private createStudentUserUrl = "api/createStudentUser";
   private courseName: string; 
-
+  private currentStudentUser: StudentUser;
+  
   constructor( private _http: HttpClient ) { }
 
+  setCurrentStudentUser(currStudentUser: StudentUser){
+    this.currentStudentUser = currStudentUser;
+  }
+  getCurrentStudentUser(){
+    return this.currentStudentUser;
+  }
+  
   getStudentUsers (): Observable<StudentUser[]> {
     return this._http.get<StudentUser[]>(this.studentUsersUrl)
       .pipe(
@@ -22,6 +35,13 @@ export class StudentUserService {
       );
   }
 
+  updateStudentUser(studentUser: StudentUser): Observable<any>{
+    return this._http.put(this.studentUsersUrl, studentUser, httpOptions).pipe(
+      tap(_ => this.log(`updated studentUser id=${studentUser.getStudentUserId()}`)),
+      catchError(this.handleError<any>('updateStudentUser'))
+    );
+  }
+  
   addStudentUser(
     fname,
     mname,
@@ -31,14 +51,15 @@ export class StudentUserService {
     course,
     dept,
     college,
-    panel,
+    panel: Panel,
     adviser,
     status,
     user_type,
     user_username,
-    user_userpassword
+    user_password
   ){
     const url = this.createStudentUserUrl;
+
     return this._http.post<StudentUser>(url, {
       fname,
       mname,
@@ -53,7 +74,7 @@ export class StudentUserService {
       status,
       user_type,
       user_username,
-      user_userpassword
+      user_password
     }).pipe(
       tap(data => {
         return data;

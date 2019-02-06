@@ -33,22 +33,32 @@
                 <th scope="col"><small>{{professor.getProfessorDepartment()}}</small></th>
                 <th scope="col"><small>{{professor.getProfessorCollege()}}</small></th>
                 <th scope="col">
-                  <div *ngIf="isOtherUser(professor.getProfessorIsOtherUser()); else elseBlock"><small>Yes</small></div>
-                  <ng-template #elseBlock> 
-                      <button type="button" class="mb-2 btn btn-sm btn-success">Add</button>
+                  <div *ngIf="isOtherUser(professor.getProfessorIsOtherUser()); else elseBlock1"><small>{{professor.getProfessorOtherUserType()}}</small></div>
+                  <ng-template #elseBlock1> 
+                      <div class="dropdown">
+                          <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" type="button" (click)="addOtherUser(professor, 'Department Chair')">Department Chair</button>
+                            <button class="dropdown-item" type="button" (click)="addOtherUser(professor, 'Dean')">Dean</button>
+                            <button class="dropdown-item" type="button" (click)="addOtherUser(professor, 'College Secretary')">College Secretary</button>
+                          </div>
+                        </div>
                   </ng-template>
                 </th>
+
                 <th scope="col">
-                  <div *ngIf="isPanelMemberUser(professor.getProfessorIsPanelMemberUser()); else elseBlock"><small>Yes</small></div>
-                  <ng-template #elseBlock> 
-                      <button type="button" class="mb-2 btn btn-sm btn-success">Add</button>
+                  <div *ngIf="isPanelMemberUser(professor.getProfessorIsPanelMemberUser()); else elseBlock2"><small>Yes</small></div>
+                  <ng-template #elseBlock2> 
+                    <button type="button" class="mb-2 btn btn-sm btn-success" (click)="addPanelMemberUser(professor)">Add</button>
                   </ng-template>
                 </th>
                 <th scope="col"><small>{{getUsername(professor.getProfessorId())}}</small></th>
                 <th scope="col"><small>{{getPassword()}}</small></th>
                 <th scope="col">
                     <button type="button" class="mb-2 btn btn-sm btn-danger">Delete</button>
-                    <button type="button" class="ml-2 mb-2 btn btn-sm btn-info">Edit</button>
+                    <button type="button" class="ml-2 mb-2 btn btn-sm btn-info" (click)="editProfessor(professor)" >Edit</button>
                 </th>
             </tr>
           </tbody>

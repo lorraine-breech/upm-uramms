@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <p class="h4 text-center mb-4">Add Other User Confirmation Form</p>
+  <div class="jumbotron"> 
+
+    <form >
+      <div class="form-group row">
+        <label class="col-sm-7 col-form-label">Make {{currentProfessor.getProfessorFullName()}} an other user of type {{currentOtherType}}?</label>
+        <div class="col-sm-7">
+
+          </div>
+          <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="gotoProfessorsList()">Cancel</button>
+          <button type="button" class="col-sm-2 btn btn-primary" (click)="addOtherUser()">Proceed</button>
+      </div>
+      
+    </form>
+  </div>
+</div>

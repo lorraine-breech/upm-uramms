@@ -14,6 +14,8 @@ import { SuperUserService } from './shared/services/super-user.service';
 import { StudentUserService } from './shared/services/student-user.service';
 import { ProfessorService } from './shared/services/professor.service';
 import { CourseService } from './shared/services/course.service';
+import { PanelMemberUserService } from './shared/services/panel-member-user.service';
+import { OtherUserService } from './shared/services/other-user.service';
 
 
 
@@ -36,8 +38,9 @@ import { CourseService } from './shared/services/course.service';
     StudentUserService,
     ProfessorService,
     UserService,
-    CourseService
-
+    CourseService,
+    PanelMemberUserService,
+    OtherUserService
   ],
   bootstrap: [AppComponent]
 })

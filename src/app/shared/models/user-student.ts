@@ -64,7 +64,7 @@ export class StudentUser{
         stud_college,
         stud_calendar_id,
         stud_study_id,
-        stud_panel_id,
+        stud_panel,
         adviser,
         stud_presentation_id,
         status
@@ -79,7 +79,7 @@ export class StudentUser{
         this.college = stud_college;
         this.calendar_id = stud_calendar_id;
         this.study_id = stud_study_id; 
-        this.panel = stud_panel_id; 
+        this.panel = stud_panel; 
         this.adviser = adviser;
         this.presentation_id = stud_presentation_id; 
         this.status = status;
@@ -161,7 +161,7 @@ export class StudentUser{
         this.fname = stud_fname;
     }
 
-    setStudentUserMame(stud_mname){
+    setStudentUserMname(stud_mname){
         this.mname = stud_mname;
     }
 
@@ -177,15 +177,15 @@ export class StudentUser{
         this.year = stud_year;
     }
 
-    setStudentUserCourseId(stud_course){
+    setStudentUserCourse(stud_course){
         this.course = stud_course;
     }
 
-    setStudentUserDeptId(stud_dept){
+    setStudentUserDepartment(stud_dept){
         this.dept = stud_dept;
     }
 
-    setStudentUserColId(stud_college){
+    setStudentUserCollege(stud_college){
         this.college = stud_college;
     }
 
@@ -197,7 +197,7 @@ export class StudentUser{
         this.study_id = stud_study_id;
     }
 
-    setStudentUserPanel(stud_panel){
+    setStudentUserPanel(stud_panel: Panel){
         this.panel = stud_panel;
     }
     setStudentUserAdviser(adviser){

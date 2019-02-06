@@ -9,7 +9,8 @@ export class Professor{
     private dept: string; 
     private college: string;
     private is_other_user: string; //contains otherID if yes; otherwise, null
-    private is_pm_user: string; //contains otherID if yes; otherwise, null
+    private other_user_type: string; //contains other user type if there is
+    private is_pm_user: string; //contains panelmemberID if yes; otherwise, null
 
     constructor(professor?: any){
         if(professor){
@@ -23,6 +24,7 @@ export class Professor{
             this.dept = professor.dept ? professor.dept : "";
             this.college = professor.college ? professor.college : ""; 
             this.is_other_user = professor.is_other_user ? professor.is_other_user : "";
+            this.other_user_type = professor.other_user_type ? professor.other_user_type : "";
             this.is_pm_user = professor.is_pm_user ? professor.is_pm_user : "";
         }
         else{
@@ -35,6 +37,7 @@ export class Professor{
             this.dept = "";
             this.college = "";
             this.is_other_user = "";
+            this.other_user_type = "";
             this.is_pm_user = "";
         }
     }
@@ -49,6 +52,7 @@ export class Professor{
         prof_dept_id,
         college,
         is_other_user,
+        other_user_type,
         is_pm_user
     ){
         this.fname = prof_fname;
@@ -60,6 +64,7 @@ export class Professor{
         this.dept = prof_dept_id;
         this.college = college;
         this.is_other_user = is_other_user;
+        this.other_user_type = other_user_type;
         this.is_pm_user = is_pm_user;
     }
 
@@ -101,6 +106,9 @@ export class Professor{
     getProfessorIsOtherUser(){
         return this.is_other_user;
     }
+    getProfessorOtherUserType(){
+        return this.other_user_type;
+    }
     getProfessorIsPanelMemberUser(){
         return this.is_pm_user;
     }
@@ -135,6 +143,9 @@ export class Professor{
     }
     setProfessorIsOtherUser(is_other_user){
         this.is_other_user = is_other_user;
+    }
+    setProfessorOtherUserType(other_user_type){
+        this.other_user_type = other_user_type;
     }
     setProfessorIsPanelMemberUser(is_pm_user){
         this.is_pm_user = is_pm_user;

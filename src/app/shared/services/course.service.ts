@@ -25,6 +25,16 @@ export class CourseService {
         catchError(this.handleError<College>(`getCollege colId=${colId}`))
     );
   }
+  getDepartmentByName(deptName): Observable<Department>{
+    let params = new HttpParams().set('name',deptName);
+
+    return this._http.get<Department>(this.departmentsUrl,{
+      params: params
+    }).pipe(
+        tap(_ =>this.log('fetched department')),
+        catchError(this.handleError<Department>(`getDepartment deptName=${deptName}`))
+    );
+  }
   getDepartment(deptId): Observable<Department>{
     let params = new HttpParams().set('id',deptId);
 
@@ -35,7 +45,21 @@ export class CourseService {
         catchError(this.handleError<Department>(`getDepartment deptId=${deptId}`))
     );
   }
+  getDepartments(): Observable<Department[]>{
+    return this._http.get<Department[]>(this.departmentsUrl)
+      .pipe(
+          tap(_ =>this.log('fetched departments')),
+          catchError(this.handleError<Department[]>(`getDepartments`, [] ))
+      );
+  }
 
+  getCourses(): Observable<Course[]>{
+    return this._http.get<Course[]>(this.coursesUrl)
+      .pipe(
+          tap(_ =>this.log('fetched courses')),
+          catchError(this.handleError<Course[]>(`getCourses`, [] ))
+      );
+  }
   getCourse(courseName): Observable<Course>{
     let params = new HttpParams().set('courseName',courseName);
 

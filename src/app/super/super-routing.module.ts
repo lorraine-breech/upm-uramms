@@ -13,6 +13,10 @@ import { SuperUserListComponent } from './pages/super-users/super-user-list/supe
 import { combineAll } from 'rxjs/operators';
 import { AddSuperUserFormComponent } from './pages/super-users/add-super-user-form/add-super-user-form.component';
 import { ViewActivitiesComponent } from './pages/super-users/view-activities/view-activities.component';
+import { ConfirmAddPmComponent } from './pages/professors/confirm-add-pm/confirm-add-pm.component';
+import { ConfirmAddOtherComponent } from './pages/professors/confirm-add-other/confirm-add-other.component';
+import { EditStudentFormComponent } from './pages/students/edit-student-form/edit-student-form.component';
+import { EditProfessorFormComponent } from './pages/professors/edit-professor-form/edit-professor-form.component';
 
 
 const superRoutes: Routes = [
@@ -25,7 +29,8 @@ const superRoutes: Routes = [
         component: StudentsComponent,
         children: [
           { path: '', component: StudentListComponent },
-          { path: 'add-student-form', component: AddStudentFormComponent }
+          { path: 'add-student-form', component: AddStudentFormComponent },
+          { path: 'edit-student-form', component: EditStudentFormComponent }
         ] 
     
       },
@@ -34,7 +39,10 @@ const superRoutes: Routes = [
         component: ProfessorsComponent,
         children: [
           { path: '', component: ProfessorListComponent },
-          { path: 'add-professor-form', component: AddProfessorFormComponent }
+          { path: 'add-professor-form', component: AddProfessorFormComponent },
+          { path: 'edit-professor-form', component: EditProfessorFormComponent },
+          { path: 'confirm-add-pm', component: ConfirmAddPmComponent },
+          { path: 'confirm-add-other', component: ConfirmAddOtherComponent }
         ] 
       },
       { 

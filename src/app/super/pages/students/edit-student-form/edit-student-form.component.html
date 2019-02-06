@@ -1,37 +1,37 @@
 <div class="container mt-4">
-  <p class="h4 text-center mb-4">Add Student Form</p>
+  <p class="h4 text-center mb-4">Edit Student Form</p>
   <div class="jumbotron">
 
-    <form [formGroup]="addStudentUserForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editStudentUserForm" (ngSubmit)="onSubmit()">
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="firstName" name="firstName" id="inputEmail3" placeholder="First Name">
+          <input type="text" class="form-control" formControlName="firstName" name="firstName" id="inputEmail3" placeholder="{{currentStudentUser.getStudentUserFirstName()}}">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputPassword2" class="col-sm-2 col-form-label">Middle Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="middleName" name="middleName"id="inputPassword2" placeholder="Middle Name">
+          <input type="text" class="form-control" formControlName="middleName" name="middleName"id="inputPassword2" placeholder="{{currentStudentUser.getStudentUserMiddleName()}}">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Last Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="lastName" name="lastName"id="inputPassword3" placeholder="Last Name">
+          <input type="text" class="form-control" formControlName="lastName" name="lastName"id="inputPassword3" placeholder="{{currentStudentUser.getStudentUserLastName()}}">
         </div>
       </div>
       <div class="form-group row">
         <label for="studentNumber" class="col-sm-2 col-form-label">Student Number</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" formControlName="studentNumber" name="studentNumber"id="studentNumber" placeholder="Student Number">
+          <input type="text" class="form-control" formControlName="studentNumber" name="studentNumber"id="studentNumber" placeholder="{{currentStudentUser.getStudentUserStudentNumber()}}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="year" class="col-sm-2 col-form-label">Year</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" formControlName="year" name="year" id="year" placeholder="Year">
+          <input type="number" class="form-control" formControlName="year" name="year" id="year" placeholder="{{currentStudentUser.getStudentUserYear()}}">
         </div>
       </div>
       <div class="form-group row">
@@ -39,7 +39,7 @@
         <div class="col-sm-10">
             <select class="form-control" formControlName="course" name="course" id="courses">
                 <option></option>
-                <option *ngFor="let course of courses">{{course.getCourseName()}}</option>  
+                <option *ngFor="let course of courses" [value]="course.getCourseName()">{{course.getCourseName()}}</option>  
                 
             </select>
           </div>
@@ -47,9 +47,10 @@
       <div class="form-group row">
         <label for="advisers" class="col-sm-2 col-form-label">Adviser</label>
         <div class="col-sm-10">
-            <select class="form-control" formControlName="adviser" name="adviser" id="advisers">
+            <select class="form-control" formControlName="adviser" name="adviser" id="advisers" >
                 <option></option>
-                <option *ngFor="let professorPanelMember of professorPanelMemberUsers">{{professorPanelMember.getProfessorLname()}}, {{professorPanelMember.getProfessorFname()}} {{professorPanelMember.getProfessorMname()}}</option>  
+                <option *ngFor="let professorPanelMember of professorPanelMemberUsers" [ngValue]="professorPanelMember">{{professorPanelMember.getProfessorLname()}}, {{professorPanelMember.getProfessorFname()}} {{professorPanelMember.getProfessorMname()}}</option>  
+                
             </select>
           </div>
       </div>
@@ -59,7 +60,7 @@
           
         </div>
         <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="gotoStudentsList()">Cancel</button>
-        <button type="submit" class="col-sm-2 btn btn-primary">Submit</button>
+        <button type="submit" class="col-sm-2 btn btn-primary">Save</button>
       </div>
      
     </form>

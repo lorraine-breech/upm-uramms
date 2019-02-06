@@ -25,6 +25,7 @@ export class StudentListComponent implements OnInit {
     this.getStudentUsers();
   }
 
+
   getStudentUsers(){
     this.studentUserService.getStudentUsers()
         .subscribe(res => {
@@ -58,6 +59,11 @@ export class StudentListComponent implements OnInit {
 
   getPassword(){
     return this.corrPassword;
+  }
+
+  editStudentUser(studentUser: StudentUser){
+    this.studentUserService.setCurrentStudentUser(studentUser);
+    this.router.navigate(['/super/students/edit-student-form']);
   }
 
   getCourseName(courseID: string){

@@ -10,9 +10,43 @@ import { SuperUser } from '../models/user-super';
 export class SuperUserService {
   result: SuperUser[];
   private superUsersUrl = "api/superusers";
+  private createSuperUserUrl = "api/createSuperUser";
 
   constructor( private _http: HttpClient ) { }
 
+  addSuperUser(
+    fname,
+    lname,
+    mname,
+    emp_num,
+    position,
+    title,
+    dept,
+    college,
+    user_type,
+    user_username,
+    user_password
+  ){
+    const url = this.createSuperUserUrl;
+    return this._http.post<SuperUser>(url, {
+      fname,
+      lname,
+      mname,
+      emp_num,
+      position,
+      title,
+      dept,
+      college,
+      user_type,
+      user_username,
+      user_password
+    }).pipe(
+      tap(data => {
+        return data;
+      }),
+      catchError(this.handleError<SuperUser>(`create super user error superUser_name=${fname}`))
+    )
+  }
   
   getSuperUsers (): Observable<SuperUser[]> {
     return this._http.get<SuperUser[]>(this.superUsersUrl)

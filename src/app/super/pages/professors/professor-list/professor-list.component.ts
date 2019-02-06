@@ -5,6 +5,10 @@ import { Professor } from '../../../../shared/models/professor';
 import { ProfessorService } from '../../../../shared/services/professor.service';
 import { UserService } from '../../../../shared/services/user.service';
 import { User } from '../../../../shared/models/user';
+import { PanelMemberUserService } from '../../../../shared/services/panel-member-user.service';
+import { OtherUserService } from '../../../../shared/services/other-user.service';
+import { Subscription } from 'rxjs';
+import { OtherUser } from '../../../../shared/models/user-other';
 
 @Component({
   selector: 'app-professor-list',
@@ -13,22 +17,43 @@ import { User } from '../../../../shared/models/user';
 })
 export class ProfessorListComponent implements OnInit {
   private professors: Professor[];
+  private otherUser: OtherUser;
   private user : User;
   private users: User[]=[];
   private corrPassword: string=""; 
+  getProfessorsSub: Subscription;
 
   constructor(
     public router: Router, 
     private professorService: ProfessorService,
-    private userService: UserService 
+    private userService: UserService,
+    private panelMemberUserService: PanelMemberUserService,
+    private otherUserService: OtherUserService 
   ) { }
 
   ngOnInit() {
     this.getProfessorsUsers();
   }
+  check(profID: string, value: string){
+    console.warn("NGfor ProfID: "+ profID + "--- value:" + value);
+  }
+  
+  addPanelMemberUser(prof: Professor){
+    console.warn("Object Received: " + prof.getProfessorFname());
+    this.professorService.setCurrentProfessor(prof);
+    this.getProfessorsSub.unsubscribe();
+    this.router.navigate(['/super/professors/confirm-add-pm']);
+    
+  }
+  addOtherUser(prof: Professor, otherType: string){
+    console.warn("Object Received: " + prof.getProfessorFname() + "Other Type: "+ otherType);
+    this.professorService.setCurrentProfessor(prof);
+    this.professorService.setCurrentOtherType(otherType);
+    this.router.navigate(['/super/professors/confirm-add-other']);
+  }
 
   getProfessorsUsers(){
-    this.professorService.getProfessors()
+    this.getProfessorsSub = this.professorService.getProfessors()
         .subscribe( res => {
           console.warn(res); 
           this.professors = res.map(user => new Professor(user)); 
@@ -61,7 +86,15 @@ export class ProfessorListComponent implements OnInit {
   getPassword(){
     return this.corrPassword;
   }
-
+  
+  getOtherUserType(profOtherId: string){
+    this.otherUserService.getOtherUser(profOtherId)
+        .subscribe(res =>{
+          this.otherUser = new OtherUser(res);
+          return this.otherUser.getOtherUserType();
+        })
+    
+  }
   isOtherUser(isOtherUser : string){
     let x: boolean;
     if(isOtherUser){//otherUserId
@@ -82,7 +115,13 @@ export class ProfessorListComponent implements OnInit {
     }
     return x;
   }
- 
+  editProfessor(prof: Professor){
+    this.professorService.setCurrentProfessor(prof);
+    this.router.navigate(['/super/professors/edit-professor-form']);
+  }
+  goToProfessorList(){
+    this.router.navigate(['/super/professors']);
+  }
   goToAddProfessorForm(){
     this.router.navigate(['/super/professors/add-professor-form']);
   }
