@@ -14,7 +14,7 @@ import { CourseService } from '../../../../shared/services/course.service';
 export class AddProfessorFormComponent implements OnInit {
   addProfessorForm: FormGroup;
   submitted = false;
-  
+  private departments: Department[];
   private department: Department = null;
   private college: College = null;
   private firstName: string = null;
@@ -47,6 +47,7 @@ export class AddProfessorFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getDepartments();
   }
 
   onSubmit(){
@@ -84,6 +85,7 @@ export class AddProfessorFormComponent implements OnInit {
           this.getCollege(this.department.getDeptColId());
         });
   }
+
   getCollege(colId: string){
     this.courseService.getCollege(colId)
         .subscribe(res =>{
@@ -121,6 +123,12 @@ export class AddProfessorFormComponent implements OnInit {
   }
   gotoProfessorsList(){
     this.router.navigate(['/super/professors']);
+  }
+  getDepartments(){
+    this.courseService.getDepartments()
+      .subscribe(res=>{
+        this.departments = res.map(department => new Department(department));
+      });
   }
 
 }

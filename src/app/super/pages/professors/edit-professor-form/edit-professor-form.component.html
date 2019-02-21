@@ -45,8 +45,8 @@
       <div class="form-group row">
         <label for="dept" class="col-sm-2 col-form-label">Department</label>
         <div class="col-sm-10">
-            <select class="form-control" formControlName="department" id="dept">
-                <option></option>
+            <select ngModel [compareWith]="compareFn" class="form-control" formControlName="department" id="dept">
+                <option value="" disabled>Choose a department</option>
                 <option *ngFor = "let department of departments" [ngValue]="department">{{department.getDeptName()}}</option>
             </select>
           </div>

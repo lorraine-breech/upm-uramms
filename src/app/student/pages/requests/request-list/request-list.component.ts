@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { REQUESTS } from './mock-list';
 import { Request } from './list';
 import { DataService } from './dataService';
+import { RequestService } from '../../../../shared/services/request.service';
 
 @Component({
   selector: 'app-request-list',
@@ -13,10 +14,21 @@ export class RequestListComponent implements OnInit {
   
   requests = REQUESTS;
   selectedRequest: Request;
-  
-  constructor( public router: Router, private dataService:DataService ) { }
+  currentUserTypeId: string = "";
+  currentUserType: string = "student";
+
+  constructor( 
+    public router: Router, 
+    private dataService:DataService,
+    private requestService: RequestService 
+  ) { }
 
   ngOnInit() {
+    this.getRequests();
+  }
+
+  getRequests(){
+    //this.requestService.getCPRequest()
   }
 
   goto(){

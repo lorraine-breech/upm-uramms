@@ -26,11 +26,186 @@ let response = {
     data: [],
     message: null
 };
+router.post('/login', (req, res) => {
+    connection((db) => {
+        const myDB = db.db('upm-uramms');
+        myDB.collection('users')
+            .findOne({
+                user_username: req.body.user_username,
+                user_password: req.body.user_password
+            })
+            .then((user) => {
+                if (user) {
+                    user.user_password = '';
+                    response.data = user;
+                    res.json(user);
+
+                } else {
+
+                    res.json(false);
+                }
+            })
+            .catch((err) => {
+                sendError(err, res);
+            });
+    });
+});
+
+router.get('/psrequests', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('psrequests')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((psrequests) => {
+                    if (psrequests) {
+                        response.data = psrequests[0];
+                        res.json(psrequests[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('psrequests')
+                .find()
+                .toArray()
+                .then((psrequests) => {
+                    if (psrequests) {
+                        response.data = psrequests;
+                        res.json(psrequests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
+
+
+router.get('/parequests', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('parequests')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((parequests) => {
+                    if (parequests) {
+                        response.data = parequests[0];
+                        res.json(parequests[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('parequests')
+                .find()
+                .toArray()
+                .then((parequests) => {
+                    if (parequests) {
+                        response.data = parequests;
+                        res.json(parequests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
+
+
+router.get('/cprequests', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('cprequests')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((cprequests) => {
+                    if (cprequests) {
+                        response.data = cprequests[0];
+                        res.json(cprequests[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('cprequests')
+                .find()
+                .toArray()
+                .then((cprequests) => {
+                    if (cprequests) {
+                        response.data = cprequests;
+                        res.json(cprequests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
+
+router.delete('/studentusers', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.body._id);
+        var deleteStudent = req.body;
+        console.log(req.body._id);
+
+        myDB.collection('studentusers')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+
 router.put('/professors', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
         var updatedProfessor = req.body;
-
+        console.log(req.body._id);
         myDB.collection('professors')
         .updateOne(
             {_id: ObjectID(updatedProfessor._id)},

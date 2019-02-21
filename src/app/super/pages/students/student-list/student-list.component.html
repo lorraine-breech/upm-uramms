@@ -35,7 +35,7 @@
               <th scope="col"><small>{{getUsername(studentuser.getStudentUserId())}}</small></th>
               <th scope="col"><small>{{getPassword()}}</small></th>
               <th scope="col">
-                <button type="button" class="mb-2 btn btn-sm btn-danger">Delete</button>
+                <button type="button" class="mb-2 btn btn-sm btn-danger" (click)="deleteStudentUser(studentuser)">Delete</button>
                 <button type="button" class="ml-2 mb-2 btn btn-sm btn-info" (click)="editStudentUser(studentuser)">Edit</button>
               </th>
             </tr>

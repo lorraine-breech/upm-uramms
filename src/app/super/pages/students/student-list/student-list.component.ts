@@ -66,6 +66,10 @@ export class StudentListComponent implements OnInit {
     this.router.navigate(['/super/students/edit-student-form']);
   }
 
+  deleteStudentUser( studentUser: StudentUser){
+    this.studentUsers = this.studentUsers.filter(s => s !== studentUser);
+    this.studentUserService.deleteStudentUser(studentUser).subscribe();
+  }
   getCourseName(courseID: string){
     //service function
   }

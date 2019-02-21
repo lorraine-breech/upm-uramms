@@ -16,6 +16,7 @@ import { ProfessorService } from './shared/services/professor.service';
 import { CourseService } from './shared/services/course.service';
 import { PanelMemberUserService } from './shared/services/panel-member-user.service';
 import { OtherUserService } from './shared/services/other-user.service';
+import { RequestService } from './shared/services/request.service';
 
 
 
@@ -40,7 +41,8 @@ import { OtherUserService } from './shared/services/other-user.service';
     UserService,
     CourseService,
     PanelMemberUserService,
-    OtherUserService
+    OtherUserService,
+    RequestService
   ],
   bootstrap: [AppComponent]
 })

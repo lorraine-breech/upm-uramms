@@ -11,6 +11,8 @@ export class UserService {
   users: User[];
   user: User;
   private usersUrl = "api/users";
+  private loginUrl = "api/login";
+  private currentUser: User;
 
   constructor(private _http: HttpClient) { }
 /*
@@ -20,6 +22,30 @@ export class UserService {
     );  
   }
 */
+  getCurrentUser(){
+    return this.currentUser;
+  }      
+
+  logIn(username: string, password: string): Observable<User> {
+    const url = this.loginUrl;
+    let body = {
+        user_username: username,
+        user_password: password
+    }
+
+    return this._http.post(url, body).pipe(
+        tap(data => {
+            const outcome = data ? 'fetched user ' + username : 'did not find user ' + username;
+            if (data) {
+                this.currentUser = new User(data);
+                //localStorage.setItem('currentUser', JSON.stringify(data));
+                //this.cookieService.set('currentUser', this.currentUser.getUserId());
+            }
+            return data;
+        }),
+        catchError(this.handleError<any>(`logIn user_username=${username}`))
+    );
+  }
   getUsers (): Observable<User[]> {
     return this._http.get<User[]>(this.usersUrl)
       .pipe(
@@ -28,8 +54,9 @@ export class UserService {
       );
   }
 
+
   getUser(user_type_id): Observable<User>{
-    let params = new HttpParams().set('id',user_type_id);
+    let params = new HttpParams().set('id', user_type_id);
 
     return this._http.get<User>(this.usersUrl,{
       params: params

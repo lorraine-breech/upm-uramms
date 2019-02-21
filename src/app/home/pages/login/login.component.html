@@ -1,40 +1,41 @@
 <div class="container-fluid">
-  <div class="row mt-5">
-      <div class="col-sm-12 col-md-8 text-sm-center text-md-left">
-          <div class="container-fluid ">
-              <h2 class="display-12">
-                  University of the Philippines Mindanao - Undergraduate Research Activities Management and Monitoring System (UPM-URAMMS)
-              </h2>
-              <p class="lead"> is a system built to help the students and faculty members of the university in managing and monitoring research activities. 
-                  It uses the technology something.
-              </p>
-              <p class="lead"> 
-                  Connect with the people related in your Research. Make and respond to requests online.  And many more!
-              </p>
-          </div>
-      </div>
-      <div class=" col-sm-12 col-md-4 ">
-          <div class="jumbotron">
-              <form>
-                      <div class="row form-group">
-                          <input type="username" class="form-control text-center" id="exampleInputEmail1"    placeholder="Username">
-                      </div>
-                      <div class="row form-group">
-                          <input type="password" class="form-control text-center" id="exampleInputPassword1" placeholder="Password">
-                      </div>
-                      <div class="row">
-                          <div class="col-12 text-center mb-3">
-                              <button type="button" class="btn btn-primary align-self-center" (click) = "login()" >Log in</button>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-12 text-center">
-                              <a href="#" class="card-link">Don't have an acount?</a>
-                          </div>
-                      </div>
-                  </form>
-          </div>
-          
-      </div>
-  </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-8 text-sm-center text-md-left">
+            <div class="container-fluid ">
+                <h2 class="display-12">
+                    University of the Philippines Mindanao - Undergraduate Research Activities Management and Monitoring System (UPM-URAMMS)
+                </h2>
+                <p class="lead"> is a system built to help the students and faculty members of the university in managing and monitoring research activities. 
+                    It uses the technology something.
+                </p>
+                <p class="lead"> 
+                    Connect with the people related in your Research. Make and respond to requests online.  And many more!
+                </p>
+            </div>
+        </div>
+        <div class=" col-sm-12 col-md-4 ">
+            <div class="jumbotron">
+
+                <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+                    <div class="row form-group">
+                        <input type="username" class="form-control text-center" formControlName="username" id="exampleInputEmail1"  placeholder="Username">
+                    </div>
+                    <div class="row form-group">
+                        <input type="password" class="form-control text-center" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center mb-3">
+                            <button type="submit" class="btn btn-primary align-self-center">Log in</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <a href="#" class="card-link">Don't have an acount?</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>

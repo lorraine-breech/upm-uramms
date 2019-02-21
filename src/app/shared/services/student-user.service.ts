@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -35,6 +34,15 @@ export class StudentUserService {
       );
   }
 
+  deleteStudentUser(studentUser: StudentUser): Observable<any>{
+    const id = typeof studentUser === 'number'? studentUser : studentUser.getStudentUserId();
+
+    return this._http.delete<StudentUser>(this.studentUsersUrl, httpOptions).pipe(
+      tap(_ => this.log(`deleted studentUser id=${id}`)),
+      catchError(this.handleError<StudentUser>('deleteStudentUser'))
+    );
+  }
+  
   updateStudentUser(studentUser: StudentUser): Observable<any>{
     return this._http.put(this.studentUsersUrl, studentUser, httpOptions).pipe(
       tap(_ => this.log(`updated studentUser id=${studentUser.getStudentUserId()}`)),

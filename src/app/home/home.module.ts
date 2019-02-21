@@ -6,10 +6,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { HelpComponent } from './pages/help/help.component';
 import { HomeNavbarComponent } from './home-navbar/home-navbar.component';
 import { HomeComponent } from './home.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     HomeRoutingModule
   ],
   declarations: [
@@ -21,3 +23,4 @@ import { HomeComponent } from './home.component';
   ]
 })
 export class HomeModule { }
+

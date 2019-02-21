@@ -108,7 +108,9 @@ export class EditProfessorFormComponent implements OnInit {
         this.setEditProfessorForm();
       });
   }
-
+  compareFn(c1: Department, c2: Department): boolean {
+    return c1 && c2 ? c1.getDeptId() === c2.getDeptId() : c1 === c2;
+  }
   setEditProfessorForm(){
     let currentDepartment: Department;
     for(let department of this.departments){
@@ -117,14 +119,14 @@ export class EditProfessorFormComponent implements OnInit {
         break;
       }
     }
-    this.editProfessorForm = this.formBuilder.group({
+    this.editProfessorForm.setValue({
       firstName: this.currentProfessor.getProfessorFname(),
       middleName: this.currentProfessor.getProfessorMname(),
       lastName: this.currentProfessor.getProfessorLname(),
       employeeNumber: this.currentProfessor.getProfessorEmpNum(),
       position: this.currentProfessor.getProfessorPosition(),
       title: this.currentProfessor.getProfessorTitle(),
-      department: currentDepartment.getDeptName() // ***displays blank
+      department: currentDepartment
     });
   }
   gotoProfessorsList(){

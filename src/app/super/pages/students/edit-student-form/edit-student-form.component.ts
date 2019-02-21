@@ -95,9 +95,13 @@ export class EditStudentFormComponent implements OnInit {
       this.updateStudentUser();
     }
   }
+
   updateCourseDeptColStudent(){
     //setUpdateStudentUser() and updateStudentUser is called within getCourse()
     this.getCourse(this.editStudentUserForm.value.course);
+  }
+  compareFn(c1: Professor, c2: Professor): boolean {
+    return c1 && c2 ? c1.getProfessorId() === c2.getProfessorId() : c1 === c2;
   }
   getCurrentAdviser(currPanel: Panel){
     let currentPanel = new Panel(currPanel);
@@ -107,15 +111,17 @@ export class EditStudentFormComponent implements OnInit {
       .subscribe(res=>{
         this.currentAdviser = new Professor(res);
         console.warn("CURRENT ADVISER: "+ this.currentAdviser.getProfessorFullName());
-        this.editStudentUserForm = this.formBuilder.group({
+        this.editStudentUserForm.setValue({
           firstName: this.currentStudentUser.getStudentUserFirstName(),
           middleName: this.currentStudentUser.getStudentUserMiddleName(),
           lastName: this.currentStudentUser.getStudentUserLastName(),
           studentNumber: this.currentStudentUser.getStudentUserStudentNumber(),
           year: this.currentStudentUser.getStudentUserYear(),
           course: this.currentStudentUser.getStudentUserCourse(), //string
-          adviser: this.currentAdviser //object ***displays blank
+          adviser: this.currentAdviser 
         });
+  
+
       });
     
   }
