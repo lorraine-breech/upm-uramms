@@ -1,11 +1,12 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-//import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { SuperUser } from '../models/user-super';
-
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable()
 export class SuperUserService {
   result: SuperUser[];
@@ -13,7 +14,15 @@ export class SuperUserService {
   private createSuperUserUrl = "api/createSuperUser";
 
   constructor( private _http: HttpClient ) { }
-
+  
+  deleteSuperUser(superUser: SuperUser): Observable<{}>{
+    const id = typeof superUser === 'number'? superUser : superUser.getSuperUserId();
+    const url = `${this.superUsersUrl}/${id}`; // DELETE api/heroes/42
+    return this._http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteStudent'))
+      );
+  }
   addSuperUser(
     fname,
     lname,

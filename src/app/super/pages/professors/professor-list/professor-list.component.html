@@ -57,7 +57,7 @@
                 <th scope="col"><small>{{getUsername(professor.getProfessorId())}}</small></th>
                 <th scope="col"><small>{{getPassword()}}</small></th>
                 <th scope="col">
-                    <button type="button" class="mb-2 btn btn-sm btn-danger">Delete</button>
+                    <button type="button" class="mb-2 btn btn-sm btn-danger" (click)="deleteProfessor(professor)">Delete</button>
                     <button type="button" class="ml-2 mb-2 btn btn-sm btn-info" (click)="editProfessor(professor)" >Edit</button>
                 </th>
             </tr>
@@ -68,7 +68,7 @@
   </div>
   
   <div class="align-self-left fixed-bottom" >
-    <div class="p-3 bg-primary ">
+    <div class="p-3 bg-primary "> 
   
     </div>
     

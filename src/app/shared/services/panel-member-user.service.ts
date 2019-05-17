@@ -4,13 +4,44 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { PanelMemberUser } from '../models/user-panel-member';
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 @Injectable()
 export class PanelMemberUserService {
   result: PanelMemberUser[];
   private createPanelMemberUserUrl = "api/createPanelMemberUser";
+  private panelMembersUrl = "api/panelmembers";
 
   constructor( private _http: HttpClient ) { }
+ 
+  deletePanelMemberUser(panelMemberId: string): Observable<{}>{
+    const url = `${this.panelMembersUrl}/${panelMemberId}`; 
+    return this._http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('error deleting Study! '))
+      );
+  }
+
+  updatePanelMemberUser(panelMemberUser: PanelMemberUser): Observable<any>{
+    return this._http.put(this.panelMembersUrl, panelMemberUser, httpOptions).pipe(
+      tap(_ => this.log(`updated panelMemberUser id=${panelMemberUser.getPanelMemberUserId()}`)),
+      catchError(this.handleError<any>('error updating Panel Member User! '))
+    );
+  }
+
+  getPanelMemberUser(panelMemberUserId: string): Observable<PanelMemberUser>{
+    let params = new HttpParams().set('id', panelMemberUserId);
+
+    return this._http.get<PanelMemberUser>(this.panelMembersUrl,{
+      params: params
+    }).pipe(
+        tap(_ =>this.log('fetched panel member user by id')),
+        catchError(this.handleError<PanelMemberUser>(`error panelMemberID=${panelMemberUserId}!`))
+    );
+  }
 
   addPanelMemberUser(
     pm_prof_id

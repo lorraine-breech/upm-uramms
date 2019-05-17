@@ -5,7 +5,7 @@ export class Professor{
     private lname: string;
     private emp_num: string;
     private position: string;
-    private title: string;
+    private title: string; 
     private dept: string; 
     private college: string;
     private is_other_user: string; //contains otherID if yes; otherwise, null

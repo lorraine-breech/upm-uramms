@@ -23,6 +23,8 @@ import { ChangeProposalRequestComponent } from './pages/my-study/change-proposal
 import { CreatePresentationScheduleRequestComponent } from './pages/requests/create-presentation-schedule-request/create-presentation-schedule-request.component';
 import { CreatePaperApprovalRequestComponent } from './pages/requests/create-paper-approval-request/create-paper-approval-request.component';
 import { AddPanelMemberRequestComponent } from './pages/my-panel/add-panel-member-request/add-panel-member-request.component';
+import { AddStudyComponent } from './pages/my-study/add-study/add-study.component';
+import { EditStudyComponent } from './pages/my-study/edit-study/edit-study.component';
 
 const studentRoutes: Routes = [
   {
@@ -60,7 +62,10 @@ const studentRoutes: Routes = [
         component: MyStudyComponent,
         children: [
           { path: '', component: MyStudyDetailsComponent },
+          { path: 'add-study', component: AddStudyComponent },
+          { path: 'edit-study', component: EditStudyComponent },
           { path: 'change-proposal-request', component: ChangeProposalRequestComponent }
+
         ]
       },
       { path: 'my-account', component: MyAccountComponent }

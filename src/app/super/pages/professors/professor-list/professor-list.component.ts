@@ -119,6 +119,11 @@ export class ProfessorListComponent implements OnInit {
     this.professorService.setCurrentProfessor(prof);
     this.router.navigate(['/super/professors/edit-professor-form']);
   }
+  deleteProfessor(prof: Professor){
+    this.professors = this.professors.filter(p => p !== prof);
+    this.professorService.deleteProfessor(prof).subscribe();
+    console.log("Professor Successfully Deleted");
+  }
   goToProfessorList(){
     this.router.navigate(['/super/professors']);
   }

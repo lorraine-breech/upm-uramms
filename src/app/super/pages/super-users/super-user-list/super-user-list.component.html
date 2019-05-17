@@ -30,7 +30,7 @@
               <th scope="col"><small>{{superuser.getSuperUserDepartment()}}</small></th>
               <th scope="col"><small>{{superuser.getSuperUserCollege()}}</small></th>
               <th scope="col">
-                  <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button">Delete</a>
+                  <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" (click)="deleteSuperUser(superuser)" role="button">Delete</a>
               </th>
             </tr>
           </tbody>

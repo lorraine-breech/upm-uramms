@@ -1,34 +1,38 @@
-import { Paper } from "./paper";
-import { ExpectedConditions } from "protractor";
-
 export class Study{
     private _id: string;
-    private study_title: string;
-    private study_description: string;
-    private study_paper: Paper; 
-    private study_status: string; 
-
+    private title: string; 
+    private description: string;
+    private paper_proposal: string; //stores the name of the uploaded proposal file
+    private paper_manuscript: string; //stores the name of the uploaded manuscript file 
+    private status: string; 
+    //research status: Proposal Writing, Proposal presentation (P Schedule requested)    
+    //Proposal Approval (Presentation Approved), Implementation (Proposal Paper Approved), 
+    //Manus Writing, Manus Approval, Manus Approved, Completed
+ 
     constructor(study?: any){
         if(study){
             this._id = study._id ? study._id : "";
-            this.study_title = study.study_title ? study.study_title: "";
-            this.study_description = study.study_description ? study.study_description : "";
-            this.study_paper = new Paper(study.study_paper);
-            this.study_status = "";
+            this.title = study.title ? study.title: "";
+            this.description = study.description ? study.description : "";
+            this.paper_proposal = study.paper_proposal ? study.paper_proposal: "";
+            this.paper_manuscript = study.paper_manuscript ? study.paper_manuscript : "";
+            this.status = study.status ? study.status : "";
         }
         else{
-            this.study_title = "";
-            this.study_description = "";
-            this.study_paper = new Paper();
-            this.study_status = "";
+            this.title = "";
+            this.description = ""; 
+            this.paper_proposal = "";
+            this.paper_manuscript = "";
+            this.status = "";
         }
     }
 
-    setStudy( study_title, study_description, study_paper, study_status){
-        this.study_title = study_title;
-        this.study_description = study_description;
-        this.study_paper = study_paper;
-        this.study_status = study_status;
+    setStudy( title, description, paper_proposal, paper_manuscript, status){
+        this.title = title;
+        this.description = description;
+        this.paper_proposal = paper_proposal;
+        this.paper_manuscript = paper_manuscript;
+        this.status = status;
     }
 
     getStudyId(){
@@ -36,39 +40,46 @@ export class Study{
     }
 
     getStudyTitle(){
-        return this.study_title;
+        return this.title;
     }
 
     getStudyDescription(){
-        return this.study_description;
+        return this.description;
     }
 
-    getStudyPaper(){
-        return this.study_paper;
+    getStudyPaperProposal(){
+        return this.paper_proposal;
+    }
+    getStudyPaperManuscript(){
+        return this.paper_manuscript;
     }
 
     getStudyStatus(){
-        return this.study_status;
+        return this.status;
     }
 
     setStudyId(_id){
         this._id = _id;
     }
 
-    setStudyTitle(tudy_title){
-        this.study_title = tudy_title;
+    setStudyTitle(title){
+        this.title = title;
     }
 
-    setStudyDescription(study_description){
-        this.study_description = study_description;
+    setStudyDescription(description){
+        this.description = description;
     }
 
-    setStudyPaper(study_paper){
-        this.study_paper = study_paper;
+    setStudyPaperProposal(paper_proposal){
+        this.paper_proposal = paper_proposal;
     }
 
-    setStudyStatus(study_status){
-        this.study_status = study_status;
+    setStudyPaperManuscript(paper_manuscript){
+        this.paper_manuscript = paper_manuscript;
+    }
+
+    setStudyStatus(status){
+        this.status = status;
     }
 
 

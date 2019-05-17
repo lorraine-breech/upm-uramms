@@ -3,6 +3,27 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const async = require('async');
+const multer = require('multer');
+const fs = require('fs');
+var path = require('path');
+
+var requestTime
+
+router.use(function timeLog(req, res, next) {
+    requestTime = Date.now();
+    next();
+});
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, requestTime + '.' + file.originalname);
+    }
+});
+
+var upload = multer({ storage: storage }).single('file');
 
 // Connect
 const connection = (closure) => {
@@ -26,6 +47,39 @@ let response = {
     data: [],
     message: null
 };
+
+router.post('/download', (req, res) => {
+    filepath = path.join(__dirname, '../../uploads') + '/' + req.body.fileName;
+    res.sendFile(filepath);
+});
+
+router.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
+
+router.delete('/uploadedfiles', (req)=>{
+    filepath = path.join(__dirname, '../../uploads') + '/' + req.body.fileName;
+    fs.unlink(filepath, (err)=>{
+        if(err) throw err;
+        console.log('succesfully deleted ' + filepath);
+    })
+});
+router.post('/upload', (req, res) => {
+    
+    upload(req, res, function (err) {
+        if (err) {
+            // An error occurred when uploading
+            return res.status(422).send("an Error occured")
+        }
+        var fileObj = {
+            originalName: req.file.originalname, 
+            uploadName: req.file.filename 
+        }
+        // No error occured.
+        // return res.send(path.substring(8, path.length));
+        return res.json({ originalName: req.file.originalname, uploadName: req.file.filename } );
+    })
+});
+
+
 router.post('/login', (req, res) => {
     connection((db) => {
         const myDB = db.db('upm-uramms');
@@ -50,6 +104,109 @@ router.post('/login', (req, res) => {
             });
     });
 });
+
+router.get('/studies', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studies')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((studies) => {
+                    if (studies) {
+                        response.data = studies[0];
+                        res.json(studies[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studies')
+                .find()
+                .toArray()
+                .then((studies) => {
+                    if (studies) {
+                        response.data = studies;
+                        res.json(studies);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
+
+router.post('/studies', (req, res) => {
+    connection((db) =>{
+        var newStudyObj = {
+            title: req.body.title,
+            description: req.body.description,
+            paper_proposal: req.body.paper_proposal,
+            paper_manuscript: req.body.paper_manuscript,
+            status: req.body.study_status,
+        }
+        
+        async.waterfall([
+            insertStudy,
+            updateStudentUser
+        ], function (err, results) {
+            if (err) {
+                response.message = err;
+                throw err;
+            }
+            response.data = results;
+            res.json(results);
+        });
+        
+        
+        function insertStudy(callback){
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studies')
+                .insertOne((newStudyObj), function (err, result){
+                    if(err){
+                        response.message = err;
+                        throw err;
+                    }
+                    response.data = newStudyObj;
+                    callback(null, newStudyObj);
+                });
+        };
+
+        function updateStudentUser(newStudyObj, callback){
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studentusers')
+            .updateOne(
+                {_id: ObjectID(req.body.studentId)},
+                { $set: 
+                    {
+                        study_id: newStudyObj._id
+                    }
+                },
+                function (err, student) {
+                    if (err){
+                        response.message = err;
+                        throw err;
+                    } 
+    
+                    response.data = student;
+                    callback(null, student);
+                }
+            );
+        };
+    });
+});
+
 
 router.get('/psrequests', (req, res) => {
     if(req.query.id){
@@ -178,13 +335,211 @@ router.get('/cprequests', (req, res) => {
     }
     
 });
-
-router.delete('/studentusers', (req, res)=>{
+router.delete('/psrequests/:id', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
-        const id = new ObjectID(req.body._id);
-        var deleteStudent = req.body;
-        console.log(req.body._id);
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('psrequests')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/cprequests/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('cprequests')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/acrequests/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('acrequests')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/parequests/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('parequests')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/studies/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('studies')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/presentations/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('presentations')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/otherusers/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('otherusers')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/panelmemberusers/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('panelmemberusers')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/superusers/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('superusers')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/professors/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('professors')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
+router.delete('/studentusers/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
 
         myDB.collection('studentusers')
         .deleteOne(
@@ -200,7 +555,36 @@ router.delete('/studentusers', (req, res)=>{
         );
     })
 });
+router.put('/panelmemberusers', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        var updatedPanelMember = req.body;
+        console.log(req.body._id);
+        
+        myDB.collection('panelmemberusers')
+        .updateOne(
+            {_id: ObjectID(updatedPanelMember._id)},
+            { $set: 
+                {
+                    pm_prof_id: updatedPanelMember.pm_prof_id,
+                    pm_advisee_id: updatedPanelMember.pm_advisee_id,
+                    pm_coadvisee_id: updatedPanelMember.pm_coadvisee_id,
+                    pm_panelee_id: updatedPanelMember.pm_panelee_id,
+                    pm_calendar_id: updatedPanelMember.pm_calendar_id,
+                }
+            },
+            function (err, professor) {
+                if (err){
+                    response.message = err;
+                    throw err;
+                } 
 
+                response.data = professor;
+                res.json(professor);
+            }
+        );
+    })
+});
 router.put('/professors', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
@@ -886,26 +1270,87 @@ router.get('/superusers', (req, res) => {
 });
 
 router.get('/studentusers', (req, res) => {
-    connection((db) => {
-        const myDB = db.db('upm-uramms');
-        myDB.collection('studentusers')
-            .find()
-            .toArray()
-            .then((studentusers) => {
-                if (studentusers) {
-                    response.data = studentusers;
-                    res.json(studentusers);
-                } else {
-                    res.json(false);
-                }
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
-    });
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studentusers')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((studentusers) => {
+                    if (studentusers) {
+                        response.data = studentusers[0];
+                        res.json(studentusers[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('studentusers')
+                .find()
+                .toArray()
+                .then((studentusers) => {
+                    if (studentusers) {
+                        response.data = studentusers;
+                        res.json(studentusers);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
 });
-
+router.get('/panelmemberusers', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('panelmemberusers')
+                .find(ObjectID(req.query.id))
+                .toArray()
+                .then((panelmemberusers) => {
+                    if (panelmemberusers) {
+                        response.data = panelmemberusers[0];
+                        res.json(panelmemberusers[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('panelmemberusers')
+                .find()
+                .toArray()
+                .then((panelmemberusers) => {
+                    if (panelmemberusers) {
+                        response.data = panelmemberusers;
+                        res.json(panelmemberusers);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+});
 router.get('/professorPanelMemberUsers', (req, res) => {
+
     connection((db) => {
         const myDB = db.db('upm-uramms');
         myDB.collection('professors')

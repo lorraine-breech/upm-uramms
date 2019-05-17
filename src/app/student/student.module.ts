@@ -26,13 +26,17 @@ import { ChangeProposalRequestComponent } from './pages/my-study/change-proposal
 import { CreatePresentationScheduleRequestComponent } from './pages/requests/create-presentation-schedule-request/create-presentation-schedule-request.component';
 import { CreatePaperApprovalRequestComponent } from './pages/requests/create-paper-approval-request/create-paper-approval-request.component';
 import { AddPanelMemberRequestComponent } from './pages/my-panel/add-panel-member-request/add-panel-member-request.component';
+import { AddStudyComponent } from './pages/my-study/add-study/add-study.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { EditStudyComponent } from './pages/my-study/edit-study/edit-study.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    StudentRoutingModule
+    StudentRoutingModule,
+    FileUploadModule
   ],
   declarations: [
     StudentComponent,
@@ -55,7 +59,9 @@ import { AddPanelMemberRequestComponent } from './pages/my-panel/add-panel-membe
     MyStudyDetailsComponent,
     CreatePresentationScheduleRequestComponent,
     CreatePaperApprovalRequestComponent,
-    AddPanelMemberRequestComponent
+    AddPanelMemberRequestComponent,
+    EditStudyComponent,
+    AddStudyComponent
   ],
   providers: [ DataService ]
 })

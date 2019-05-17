@@ -8,13 +8,13 @@ export class StudentUser{
     private stud_num: string;
     private year: string;
     private course: string;
-    private dept: string; 
+    private dept: string;  
     private college: string; 
     private calendar_id: string;
     private study_id: string;
-    private panel: Panel;
+    private panel: Panel; 
     private adviser: string; //adviser name
-    private presentation_id: string;
+    private presentation_id: string; //update to have two of this, proposal and manuscript
     private status: string; //proposal, implementation, manuscript, completed
     
     constructor(studentUser?: any){

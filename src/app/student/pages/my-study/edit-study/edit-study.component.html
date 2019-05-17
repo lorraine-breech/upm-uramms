@@ -1,0 +1,33 @@
+
+<div class="container mt-4">
+    <p class="h4 text-center mb-4">Edit My Study</p>
+                    
+    <div class="jumbotron" >  
+      <form  [formGroup]="editStudyForm" (ngSubmit)="onSubmit()"> 
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">Title:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="title" id="title" placeholder="{{currentStudy.getStudyTitle()}}">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="abstract" id="abstract" placeholder="{{currentStudy.getStudyDescription()}}">
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="file" class="col-sm-2 col-form-label">My Study File</label>
+          <input class=" col-sm-6" type="file" name="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-7">
+            </div>
+            <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="gotoMyStudy()">Cancel</button>
+            <button type="submit" class="col-sm-2 btn btn-primary" >Submit</button>
+          </div>
+      </form>
+    </div>
+  </div>

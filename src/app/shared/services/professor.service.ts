@@ -30,10 +30,19 @@ export class ProfessorService {
   setCurrentProfessor(currProf: Professor){
     this.currentProfessor = currProf; 
   }
-
+ 
   getCurrentProfessor(){
     return this.currentProfessor;
   }
+  deleteProfessor(professor: Professor): Observable<{}>{
+    const id = typeof professor === 'number'? professor : professor.getProfessorId();
+    const url = `${this.professorsUrl}/${id}`; // DELETE api/heroes/42
+    return this._http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteProfessor error'))
+      );
+  }
+  //why is this updateStudentUser here?
   updateStudentUser(professorUser: Professor ): Observable<any>{
     return this._http.put(this.professorsUrl, professorUser, httpOptions).pipe(
       tap(_ => this.log(`updated professorUser id=${professorUser.getProfessorId()}`)),

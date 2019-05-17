@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <p class="h4 text-center mb-4">Add My Study</p>
+                    
+    <div class="jumbotron" >  
+      <form [formGroup]="addStudyForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">Title:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="title" name="title" id="title" >
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" formControlName="abstract" name="abstract" id="abstract" >
+          </div>
+        </div> 
+  
+        <div class="form-group row">
+          <label for="file" class="col-sm-2 col-form-label">My Study File</label>
+          <input class="ml-3 col-sm-6" type="file" name="file" ng2FileSelect [uploader]="uploader" />
+
+          
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-7">
+          </div>
+          <button type="button" class="mr-3 col-sm-2 btn btn-danger" (click)="gotoMyStudy()">Cancel</button>
+          <button type="submit" class="col-sm-2 btn btn-primary" [disabled]="!uploader.getNotUploadedItems().length" >Submit</button>
+        </div>
+
+        
+      </form>
+      
+    </div>
+  </div>

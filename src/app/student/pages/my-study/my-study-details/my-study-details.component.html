@@ -1,36 +1,64 @@
+
 <div class="container mt-4">
   <p class="h4 text-center mb-4">My Study Details</p>
-  <div class="jumbotron"> 
-    <form>
-      <div class="form-group row">
+
+  <div class="jumbotron" *ngIf="isStudyExists(); else elseBlock1">   
+    
+    <form >
+      <div class="form-group row"> 
         <label for="title" class="col-sm-2 col-form-label">Title:</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control-plaintext" id="title" value="Title">
+          <input type="text" class="form-control-plaintext" name="title" id="title" value="{{study.getStudyTitle()}}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control-plaintext" id="abstract" value="Abstract">
+          <input type="text" class="form-control-plaintext"  name="abstract" id="abstract" value="{{study.getStudyDescription()}}">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="file" class="col-sm-2 col-form-label">My Study File</label>
-        <button type="button" class="mr-3 col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">View File</button>
-        <button type="button" class="col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">Upload File</button>
+        <label for="file" class="col-sm-2 col-form-label">Proposal File</label>
+        <button type="button" class="ml-3 mr-3 col-sm-2 btn btn-info" (click)="viewProposalFile()">View File</button>
       </div>
 
+      <div *ngIf="isManuscript()" class="form-group row">
+        <label for="file" class="col-sm-2 col-form-label">Manuscript File</label>
+        <button type="button" class="ml-3 mr-3 col-sm-2 btn btn-info" (click)="viewManuscriptFile()">View File</button>
+      </div>
+
+ 
       <div class="form-group row">
         <label for="rstatus" class="col-sm-2 col-form-label">Research Status:</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control-plaintext" id="rstatus" value="Research Status">
+          <input type="text" class="form-control-plaintext"  name="rstatus" id="rstatus" value="{{study.getStudyStatus()}}">
         </div>
-        <button type="button" class="col-sm-2 btn btn-primary" (click)="changeProposalRequest()">Change Proposal</button>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-9"></div>
+        
+        <button *ngIf="isFreeToEdit(); else elseBlock" type="button" class="ml-3 col-sm-2 btn btn-primary" (click)="editStudy()" >Edit Study</button>
+        
+        <ng-template #elseBlock> 
+
+          <button type="button" class="col-sm-3 btn btn-primary" (click)="changeProposalRequest()">Change Proposal</button>
+        </ng-template>
       </div>
 
     </form>
-    
   </div>
-</div>
+
+  <ng-template #elseBlock1> 
+      <div class="jumbotron" >  
+        <div class="form-group row">
+          <label for="addStudy" class="col-sm-10 col-form-label">You have no study yet. Add your study now.</label>
+          <button type="button" class="col-sm-2 btn btn-primary" id="addStudy" (click)="gotoAddStudy()" >Add Study</button>
+        </div>  
+      </div>
+    
+  </ng-template>
+  
+</div> 

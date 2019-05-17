@@ -44,7 +44,7 @@ export class UserService {
             return data;
         }),
         catchError(this.handleError<any>(`logIn user_username=${username}`))
-    );
+    ); 
   }
   getUsers (): Observable<User[]> {
     return this._http.get<User[]>(this.usersUrl)
@@ -55,7 +55,7 @@ export class UserService {
   }
 
 
-  getUser(user_type_id): Observable<User>{
+  getUser(user_type_id: string): Observable<User>{
     let params = new HttpParams().set('id', user_type_id);
 
     return this._http.get<User>(this.usersUrl,{

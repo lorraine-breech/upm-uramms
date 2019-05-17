@@ -27,6 +27,11 @@ export class SuperUserListComponent implements OnInit {
           this.superUsers = res.map(user => new SuperUser(user)); 
         });
   }
+  deleteSuperUser(superuser : SuperUser){
+    this.superUsers = this.superUsers.filter(s => s !== superuser);
+    this.superUserService.deleteSuperUser(superuser).subscribe();
+    console.log("Super User Successfully Deleted");
+  }
  
   goToAddSuperUserForm(){
     this.router.navigate(['/super/super-users/add-super-user-form']);

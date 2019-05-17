@@ -10,14 +10,7 @@ const routes: Routes = [
   { path: 'super', loadChildren: './super/super.module#SuperModule' },
   { path: 'others', loadChildren: './others/others.module#OthersModule' }, 
   { path: 'panel-member', loadChildren: './panel-member/panel-member.module#PanelMemberModule' },
-  { path: 'student', loadChildren: './student/student.module#StudentModule' },
-  /*{ path: 'about', component: AboutComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'login', component: LogInComponent },
-  
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  */
-  
+  { path: 'student', loadChildren: './student/student.module#StudentModule' }, 
   { path: 'home/login', component: LoginComponent },
   { path: 'home/help', component: HelpComponent },
   { path: 'home/about', component: AboutComponent },

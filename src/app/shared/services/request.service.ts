@@ -22,6 +22,37 @@ export class RequestService {
 
 
     constructor( private _http: HttpClient ) { }
+
+
+    deletePSRequest(requestId: string): Observable<{}>{
+        const url = `${this.psRequestsUrl}/${requestId}`; 
+        return this._http.delete(url, httpOptions)
+            .pipe(
+                catchError(this.handleError('deleteStudy'))
+            );
+    }
+    deletePARequest(requestId: string): Observable<{}>{
+        const url = `${this.paRequestsUrl}/${requestId}`; 
+        return this._http.delete(url, httpOptions)
+            .pipe(
+                catchError(this.handleError('deleteStudy'))
+            );
+    }
+    deleteCPRequest(requestId: string): Observable<{}>{
+        const url = `${this.cpRequestsUrl}/${requestId}`; 
+        return this._http.delete(url, httpOptions)
+            .pipe(
+                catchError(this.handleError('deleteStudy'))
+            );
+    }
+    deleteACRequest(requestId: string): Observable<{}>{
+        const url = `${this.acRequestsUrl}/${requestId}`; 
+        return this._http.delete(url, httpOptions)
+            .pipe(
+                catchError(this.handleError('deleteStudy'))
+            );
+    }
+        
     getPSRequest (studId: string): Observable<PresentationScheduleRequest> {
         let params = new HttpParams().set('id', studId);
     

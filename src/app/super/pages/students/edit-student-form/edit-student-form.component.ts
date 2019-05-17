@@ -10,10 +10,10 @@ import { CourseService } from '../../../../shared/services/course.service';
 import { StudentUser } from '../../../../shared/models/user-student';
 import { ProfessorService } from '../../../../shared/services/professor.service';
 import { Professor } from '../../../../shared/models/professor';
-
+ 
 @Component({
-  selector: 'edit-add-student-form',
-  templateUrl: './edit-student-form.component.html',
+  selector: 'edit-add-student-form', 
+  templateUrl: './edit-student-form.component.html', 
   styleUrls: ['./edit-student-form.component.css']
 })
 export class EditStudentFormComponent implements OnInit {
@@ -33,7 +33,7 @@ export class EditStudentFormComponent implements OnInit {
   private college: College = null;
   
   private panel = new Panel();
-  
+   
   constructor(
     public router: Router, 
     private formBuilder: FormBuilder,
@@ -51,7 +51,7 @@ export class EditStudentFormComponent implements OnInit {
       adviser: null  
     });
   }
-
+ 
   ngOnInit() {
     this.currentStudentUser = this.studentUserService.getCurrentStudentUser();
     this.getCurrentAdviser(this.currentStudentUser.getStudentUserPanel());
@@ -110,7 +110,9 @@ export class EditStudentFormComponent implements OnInit {
     this.professorService.getProfessor(currentPanel.getPanelAdviserId())
       .subscribe(res=>{
         this.currentAdviser = new Professor(res);
+        console.warn("res: "+ res);
         console.warn("CURRENT ADVISER: "+ this.currentAdviser.getProfessorFullName());
+        
         this.editStudentUserForm.setValue({
           firstName: this.currentStudentUser.getStudentUserFirstName(),
           middleName: this.currentStudentUser.getStudentUserMiddleName(),
@@ -120,11 +122,9 @@ export class EditStudentFormComponent implements OnInit {
           course: this.currentStudentUser.getStudentUserCourse(), //string
           adviser: this.currentAdviser 
         });
-  
-
       });
     
-  }
+  } 
   getCourses(){
     this.courseService.getCourses()
       .subscribe(res=>{

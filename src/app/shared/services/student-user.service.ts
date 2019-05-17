@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { StudentUser } from '../models/user-student';
 import { Panel } from '../models/panel';
+import { Study } from '../models/study';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,8 +17,31 @@ export class StudentUserService {
   private createStudentUserUrl = "api/createStudentUser";
   private courseName: string; 
   private currentStudentUser: StudentUser;
-  
+  private loggedInStudentUser: StudentUser;
+  private loggedInStudentUserStudy: Study;
+  private loggedInStudentUserPanel: Panel;
+
   constructor( private _http: HttpClient ) { }
+  
+  setLoggedInStudentUserStudy(study: Study){
+    this.loggedInStudentUserStudy = study;
+  } 
+  setLoggedInStudentUserPanel(panel: Panel){
+    this.loggedInStudentUserPanel = panel;
+  }
+  setLoggedInStudentUser(studentUser: StudentUser){
+    this.loggedInStudentUser = studentUser;
+  }
+
+  getLoggedInStudentUserStudy(){
+    return this.loggedInStudentUserStudy;
+  } 
+  getLoggedInStudentUserPanel(){
+    return this.loggedInStudentUserPanel;
+  }
+  getLoggedInStudentUser(){
+    return this.loggedInStudentUser;
+  }
 
   setCurrentStudentUser(currStudentUser: StudentUser){
     this.currentStudentUser = currStudentUser;
@@ -26,6 +50,17 @@ export class StudentUserService {
     return this.currentStudentUser;
   }
   
+  getStudentUser(studentUserId: string): Observable<StudentUser>{
+    let params = new HttpParams().set('id', studentUserId);
+
+    return this._http.get<StudentUser>(this.studentUsersUrl,{
+      params: params
+    }).pipe(
+        tap(_ =>this.log('fetched student user')),
+        catchError(this.handleError<StudentUser>(`getUser _id=${studentUserId}`))
+    );
+  }
+
   getStudentUsers (): Observable<StudentUser[]> {
     return this._http.get<StudentUser[]>(this.studentUsersUrl)
       .pipe(
@@ -33,14 +68,14 @@ export class StudentUserService {
         catchError(this.handleError('getStudentUsers', []))
       );
   }
-
-  deleteStudentUser(studentUser: StudentUser): Observable<any>{
+  //why pass object and noy just ID???? check other users as well
+  deleteStudentUser(studentUser: StudentUser): Observable<{}>{
     const id = typeof studentUser === 'number'? studentUser : studentUser.getStudentUserId();
-
-    return this._http.delete<StudentUser>(this.studentUsersUrl, httpOptions).pipe(
-      tap(_ => this.log(`deleted studentUser id=${id}`)),
-      catchError(this.handleError<StudentUser>('deleteStudentUser'))
-    );
+    const url = `${this.studentUsersUrl}/${id}`; // DELETE api/heroes/42
+    return this._http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteStudent'))
+      );
   }
   
   updateStudentUser(studentUser: StudentUser): Observable<any>{

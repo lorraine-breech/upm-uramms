@@ -50,7 +50,7 @@ export class AddProfessorFormComponent implements OnInit {
     this.getDepartments();
   }
 
-  onSubmit(){
+  onSubmit(){ 
     this.submitted = true;
 
     this.firstName = this.addProfessorForm.value.firstName;

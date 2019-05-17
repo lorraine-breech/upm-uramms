@@ -1,9 +1,9 @@
 export class Panel{
+    //stores panelmemberuserID
     private adviser_id: string;
     private coadviser_id: string;
     private panelist1_id: string;
     private panelist2_id: string;
-    
     private panelist3_id: string;
 
     constructor(panel?: any){
