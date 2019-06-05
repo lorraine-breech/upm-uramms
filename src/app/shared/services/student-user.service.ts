@@ -69,6 +69,7 @@ export class StudentUserService {
       );
   }
   //why pass object and noy just ID???? check other users as well
+  
   deleteStudentUser(studentUser: StudentUser): Observable<{}>{
     const id = typeof studentUser === 'number'? studentUser : studentUser.getStudentUserId();
     const url = `${this.studentUsersUrl}/${id}`; // DELETE api/heroes/42

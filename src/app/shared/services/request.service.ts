@@ -23,6 +23,38 @@ export class RequestService {
 
     constructor( private _http: HttpClient ) { }
 
+    addPSRequest(
+        psrequest_stud_id,
+        psrequest_pres_type,
+        psrequest_pres_date,
+        psrequest_pres_time_start,
+        psrequest_pres_time_end,
+        psrequest_panel,
+        psrequest_response,
+        psrequest_remarks,
+        psrequest_date_created,
+        psrequest_status,
+      ){
+        const url = this.psRequestsUrl;
+    
+        return this._http.post<PresentationScheduleRequest>(url, {
+            psrequest_stud_id,
+            psrequest_pres_type,
+            psrequest_pres_date,
+            psrequest_pres_time_start,
+            psrequest_pres_time_end,
+            psrequest_panel,
+            psrequest_response,
+            psrequest_remarks,
+            psrequest_date_created,
+            psrequest_status,
+        }).pipe(
+          tap(data => {
+            return data;
+          }),
+          catchError(this.handleError<PresentationScheduleRequest>(`create psrequest error =${psrequest_stud_id}`))
+        )
+    }
 
     deletePSRequest(requestId: string): Observable<{}>{
         const url = `${this.psRequestsUrl}/${requestId}`; 

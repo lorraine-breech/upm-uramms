@@ -1,8 +1,8 @@
 export class Presentation{
     //stores information about the presentation, as well as the result of the presentation
-    //add date and time of presentation; maybe place too?? Should I link the PSrequestID or not?? hmmmm..
+    //add date and time of presentation
     private _id: string;
-    private stud_id: string;
+    private stud_id: string; 
     private adviser_id: string;
     private coadviser_id: string;
     private panelist1_id: string;
@@ -13,9 +13,12 @@ export class Presentation{
     private adviser_assesment: string;
     private coadviser_assesment: string;
     private panelist1_assesment: string;
-    private panelist2_assesment: string;
+    private panelist2_assesment: string; 
     private panelist3_assesment: string;
     private result: string;
+    private date: Date;
+    private time_start: string; // temporary type
+    private time_end: string; // temporary type
     
 
     constructor(presentation?: any){
@@ -35,6 +38,9 @@ export class Presentation{
             this.panelist2_assesment = presentation.panelist2_assesment ? presentation.panelist2_assesment : "";
             this.panelist3_assesment = presentation.panelist3_assesment ? presentation.panelist3_assesment : "";
             this.result = presentation.result ? presentation.result : "";
+            this.date = presentation.date ? presentation.date : new Date();;
+            this.time_start = presentation.time_start ? presentation.time_start : "";
+            this.time_end = presentation.time_end ? presentation.time_end : "";
         }
         else{
             this.stud_id = "";
@@ -51,6 +57,9 @@ export class Presentation{
             this.panelist2_assesment = "";
             this.panelist3_assesment = "";
             this.result = "";
+            this.date = new Date();
+            this.time_start = "";
+            this.time_end = "";
         }
     }
 
@@ -68,7 +77,10 @@ export class Presentation{
         panelist1_assesment, 
         panelist2_assesment, 
         panelist3_assesment, 
-        result
+        result,
+        date,
+        time_start,
+        time_end
     ){
         this.stud_id = stud_id;
         this.adviser_id = adviser_id;
@@ -84,6 +96,9 @@ export class Presentation{
         this.panelist2_assesment = panelist2_assesment;
         this.panelist3_assesment = panelist3_assesment;
         this.result = result;
+        this.date = date,
+        this.time_start = time_start,
+        this.time_end = time_end
 
     }
     getPresentationId(){
@@ -131,6 +146,15 @@ export class Presentation{
     getResult(){
         return this.result;
     }
+    getDate(){
+        return this.date;
+    }
+    getTimeStart(){
+        return this.time_start;
+    }
+    getTimeEnd(){
+        return this.time_end;
+    }
 
     setPresentationId(_id){
         return this._id = _id;
@@ -176,5 +200,14 @@ export class Presentation{
     }
     setResult(result){
         this.result = result;
+    }
+    setDate(date){
+        this.date = date;
+    }
+    setTimeStart(time_start){
+        this.time_start = time_start;
+    }
+    setTimeEnd(time_end){
+        this.time_end = time_end;
     }
 }

@@ -1,58 +1,62 @@
 <div class="container mt-4">
     <p class="h4 text-center mb-4">Create a Presentation Schedule Request Form</p>
     <div class="jumbotron mb-4"> 
-      <form>
+      <form [formGroup]="createPSRequestForm" (ngSubmit)="onSubmit()" >
         <div class="form-group row">
           <label for="title" class="col-sm-2 col-form-label">Title:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control-plaintext" id="title" value="Title">
+            <input type="text" class="form-control-plaintext" formControlName="title" id="title" value="Title">
           </div>
         </div>
   
         <div class="form-group row">
           <label for="abstract" class="col-sm-2 col-form-label">Abstract:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control-plaintext" id="abstract" value="Abstract">
+            <input type="text" class="form-control-plaintext" formControlName="abstract" id="abstract" value="Abstract">
           </div>
         </div>
   
         <div class="form-group row">
           <label for="file" class="col-sm-2 col-form-label">My Study File</label>
-          <input type="text" class="ml-3 mr-3 col-sm-4 form-control" id="fileUpload" value="No file uploaded yet" disabled>
-          <button type="button" class="mr-3 col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">View File</button>
-          <button type="button" class="col-sm-2 btn btn-info" (click)="changePanelMemberRequest()">Upload File</button>
+          <input type="text" class="ml-3 mr-3 col-sm-4 form-control" id="fileUpload" value="File Name" disabled>
+          <button type="button" class="mr-3 col-sm-2 btn btn-info" >View File</button>
         </div>
   
         <div class="form-group row">
           <label for="rstatus" class="col-sm-2 col-form-label">Research Status:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control-plaintext" id="rstatus" value="Research Status">
+            <input type="text" class="form-control-plaintext" formControlName="rstatus" id="rstatus" value="Research Status">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="date" class="col-sm-2 col-form-label">Date:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="date" placeholder="Enter date here.">
+            <input type="date" class="form-control" formControlName="date" id="date" placeholder="Enter date here.">
           </div>
         </div>
         <div class="form-group row">
-          <label for="time" class="col-sm-2 col-form-label">Time:</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="time" placeholder="Enter time here.">
+          <label for="timeFrom" class="col-sm-2 col-form-label">Time From:</label>
+          <div class="col-sm-4">
+            <input type="datetime" class="form-control" formControlName="timeFrom" id="timeFrom" placeholder="Enter time here.">
+          </div>
+
+          <label for="timeTo" class="col-sm-2 col-form-label">Time To:</label>
+          <div class="col-sm-4">
+            <input type="datetime" class="form-control" formControlName="timeTo" id="timeTo" placeholder="Enter time here.">
           </div>
         </div>
         <div class="form-group row">
           <label for="place" class="col-sm-2 col-form-label">Place:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="place" placeholder="Enter place here.">
+            <input type="text" class="form-control" formControlName="place" id="place" placeholder="Enter place here.">
           </div>
         </div>
         <div class="form-group row">
           <div class="col-sm-7">
           </div>
           <button type="button" class="mr-3 col-sm-2 btn btn-primary" (click)="gotoRequests()">Cancel</button>
-          <button type="button" class="col-sm-2 btn btn-danger" >Create Request</button>
+          <button type="button" class="col-sm-2 btn btn-danger" (click)="createPSRequest()">Create Request</button>
         </div>
 
         

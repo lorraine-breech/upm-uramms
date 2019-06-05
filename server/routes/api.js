@@ -207,7 +207,68 @@ router.post('/studies', (req, res) => {
     });
 });
 
+router.post('/psrequests', (req, res) => {
+    connection((db) =>{
+        var newPSRequestObj = {
+            psrequest_stud_id,
+            psrequest_pres_type,
+            psrequest_pres_date,
+            psrequest_pres_time_start,
+            psrequest_pres_time_end,
+            psrequest_panel,
+            psrequest_response,
+            psrequest_remarks,
+            psrequest_date_created,
+            psrequest_status,
+        }
+        var newUserObj = {
+            user_type: req.body.user_type,
+            user_type_id: "",
+            user_username: req.body.user_username,
+            user_password: req.body.user_password
+        };
 
+        async.waterfall([
+            insertSuperUser,
+            insertUser
+        ], function (err, results) {
+            if (err) {
+                response.message = err;
+                throw err;
+            }
+            response.data = newUserObj;
+            res.json(results);
+        });
+        
+        
+        function insertSuperUser(callback){
+            const myDB = db.db('upm-uramms');
+            myDB.collection('superusers')
+                .insertOne((newSuperUserObj), function (err, result){
+                    if(err){
+                        response.message = err;
+                        throw err;
+                    }
+                    response.data = newSuperUserObj;
+                    newUserObj.user_type_id = result.insertedId + '';
+                    callback(null, newUserObj);
+                });
+        };
+
+        function insertUser(userObj, callback){
+            const myDB = db.db('upm-uramms');
+            myDB.collection('users')
+                .insertOne((userObj), function (err, result) {
+                    if (err) {
+                        response.message = err;
+                        throw err;
+                    }
+                    response.data = result;
+                    callback(null, result);
+                });
+        };
+    });
+});
 router.get('/psrequests', (req, res) => {
     if(req.query.id){
         connection((db) => {

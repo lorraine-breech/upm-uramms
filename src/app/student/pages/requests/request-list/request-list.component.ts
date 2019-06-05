@@ -51,7 +51,9 @@ export class RequestListComponent implements OnInit {
       });
   }
   getRequests(){
-    //this.requestService.getCPRequest()
+    //this.requestService.getPSRequest()
+    //check if approved, then, create presentation; else do create nothing
+
   } 
   getLoggedInStudentUserInfo(){
     //fetches the student study object to store in StudentService

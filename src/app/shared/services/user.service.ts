@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 //import { Http, Headers, RequestOptions } from '@angular/http';
 import { User } from '../models/user';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 @Injectable()
 export class UserService {
 
@@ -22,6 +26,13 @@ export class UserService {
     );  
   }
 */
+  deleteUser(userId: string): Observable<{}>{
+    const url = `${this.usersUrl}/${userId}`; 
+    return this._http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('err deleting user'))
+      );
+  }
   getCurrentUser(){
     return this.currentUser;
   }      
@@ -54,7 +65,8 @@ export class UserService {
       );
   }
 
-
+  //name should be changed to "getUserByUserTypeId"
+  //fetches using user_type_id as parameter
   getUser(user_type_id: string): Observable<User>{
     let params = new HttpParams().set('id', user_type_id);
 

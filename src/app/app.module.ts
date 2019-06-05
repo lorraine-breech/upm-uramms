@@ -19,6 +19,7 @@ import { OtherUserService } from './shared/services/other-user.service';
 import { RequestService } from './shared/services/request.service';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { StudyService } from './shared/services/study.service';
+import { PresentationService } from './shared/services/presentation.service';
 
 
 
@@ -45,7 +46,8 @@ import { StudyService } from './shared/services/study.service';
     PanelMemberUserService,
     OtherUserService,
     RequestService,
-    StudyService
+    StudyService,
+    PresentationService
   ],
   bootstrap: [AppComponent]
 })

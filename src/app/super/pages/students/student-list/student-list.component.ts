@@ -11,6 +11,7 @@ import { Professor } from 'src/app/shared/models/professor';
 import { PanelMemberUserService } from 'src/app/shared/services/panel-member-user.service';
 import { PanelMemberUser } from 'src/app/shared/models/user-panel-member';
 import { StudyService } from 'src/app/shared/services/study.service';
+import { PresentationService } from 'src/app/shared/services/presentation.service';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -25,6 +26,7 @@ export class StudentListComponent implements OnInit {
     public router: Router, 
     private studentUserService: StudentUserService,
     private panelMemberUserService: PanelMemberUserService,
+    private presentationService: PresentationService,
     private studyService: StudyService,
     private userService: UserService 
   ){}
@@ -75,6 +77,9 @@ export class StudentListComponent implements OnInit {
   }
 
   deleteStudentUser( studentUser: StudentUser){
+    let studentUserId: string, user: User;
+
+    studentUserId = studentUser.getStudentUserId();
     //remove studentID from panelMemberUsers Student List
     this.updateRelatedPanelMembers(studentUser);
     //delete study
@@ -86,15 +91,25 @@ export class StudentListComponent implements OnInit {
     //delete student user object
     this.studentUsers = this.studentUsers.filter(s => s !== studentUser);
     this.studentUserService.deleteStudentUser(studentUser).subscribe();
+    //fetch user object
+    this.userService.getUser(studentUserId)
+      .subscribe((res)=>{
+        user = new User(res);
+        
+        //deletes user object
+        this.userService.deleteUser(user.getUserId()).subscribe(()=>{});
+      });
   }
   deleteRelatedPresentation(studentUser: StudentUser){
-
+    this.presentationService.deletePresentation(studentUser.getStudentUserPresentationId())
+    .subscribe(()=>{});
   }
   deleteRelatedRequests(studentUser: StudentUser){
-
+    //search every request that is related to this student user
   }
   deleteRelatedStudy(studentUser: StudentUser){
-    this.studyService.deleteStudy(studentUser.getStudentUserStudyId()).subscribe(()=>{});
+    this.studyService.deleteStudy(studentUser.getStudentUserStudyId())
+    .subscribe(()=>{});
   }
   updateRelatedPanelMembers(studentUser: StudentUser){
     //remove from panelmembers' student list
