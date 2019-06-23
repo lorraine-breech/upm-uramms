@@ -89,4 +89,13 @@ export class RequestListComponent implements OnInit {
     this.router.navigate(['/student/requests/create-approval-request']);
   }
 
+  isStudyExist(){
+    if(this.loggedInStudentUser.getStudentUserStudyId()){
+      this.createPSRequestForm();
+    }
+    else{
+      alert('You have not added a study yet.');
+      this.router.navigate(['/student/my-study/add-study']);
+    }
+  }
 }
