@@ -1,13 +1,16 @@
+import { Revision } from "./revision";
+import { ReqResponse } from "./request-response";
+
 export class PaperApprovalRequest{
     private _id: string;
-    private parequest_stud_id: string;
-    private parequest_paper_type: string;
-    private parequest_presentation_id: string;
-    private parequest_response: string[];
-    private parequest_remarks: string[];
-    private parequest_revisions_asked: string[];//temporarily, the revision details (creator, message, dateCreated) are just appended string 
-    private parequest_date_created: Date;
-    private parequest_status: string;
+    private parequest_stud_id: string; //student id
+    private parequest_paper_type: string; //proposal or manuscript
+    private parequest_presentation_id: string; 
+    //response array of objects created when the request is created
+    private parequest_responses: ReqResponse[]; //Response object: pm_other_user id, prof name, prof role, response & remarks
+    private parequest_revisions: Revision[];//Revision Object: author (id&name&role), DC, content, remarks, isASatisfied, IsSDone, IsReturned, RD,
+    private parequest_date_created: Date[]; //[o]=panelPA date, [1]=deptChair date, and so forth
+    private parequest_level: number; // 0=panel, 1=dept-chair, 2=dean, 3=col-sec 4=Completed
     
     constructor(parequest? : any){
         if(parequest){
@@ -15,21 +18,19 @@ export class PaperApprovalRequest{
             this.parequest_stud_id = parequest.parequest_stud_id ? parequest.parequest_stud_id : "";
             this.parequest_paper_type = parequest.parequest_paper_type ? parequest.parequest_paper_type : "";
             this.parequest_presentation_id = parequest.parequest_presentation_id ? parequest.parequest_presentation_id : "";
-            this.parequest_response = parequest.parequest_response ? parequest.parequest_response : [];
-            this.parequest_remarks = parequest.parequest_remarks ? parequest.parequest_remarks : [];
-            this.parequest_revisions_asked = parequest.parequest_revisions_asked ? parequest.parequest_revisions_asked : [];
-            this.parequest_date_created = parequest.parequest_date_created ? new Date(parequest.parequest_date_created) : new Date();
-            this.parequest_status = parequest.parequest_status ? parequest.parequest_status : "";  
+            this.parequest_responses = parequest.parequest_responses ? parequest.parequest_responses : [];
+            this.parequest_revisions = parequest.parequest_revisions ? parequest.parequest_revisions : []; 
+            this.parequest_date_created = parequest.parequest_date_created ? parequest.parequest_date_created : [];
+            this.parequest_level = parequest.parequest_level ? parequest.parequest_level : 0; 
         }
         else{
             this.parequest_stud_id = "";
             this.parequest_paper_type = "";
             this.parequest_presentation_id = "";
-            this.parequest_response = [];
-            this.parequest_remarks = [];
-            this.parequest_revisions_asked = [];
-            this.parequest_date_created = new Date();
-            this.parequest_status = "";  
+            this.parequest_responses = [];
+            this.parequest_revisions = [];
+            this.parequest_date_created = [];
+            this.parequest_level = 0;  
         }
     }
 
@@ -37,20 +38,18 @@ export class PaperApprovalRequest{
         parequest_stud_id,
         parequest_paper_type,
         parequest_presentation_id,
-        parequest_response,
-        parequest_remarks,
-        parequest_revisions_asked,
+        parequest_responses,
+        parequest_revisions,
         parequest_date_created,
-        parequest_status
+        parequest_level
     ){
         this.parequest_stud_id = parequest_stud_id;
         this.parequest_paper_type = parequest_paper_type;
         this.parequest_presentation_id = parequest_presentation_id;
-        this.parequest_response = parequest_response;
-        this.parequest_remarks = parequest_remarks;
-        this.parequest_revisions_asked = parequest_revisions_asked;
+        this.parequest_responses = parequest_responses;
+        this.parequest_revisions = parequest_revisions;
         this.parequest_date_created = parequest_date_created;
-        this.parequest_status = parequest_status;  
+        this.parequest_level = parequest_level;  
     }
 
     getPARequestId(){
@@ -66,19 +65,16 @@ export class PaperApprovalRequest{
         return this.parequest_presentation_id;
     }
     getPARequestResponse(){
-        return this.parequest_response;
-    }
-    getPARequestRemarks(){
-        return this.parequest_remarks;
+        return this.parequest_responses;
     }
     getPARequestRevisions(){
-        return this.parequest_revisions_asked;
+        return this.parequest_revisions;
     }
     getPARequestDateCreated(){
         return this.parequest_date_created;
     }
-    getPARequestStatus(){
-        return this.parequest_status;
+    getPARequestLevel(){
+        return this.parequest_level;
     }
 
     setPARequestId(_id){
@@ -93,19 +89,16 @@ export class PaperApprovalRequest{
     setPARequestPresentationId(parequest_presentation_id){
         this.parequest_presentation_id = parequest_presentation_id;
     }
-    setPARequestResponse(parequest_response){
-        this.parequest_response = parequest_response;
+    setPARequestResponse(parequest_responses){
+        this.parequest_responses = parequest_responses;
     }
-    setPARequestRemarks(parequest_remarks){
-        this.parequest_remarks = parequest_remarks;
-    }
-    setPARequestRevisions(parequest_revisions_asked){
-        this.parequest_revisions_asked = parequest_revisions_asked;
+    setPARequestRevisions(parequest_revisions){
+        this. parequest_revisions= parequest_revisions;
     }
     setPARequestDateCreated(parequest_date_created){
         this.parequest_date_created = parequest_date_created;
     }
-    setPARequestStatus(parequest_status){
-        this.parequest_status = parequest_status;
+    setPARequestStatus(parequest_level){
+        this.parequest_level = parequest_level;
     }
 }

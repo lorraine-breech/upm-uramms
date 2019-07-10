@@ -23,7 +23,6 @@ import { PresentationService } from './shared/services/presentation.service';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -33,6 +32,7 @@ import { PresentationService } from './shared/services/presentation.service';
     SharedModule,
     HomeModule,
     AppRoutingModule
+
   ],
   providers: [
     AuthGuard,

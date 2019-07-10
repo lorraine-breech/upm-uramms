@@ -7,7 +7,7 @@ import { ChangePanelMemberRequestComponent } from "../../student/pages/my-panel/
 import { ChangeProposalRequest } from "../models/request-change-proposal";
 import { PresentationScheduleRequest } from "../models/request-presentation-schedule";
 import { PaperApprovalRequest } from "../models/request-paper-approval";
-
+import { ReqResponse } from 'src/app/shared/models/request-response';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -20,18 +20,67 @@ export class RequestService {
     private paRequestsUrl = "api/parequests";
     private psRequestsUrl = "api/psrequests";
 
-
     constructor( private _http: HttpClient ) { }
-
+    addACRequest(
+        acrequest_type,
+        acrequest_stud_id,
+        acrequest_role_type,
+        acrequest_stud_remarks,
+        acrequest_responses,
+        acrequest_date_created,
+        acrequest_status,
+      ){
+        const url = this.acRequestsUrl;
+    
+        return this._http.post<ACPanelMemberRequest>(url, {
+            acrequest_type,
+            acrequest_stud_id,
+            acrequest_role_type,
+            acrequest_stud_remarks,
+            acrequest_responses,
+            acrequest_date_created,
+            acrequest_status,
+        }).pipe(
+          tap(data => {
+            return data;
+          }),
+          catchError(this.handleError<ACPanelMemberRequest>(`create acrequest error =${acrequest_stud_id}`))
+        )
+    }
+    addPARequest(
+        parequest_stud_id,
+        parequest_paper_type,
+        parequest_presentation_id,
+        parequest_responses,
+        parequest_revisions,
+        parequest_date_created,
+        parequest_level,
+      ){
+        const url = this.paRequestsUrl;
+    
+        return this._http.post<PaperApprovalRequest>(url, {
+            parequest_stud_id,
+            parequest_paper_type,
+            parequest_presentation_id, 
+            parequest_responses,
+            parequest_revisions,
+            parequest_date_created,
+            parequest_level,
+        }).pipe(
+          tap(data => {
+            return data;
+          }),
+          catchError(this.handleError<PaperApprovalRequest>(`create parequest error =${parequest_stud_id}`))
+        )
+    }
     addPSRequest(
         psrequest_stud_id,
         psrequest_pres_type,
         psrequest_pres_date,
         psrequest_pres_time_start,
         psrequest_pres_time_end,
-        psrequest_panel,
-        psrequest_response,
-        psrequest_remarks,
+        psrequest_pres_place,
+        psrequest_responses: ReqResponse[],
         psrequest_date_created,
         psrequest_status,
       ){
@@ -43,9 +92,8 @@ export class RequestService {
             psrequest_pres_date,
             psrequest_pres_time_start,
             psrequest_pres_time_end,
-            psrequest_panel,
-            psrequest_response,
-            psrequest_remarks,
+            psrequest_pres_place,
+            psrequest_responses,
             psrequest_date_created,
             psrequest_status,
         }).pipe(

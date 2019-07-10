@@ -14,7 +14,8 @@ export class StudentUser{
     private study_id: string;
     private panel: Panel; 
     private adviser: string; //adviser name
-    private presentation_id: string; //update to have two of this, proposal and manuscript
+    private presentation_p_id: string; //for proposal presentation
+    private presentation_m_id: string; //for manus presentation
     private status: string; //proposal, implementation, manuscript, completed
     
     constructor(studentUser?: any){
@@ -32,7 +33,8 @@ export class StudentUser{
             this.study_id = studentUser.study_id ? studentUser.study_id : ""; 
             this.panel = studentUser.panel ? studentUser.panel : new Panel(); 
             this.adviser = studentUser.adviser ? studentUser.adviser : "";
-            this.presentation_id = studentUser.presentation_id ? studentUser.presentation_id : ""; 
+            this.presentation_p_id = studentUser.presentation_p_id ? studentUser.presentation_p_id : ""; 
+            this.presentation_m_id = studentUser.presentation_m_id ? studentUser.presentation_m_id : ""; 
             this.status = studentUser.status ? studentUser.status : "";
         }
         else{
@@ -48,7 +50,8 @@ export class StudentUser{
             this.study_id = ""; 
             this.panel = new Panel(); 
             this.adviser;
-            this.presentation_id = ""; 
+            this.presentation_p_id = "";
+            this.presentation_m_id = ""; 
             this.status = "";
         }
 
@@ -66,7 +69,8 @@ export class StudentUser{
         stud_study_id,
         stud_panel,
         adviser,
-        stud_presentation_id,
+        presentation_p_id,
+        presentation_m_id,
         status
     ){
         this.fname = stud_fname;
@@ -81,7 +85,8 @@ export class StudentUser{
         this.study_id = stud_study_id; 
         this.panel = stud_panel; 
         this.adviser = adviser;
-        this.presentation_id = stud_presentation_id; 
+        this.presentation_p_id = presentation_p_id;
+        this.presentation_m_id = presentation_m_id;
         this.status = status;
     }
 
@@ -142,8 +147,11 @@ export class StudentUser{
     getStudentUserAdviser(){
         return this.adviser;
     }
-    getStudentUserPresentationId(){
-        return this.presentation_id;
+    getStudentUserPresentationProposalId(){
+        return this.presentation_p_id;
+    }
+    getStudentUserPresentationManuscriptId(){
+        return this.presentation_m_id;
     }
     getStudentUserStatus(){
         return this.status;
@@ -203,8 +211,11 @@ export class StudentUser{
     setStudentUserAdviser(adviser){
         this.adviser = adviser;
     }
-    setStudentUserPresentationId(stud_presentation_id){
-        this.presentation_id = stud_presentation_id;
+    setStudentUserPresentationProposalId(presentation_p_id){
+        this.presentation_p_id = presentation_p_id;
+    }
+    setStudentUserPresentationManuscriptId(presentation_m_id){
+        this.presentation_m_id = presentation_m_id;
     }
     setStudentUserStatus(status){
         this.status = status;

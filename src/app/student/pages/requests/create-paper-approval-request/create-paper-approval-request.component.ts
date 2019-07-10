@@ -23,7 +23,7 @@ export class CreatePaperApprovalRequestComponent implements OnInit {
       rstatus: null
     });
   }
-
+  time = {hour: 13, minute: 30};
   ngOnInit() {
   }
   gotoRequests(){

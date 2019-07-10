@@ -1,13 +1,14 @@
+import { ReqResponse } from "./request-response";
+
 export class ACPanelMemberRequest{
     private _id: string;
-    private acrequest_type: string;
-    private acrequest_stud_id: string;
-    private acrequest_role_type: string;
-    private acrequest_prof_id: string[]; //string[0]-from, string[1]-to
-    private acrequest_response: string[]; //string[0]-from response, string[1]-to response
-    private acrequest_remarks: string[]; //string[0]-fro remarks, string[1]-to remarks
+    private acrequest_type: string; //add or change
+    private acrequest_stud_id: string; //student id
+    private acrequest_role_type: string; //role to add or change: Adviser, Co-adviser, or Panelist
+    private acrequest_stud_remarks: string; //student's reason or message
+    private acrequest_responses: ReqResponse[]; //Response object: stores pm_other_user id, prof name, prof role, response & remarks
     private acrequest_date_created: Date;
-    private acrequest_status: string;
+    private acrequest_is_approved: boolean; //if the request has been approved or not
 
     constructor(acrequest? : any){
         if(acrequest){
@@ -15,21 +16,19 @@ export class ACPanelMemberRequest{
             this.acrequest_type = acrequest.acrequest_type ? acrequest.acrequest_type : "";
             this.acrequest_stud_id = acrequest.acrequest_stud_id ? acrequest.acrequest_stud_id : "";
             this.acrequest_role_type = acrequest.acrequest_role_type ? acrequest.acrequest_role_type : "";
-            this.acrequest_prof_id = acrequest.acrequest_prof_id ? acrequest.acrequest_prof_id : []; 
-            this.acrequest_response = acrequest.acrequest_response ? acrequest.acrequest_response : [];
-            this.acrequest_remarks = acrequest.acrequest_remarks ? acrequest.acrequest_remarks : [];
+            this.acrequest_stud_remarks = acrequest.acrequest_stud_remarks ? acrequest.acrequest_stud_remarks : "";
+            this.acrequest_responses = acrequest.acrequest_response ? acrequest.acrequest_response : [];
             this.acrequest_date_created = acrequest.acrequest_date_created ? acrequest.acrequest_date_created : new Date();
-            this.acrequest_status = acrequest.acrequest_status ? acrequest.acrequest_status : "";
+            this.acrequest_is_approved = acrequest.acrequest_is_approved ? acrequest.acrequest_is_approved : null;
         }   
         else{
             this.acrequest_type = "";
             this.acrequest_stud_id = "";
             this.acrequest_role_type = "";
-            this.acrequest_prof_id = []; 
-            this.acrequest_response = [];
-            this.acrequest_remarks = [];
+            this.acrequest_stud_remarks = ""; 
+            this.acrequest_responses = [];
             this.acrequest_date_created = new Date();
-            this.acrequest_status = "";
+            this.acrequest_is_approved = null;
 
         }
     }
@@ -38,20 +37,18 @@ export class ACPanelMemberRequest{
         acrequest_type, 
         acrequest_stud_id, 
         acrequest_role_type, 
-        acrequest_prof_id, 
-        acrequest_response, 
-        acrequest_remarks, 
+        acrequest_stud_remarks,
+        acrequest_responses, 
         acrequest_date_created,
-        acrequest_status
+        acrequest_is_approved
     ){
         this.acrequest_type = acrequest_type;
         this.acrequest_stud_id = acrequest_stud_id;
         this.acrequest_role_type = acrequest_role_type;
-        this.acrequest_prof_id = acrequest_prof_id;
-        this.acrequest_response = acrequest_response;
-        this.acrequest_remarks = acrequest_remarks;
+        this.acrequest_stud_remarks = acrequest_stud_remarks;
+        this.acrequest_responses = acrequest_responses;
         this.acrequest_date_created = acrequest_date_created;
-        this.acrequest_status = acrequest_status;
+        this.acrequest_is_approved = acrequest_is_approved;
     }
 
     getACPanelMemberRequestId(){
@@ -66,20 +63,17 @@ export class ACPanelMemberRequest{
     getAddChangePanelMemberRequestRoleType(){
         return this.acrequest_role_type;
     }
-    getACPanelMemberRequestProfId(){
-        return this.acrequest_prof_id;
+    getACPanelMemberRequestStudentRemarks(){
+        return this.acrequest_stud_remarks;
     }
     getACPanelMemberRequestResponse(){
-        return this.acrequest_response;
-    }
-    getACPanelMemberRequestRemarks(){
-        return this.acrequest_remarks;
+        return this.acrequest_responses;
     }
     getACPanelMemberRequestDateCreated(){
         return this.acrequest_date_created;
     }
-    getACPanelMemberRequestStatus(){
-        return this.acrequest_status;
+    getACPanelMemberRequestIsApproved(){
+        return this.acrequest_is_approved;
     }
 
     setACPanelMemberRequestId(_id){
@@ -94,19 +88,16 @@ export class ACPanelMemberRequest{
     setAddChangePanelMemberRequestRoleType(acrequest_role_type){
         this.acrequest_role_type = acrequest_role_type;
     }
-    setACPanelMemberRequestProfId(acrequest_prof_id){
-        this.acrequest_prof_id = acrequest_prof_id;
+    setACPanelMemberRequestStudentRemarks(acrequest_stud_remarks){
+        this.acrequest_stud_remarks = acrequest_stud_remarks;
     }
-    setACPanelMemberRequestResponse(acrequest_response){
-        this.acrequest_response;
-    }
-    setACPanelMemberRequestRemarks(acrequest_remarks){
-        this.acrequest_remarks = acrequest_remarks;
+    setACPanelMemberRequestResponse(acrequest_responses){
+        this.acrequest_responses = acrequest_responses;
     }
     setACPanelMemberRequestDateCreated(acrequest_date_created){
         this.acrequest_date_created = acrequest_date_created;
     }
-    setACPanelMemberRequestStatus(acrequest_status){
-        this.acrequest_status = acrequest_status;
+    setACPanelMemberRequestIsApproved(acrequest_is_approved){
+        this.acrequest_is_approved = acrequest_is_approved;
     }
 }

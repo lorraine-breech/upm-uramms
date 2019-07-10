@@ -15,48 +15,43 @@ export class PresentationService {
     users: User[];
     user: User;
     private presentationsUrl = "api/presentations";
-
+    
     constructor(private _http: HttpClient) { }
     
+    getPresentation(presentationId: string): Observable<Presentation>{
+        let params = new HttpParams().set('id', presentationId);
+    
+        return this._http.get<Presentation>(this.presentationsUrl,{
+          params: params
+        }).pipe(
+            tap(_ =>this.log('fetched presentation by id')),
+            catchError(this.handleError<Presentation>(` error in fetching presentation ${presentationId}`))
+        );
+    }
+
     addPresention(
         studentId,
-        adviser_id,
-        coadviser_id,
-        panelist1_id,
-        panelist2_id,
-        panelist3_id,
         study_id,
         presentation_type,
-        adviser_assesment,
-        coadviser_assesment,
-        panelist1_assesment,
-        panelist2_assesment, 
-        panelist3_assesment,
-        result,
+        responses,
+        is_passed,
         date,
         time_start,
-        time_end
+        time_end,
+        place
         ){
         const url = this.presentationsUrl;
     
         return this._http.post<Presentation>(url, {
             studentId,
-            adviser_id,
-            coadviser_id,
-            panelist1_id,
-            panelist2_id,
-            panelist3_id,
             study_id,
             presentation_type,
-            adviser_assesment,
-            coadviser_assesment,
-            panelist1_assesment,
-            panelist2_assesment, 
-            panelist3_assesment,
-            result,
+            responses,
+            is_passed,
             date,
             time_start,
-            time_end
+            time_end,
+            place
         }).pipe(
           tap(data => {
             return data;

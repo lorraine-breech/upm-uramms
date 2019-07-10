@@ -1,36 +1,47 @@
 <div class="container mt-4">
     <p class="h4 text-center mb-4">Add Panel Member Request</p>
     <div class="jumbotron"> 
-      <form (ngSubmit)="onSubmit()">
+
+      <form [formGroup]="addPanelMemberForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
-          <label for="role" class="col-sm-3 col-form-label">Role:</label>
+          <label class="col-sm-3 col-form-label" for="role">Panel Member Role</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" id="role" value="Panel Member Role (e.g. Adviser)">
+            <select class="form-control" id="role" formControlName="role">
+              <option value="" selected disabled>Choose a role</option>
+              <option>Adviser</option>
+              <option>Co-adviser</option>
+              <option>Panelist</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">
           <label for="professor" class="col-sm-3 col-form-label">Professor:</label>
-          <div class="col-sm-4">
-            <select class="form-control" id="professor">
+          <div class="col-sm-9">
+              <select [compareWith]="compareFn" class="form-control" formControlName="professor" id="prof">
                 <!-- List of Professors will be taken from the database -->
-                <option>Jon Henly O. Santillan</option>
-                <option>Maureen Agrazamendez</option>
+                <option value="" selected disabled>Choose a professor</option>
+                <option *ngFor = "let pmProfessor of pmProfessors" [ngValue]="pmProfessor">{{pmProfessor.getProfessorFullName()}}</option>
             </select>
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="effectivity" class="col-sm-3 col-form-label">Effectivity:</label>
+          <label for="effectivity" class="col-sm-3 col-form-label" >Effectivity:</label>
           <div class="col-sm-4">
-            <select class="form-control" id="effectivity">
+            <select class="form-control" id="effectivity" formControlName="semester">
                 <option>1st Semester</option>
                 <option>2nd Semester</option>
             </select>
           </div>
           <div class="col-sm-4">
-            <select class="form-control" id="effectivity">
+            <select class="form-control" id="effectivity" formControlName="academicYear">
                 <option>A.Y. 2019-2020</option>
                 <option>A.Y. 2020-2021</option>
+                <option>A.Y. 2021-2022</option>
+                <option>A.Y. 2022-2023</option>
+                <option>A.Y. 2023-2024</option>
+                <option>A.Y. 2024-2025</option>
+                <option>A.Y. 2025-2026</option>
             </select>
           </div>
         </div>
@@ -38,7 +49,7 @@
         <div class="form-group row">
           <label for="optmessage" class="col-sm-3 col-form-label">Optional Message:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="optmessage" placeholder="Write your message here.">
+            <input type="text" class="form-control" formControlName="message" id="optmessage" placeholder="Write your message here.">
           </div>
         </div>
         <div class="form-group row">
