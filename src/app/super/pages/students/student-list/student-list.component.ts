@@ -101,8 +101,11 @@ export class StudentListComponent implements OnInit {
       });
   }
   deleteRelatedPresentation(studentUser: StudentUser){
-    this.presentationService.deletePresentation(studentUser.getStudentUserPresentationId())
-    .subscribe(()=>{});
+    this.presentationService.deletePresentation(studentUser.getStudentUserPresentationProposalId())
+    .subscribe(()=>{
+      this.presentationService.deletePresentation(studentUser.getStudentUserPresentationManuscriptId())
+      .subscribe(()=>{});
+    });
   }
   deleteRelatedRequests(studentUser: StudentUser){
     //search every request that is related to this student user

@@ -51,8 +51,8 @@ export class ProfessorService {
   }
   addProfessor(
     fname,
-    lname,
     mname,
+    lname,
     emp_num,
     position,
     title,

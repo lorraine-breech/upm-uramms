@@ -1,41 +1,88 @@
-<div class="container mt-4 " >
+<form [formGroup]="requestsForm" >
+  <div class="container mt-4 " >
+    <div class="row">
+      <div class="col"> 
+        <table class="table table-sm table-hover ml-1">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Request Type</th>
+              <th scope="col">Request Status</th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <tr *ngIf="isImplementation; else elseBlock1">
+              <td colspan="4">
+                <label>You are on implementation stage. If you are ready to start your manuscript, create a PS request now.</label>
+              </td>
+            </tr>
+            <ng-template #elseBlock1> 
+              <tr *ngIf="isCompleted; else elseBlock2">
+                <td colspan="4">
+                  <label>Congratulations! You have completed your study!</label>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template #elseBlock2>
 
-  <div class="row">
-    <div class="col">
-      <table class="table table-sm table-hover ml-1">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Request Type</th>
-            <th scope="col">Request Status</th>
-          </tr>
-        </thead>
-      
-        <tbody>
-          <tr *ngFor="let request of requests" (click)="onSelect(request)">
-            <th scope="row">1</th>
-            <td>October 19, 2018 {{request.id}} </td>
-            <td>Request: Proposal {{request.name}}</td>
-            <td>Unread (2/3)</td>
-          </tr>
-        </tbody>
-      </table> 
+              <ng-container *ngIf="is_there_psrequest">
+                  <tr *ngFor="let psrequest of psrequests" (click)="viewPSRequestDetail(psrequest)">
+                    <th scope="row">1</th>
+                    <td>{{getDateOnly(psrequest.getPSRequestDateCreated())}} </td>
+                    <td>Presentation Schedule Request</td>
+                    <td>{{getRequestStatus(psrequest.getPSRequestIsApproved())}}</td>
+                  </tr>
+              </ng-container>
+
+              <ng-container *ngIf="is_there_parequest">
+                <tr *ngFor="let parequest of parequests" (click)="viewPARequestDetail(parequest)">
+                  <th scope="row">1</th>
+                  <td>{{getDateOnly(parequest.getPARequestDateCreated())}}</td>
+                  <td>Paper Approval Request</td>
+                  <td>{{getPARequestStatus(psrequest.getPARequestLevel())}}</td>
+                </tr>  
+              </ng-container>
+
+              <ng-container *ngIf="is_there_cprequest">
+                <tr *ngFor="let cprequest of cprequests" (click)="viewCPRequestDetail(cprequest)">
+                  <th scope="row">1</th>
+                  <td>{{getDateOnly(cprequest.getCPRequestDateCreated())}} </td>
+                  <td>Change Proposal Request</td>
+                  <td>{{getRequestStatus(cprequest.getCPRequestIsApproved())}}</td>
+                </tr>
+              </ng-container>
+              
+              <ng-container *ngIf="is_there_acrequest">
+                <tr *ngFor="let acrequest of acrequests" (click)="viewACRequestDetail(acrequest)">
+                  <th scope="row">1</th>
+                  <td>{{getDateOnly(acrequest.getACPanelMemberRequestDateCreated())}} </td>
+                  <td>Add/Change Panel Member Request</td>
+                  <td>{{getRequestStatus(acrequest.getACPanelMemberRequestIsApproved())}}</td>
+                </tr>
+              </ng-container>
+              
+            </ng-template>
+          </tbody>
+        </table> 
+      </div>
     </div>
+    
+    <nav>
+      <a routerLink="/student/requests/cancel-request" routerLinkActive="active"> Cancel Request </a>
+      <a routerLink="/student/requests/cancel-appointment" routerLinkActive="active"> Cancel Appointment</a>
+      <a routerLink="/student/requests/submit-revision" routerLinkActive="active"> Submit Revision </a>
+    </nav>
   </div>
-  
-  <nav>
-    <a routerLink="/student/requests/cancel-request" routerLinkActive="active"> Cancel Request </a>
-    <a routerLink="/student/requests/cancel-appointment" routerLinkActive="active"> Cancel Appointment</a>
-    <a routerLink="/student/requests/submit-revision" routerLinkActive="active"> Submit Revision </a>
-  </nav>
-</div>
+</form>     
+
+
+
+
 
 <div class="align-self-left fixed-bottom" >
   <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="isAllowedPSRequest()">Create Presentation Request</a>
   <a class="btn btn-primary btn-sm mb-2 ml-2 text-white" role="button" (click)="isAllowedPARequest()">Create Paper Approval Request</a>
-  <div class="p-3 bg-primary ">
-
-  </div>
-  
+  <div class="p-3 bg-primary "></div>
 </div>

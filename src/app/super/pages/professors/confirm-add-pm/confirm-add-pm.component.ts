@@ -23,7 +23,8 @@ export class ConfirmAddPmComponent implements OnInit {
   
   addPanelMemberUser(){
     this.panelMemberUserService.addPanelMemberUser(
-      this.currentProfessor.getProfessorId()
+      this.currentProfessor.getProfessorId(),
+      this.currentProfessor.getProfessorFullName()
     ).subscribe(newProfessor=>{
       if(newProfessor){
         //successful

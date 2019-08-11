@@ -292,15 +292,15 @@ router.post('/presentations', (req, res) => {
 router.post('/psrequests', (req, res) => {
     connection((db) => {
         var newPSRequestObj = {
-            psrequest_stud_id,
-            psrequest_pres_type,
-            psrequest_pres_date,
-            psrequest_pres_time_start,
-            psrequest_pres_time_end,
-            psrequest_pres_place,
-            psrequest_responses,
-            psrequest_date_created,
-            psrequest_is_approved,
+            psrequest_stud_id: req.body.psrequest_stud_id,
+            psrequest_pres_type: req.body.psrequest_pres_type,
+            psrequest_pres_date: req.body.psrequest_pres_date,
+            psrequest_pres_time_start: req.body.psrequest_pres_time_start,
+            psrequest_pres_time_end: req.body.psrequest_pres_time_end,
+            psrequest_pres_place: req.body.psrequest_pres_place,
+            psrequest_responses: req.body.psrequest_responses,
+            psrequest_date_created: req.body.psrequest_date_created,
+            psrequest_is_approved: req.body.psrequest_is_approved,
         }
         const myDB = db.db('upm-uramms');
         myDB.collection('psrequests')
@@ -310,7 +310,7 @@ router.post('/psrequests', (req, res) => {
                 throw err;
             }
             response.data = newPSRequestObj;
-            callback(null, newPSRequestObj);
+            res.json(result);
         });    
     });
 });
@@ -320,12 +320,12 @@ router.get('/psrequests', (req, res) => {
         connection((db) => {
             const myDB = db.db('upm-uramms');
             myDB.collection('psrequests')
-                .find(ObjectID(req.query.id))
+                .find({psrequest_stud_id: req.query.id})
                 .toArray()
                 .then((psrequests) => {
                     if (psrequests) {
-                        response.data = psrequests[0];
-                        res.json(psrequests[0]);
+                        response.data = psrequests;
+                        res.json(psrequests);
                     } else {
                         res.json(false);
                     }
@@ -356,16 +356,59 @@ router.get('/psrequests', (req, res) => {
     }
     
 });
+router.get('/acrequests', (req, res) => {
+    if(req.query.id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('acrequests')
+                .find({acrequest_stud_id: req.query.id})
+                .toArray()
+                .then((acrequests) => {
+                    if (acrequests) {
+                        response.data = acrequests;
+                        res.json(acrequests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else{
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('acrequests')
+                .find()
+                .toArray()
+                .then((acrequests) => {
+                    if (crequests) {
+                        response.data = acrequests;
+                        res.json(acrequests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    
+});
 router.post('/acrequests', (req, res) => {
     connection((db) => {
         var newACRequestObj = {
-            acrequest_type,
-            acrequest_stud_id,
-            acrequest_role_type,
-            acrequest_stud_remarks,
-            acrequest_responses,
-            acrequest_date_created,
-            acrequest_status,
+            acrequest_type: req.body.acrequest_type,
+            acrequest_stud_id: req.body.acrequest_stud_id,
+            acrequest_role_type: req.body.acrequest_role_type,
+            acrequest_stud_remarks: req.body.acrequest_stud_remarks,
+            acrequest_change_from: req.body.acrequest_change_from,
+            acrequest_change_to: req.body.acrequest_change_to,
+            acrequest_responses: req.body.acrequest_responses,
+            acrequest_date_created: req.body.acrequest_date_created,
+            acrequest_is_approved: req.body.acrequest_is_approved,
         }
         const myDB = db.db('upm-uramms');
         myDB.collection('acrequests')
@@ -375,7 +418,8 @@ router.post('/acrequests', (req, res) => {
                 throw err;
             }
             response.data = newACRequestObj;
-            callback(null, newACRequestObj);
+            res.json(result);
+        
         });    
     });
 });
@@ -383,13 +427,13 @@ router.post('/acrequests', (req, res) => {
 router.post('/parequests', (req, res) => {
     connection((db) => {
         var newPARequestObj = {
-            parequest_stud_id,
-            parequest_paper_type,
-            parequest_presentation_id,
-            parequest_responses,
-            parequest_revisions,
-            parequest_date_created,
-            parequest_level,
+            parequest_stud_id: req.body.parequest_stud_id,
+            parequest_paper_type: req.body.parequest_paper_type,
+            parequest_presentation_id: req.body.parequest_presentation_id, 
+            parequest_responses: req.body.parequest_responses,
+            parequest_revisions: req.body.parequest_revisions,
+            parequest_date_created: req.body.parequest_date_created,
+            parequest_level: req.body.parequest_level,
         }
         const myDB = db.db('upm-uramms');
         myDB.collection('parequests')
@@ -409,12 +453,12 @@ router.get('/parequests', (req, res) => {
         connection((db) => {
             const myDB = db.db('upm-uramms');
             myDB.collection('parequests')
-                .find(ObjectID(req.query.id))
+                .find({parequest_stud_id: req.query.id})
                 .toArray()
                 .then((parequests) => {
                     if (parequests) {
-                        response.data = parequests[0];
-                        res.json(parequests[0]);
+                        response.data = parequests;
+                        res.json(parequests);
                     } else {
                         res.json(false);
                     }
@@ -452,12 +496,12 @@ router.get('/cprequests', (req, res) => {
         connection((db) => {
             const myDB = db.db('upm-uramms');
             myDB.collection('cprequests')
-                .find(ObjectID(req.query.id))
+                .find({cprequest_stud_id: req.query.id})
                 .toArray()
                 .then((cprequests) => {
                     if (cprequests) {
-                        response.data = cprequests[0];
-                        res.json(cprequests[0]);
+                        response.data = cprequests;
+                        res.json(cprequests);
                     } else {
                         res.json(false);
                     }
@@ -708,6 +752,26 @@ router.delete('/studentusers/:id', (req, res)=>{
         );
     })
 });
+router.delete('/users/:id', (req, res)=>{
+    connection((db) =>{
+        const myDB = db.db('upm-uramms');
+        const id = new ObjectID(req.params.id);
+        console.log("REQUEST ID: "+req.params.id);
+
+        myDB.collection('users')
+        .deleteOne(
+            {_id: id},
+            function (err, results){
+                if (err){
+                    response.message = err;
+                    throw err;
+                }
+                console.log("1 document deleted");
+                db.close();
+            }
+        );
+    })
+});
 router.put('/panelmemberusers', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
@@ -806,7 +870,7 @@ router.put('/studentusers', (req, res)=>{
     })
 });
 router.post('/createSuperUser', (req, res) => {
-    connection((db) =>{
+    connection((db) =>{ 
         var newSuperUserObj = {
             fname: req.body.fname,
             mname: req.body.mname,
@@ -870,6 +934,7 @@ router.post('/createPanelMemberUser', (req, res) => {
     connection((db) =>{
         var newPanelMemberUserObj = {
             pm_prof_id: req.body.pm_prof_id,
+            pm_full_name: req.body.pm_full_name,
             pm_advisee_id: null,
             pm_coadvisee_id: null,
             pm_panelee_id: null,

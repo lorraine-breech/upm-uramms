@@ -20,7 +20,7 @@ export class AddPanelMemberRequestComponent implements OnInit {
   private pmProfessor: Professor;
   private pmProfessors: Professor[];
   private submitted = false;
-  private loggedInStudentUser: StudentUser;
+  private loggedInStudentUser: StudentUser; 
   constructor( 
     public router: Router,
     private requestService: RequestService,
@@ -52,27 +52,40 @@ export class AddPanelMemberRequestComponent implements OnInit {
   }
   onSubmit(){
     this.submitted = true;
+    let responses: ReqResponse[] = [];
     let response: ReqResponse;
     let professor: Professor;
     professor = new Professor(this.addPanelMemberForm.value.professor);
     //check if this professor exists    
+    response = new ReqResponse();
     response.setResponseObject(professor.getProfessorId(), professor.getProfessorFullName(), null, null, null, null);
+    responses.push(response);
     this.requestService.addACRequest(
       "add",
-      null,
+      this.loggedInStudentUser.getStudentUserId(), //student id
       this.addPanelMemberForm.value.role,
       this.addPanelMemberForm.value.message,
-      response,
-      new Date(),
       null,
+      null,
+      responses,
+      new Date(),
+      null, //is_approved
     ).subscribe((addedRequest)=>{
       if(addedRequest){
-
+        console.log("Request Successfully made!");
+        alert('Request Successfully made.');
+        this.goToMyPanelList();
       }
       else{
-
+        alert('There was an error in submitting the request.');
       }
     })
+  }
+  isAllowedToAddPM(){
+    //check if role is vacant
+    //check if the prof has already a role in
+    //either filter the <option>s or the pmProfessors
+    //Don't need to work on this now 
   }
   goToMyPanelList(){
     this.router.navigate(['/student/my-panel']);

@@ -15,14 +15,7 @@ export class StudyService {
   private deleteUploadedFileUrl = "api/deleteuploadedfile";
   private uploadedFilesUrl = "api/uploadedfiles";
   constructor(private _http: HttpClient) { }
-  /*
-  deleteFile(fileName: string): Observable<{Study}>{
-    const url = this.deleteUploadedFileUrl;
 
-    
-  }
-  */
- 
   deleteStudy(studyId: string): Observable<{}>{
     const url = `${this.studiesUrl}/${studyId}`; 
     return this._http.delete(url, httpOptions)

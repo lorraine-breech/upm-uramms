@@ -120,6 +120,13 @@ export class ProfessorListComponent implements OnInit {
     this.router.navigate(['/super/professors/edit-professor-form']);
   }
   deleteProfessor(prof: Professor){
+    //refactor
+    //student panel
+    //otherUser
+    //pending requests
+    //delete panelMemberUser
+    //remove from every other document
+    //delete user
     this.professors = this.professors.filter(p => p !== prof);
     this.professorService.deleteProfessor(prof).subscribe();
     console.log("Professor Successfully Deleted");

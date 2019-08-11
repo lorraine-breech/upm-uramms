@@ -86,7 +86,6 @@ export class AddStudyComponent implements OnInit {
     .subscribe(res =>{
       this.studentUserService.setLoggedInStudentUser(res);
       this.gotoMyStudy();
-
     });
     
   }

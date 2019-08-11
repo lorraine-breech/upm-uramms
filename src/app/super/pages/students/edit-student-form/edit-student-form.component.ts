@@ -17,7 +17,7 @@ import { Professor } from '../../../../shared/models/professor';
   styleUrls: ['./edit-student-form.component.css']
 })
 export class EditStudentFormComponent implements OnInit {
-
+ 
   editStudentUserForm: FormGroup;
   submitted = false;
   private currentStudentUser: StudentUser;
@@ -123,7 +123,6 @@ export class EditStudentFormComponent implements OnInit {
           adviser: this.currentAdviser 
         });
       });
-    
   } 
   getCourses(){
     this.courseService.getCourses()

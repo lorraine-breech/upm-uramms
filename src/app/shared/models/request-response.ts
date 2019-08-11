@@ -15,7 +15,7 @@ export class ReqResponse{
             this.response = response.response ? response.response : "";
             this.remarks = response.remarks ? response.remarks : "";
             this.date = response.date ? response.date : new Date();
-        }
+        } 
         else{
             this.pm_other_user_id = null;
             this.prof_name = null; 

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -13,7 +12,7 @@ const httpOptions = {
 export class PanelMemberUserService {
   result: PanelMemberUser[];
   private createPanelMemberUserUrl = "api/createPanelMemberUser";
-  private panelMembersUrl = "api/panelmembers";
+  private panelMembersUrl = "api/panelmemberusers";
 
   constructor( private _http: HttpClient ) { }
  
@@ -42,13 +41,16 @@ export class PanelMemberUserService {
         catchError(this.handleError<PanelMemberUser>(`error panelMemberID=${panelMemberUserId}!`))
     );
   }
+ 
 
   addPanelMemberUser(
-    pm_prof_id
+    pm_prof_id,
+    pm_full_name
   ){
     const url = this.createPanelMemberUserUrl;
     return this._http.post<PanelMemberUser>(url, {
-      pm_prof_id
+      pm_prof_id,
+      pm_full_name
     }).pipe(
       tap(data => {
         return data;

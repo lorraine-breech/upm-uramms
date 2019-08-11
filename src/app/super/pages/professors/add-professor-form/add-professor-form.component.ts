@@ -12,6 +12,7 @@ import { CourseService } from '../../../../shared/services/course.service';
   styleUrls: ['./add-professor-form.component.css']
 })
 export class AddProfessorFormComponent implements OnInit {
+  
   addProfessorForm: FormGroup;
   submitted = false;
   private departments: Department[];
@@ -31,7 +32,8 @@ export class AddProfessorFormComponent implements OnInit {
   private user_type: string = null;
   private user_username: string = null;
   private user_password: string = null;
-  constructor( public router: Router, private formBuilder: FormBuilder,
+  constructor( 
+    public router: Router, private formBuilder: FormBuilder,
     private professorService: ProfessorService,
     private courseService: CourseService
   ) { 

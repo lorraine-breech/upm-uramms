@@ -37,7 +37,7 @@ export class CreatePresentationScheduleRequestComponent implements OnInit {
       timeFrom: null,
       place: null
     });
-  }
+  } 
 
   ngOnInit() {
     this.study = new Study(this.studentUserService.getLoggedInStudentUserStudy());
@@ -82,13 +82,14 @@ export class CreatePresentationScheduleRequestComponent implements OnInit {
         this.createPSRequestForm.value.place,
         responses,
         new Date(),
-        false,
+        null, //is_approved
       ).subscribe(newPSRequest=>{
         if(newPSRequest){
           alert('Presentation Schedule Request Created.');
+          this.gotoRequests();
           //successful
           //clearForm()
-        }
+        } 
         else{
           //unsuccessful
         }
@@ -112,32 +113,27 @@ export class CreatePresentationScheduleRequestComponent implements OnInit {
       response.setResponseObject(panel.getPanelAdviserId(), panel.getPanelAdviserName(), "adviser", 0, null, null);
       responses.push(response);
     }
-    else if(panel.getPanelCoAdviserId()){
+    if(panel.getPanelCoAdviserId()){
       response = new ReqResponse();
       response.setResponseObject(panel.getPanelCoAdviserId(), panel.getPanelCoAdviserName(), "co-adviser", 0, null, null);
       responses.push(response);
     }
-    else if(panel.getPanelPanelist1Id()){
+    if(panel.getPanelPanelist1Id()){
       response = new ReqResponse();
       response.setResponseObject(panel.getPanelPanelist1Id(), panel.getPanelPanelist1Name(), "panelist1", 0, null, null);
       responses.push(response);
     }
-    else if(panel.getPanelPanelist2Id()){
+    if(panel.getPanelPanelist2Id()){
       response = new ReqResponse();
       response.setResponseObject(panel.getPanelPanelist2Id(), panel.getPanelPanelist2Name(), "panelist2", 0, null, null);
       responses.push(response);
     }
-    else if(panel.getPanelPanelist3Id()){
+    if(panel.getPanelPanelist3Id()){
       response = new ReqResponse();
       response.setResponseObject(panel.getPanelPanelist3Id(), panel.getPanelPanelist3Name(), "panelist3", 0, null, null);
       responses.push(response);
     }
-    else{
-      //for debugging purposes only
-      alert('You have no panel yet.');
-      console.log("No panel.");
-      return;
-    }
+    
 
     return responses;
   }

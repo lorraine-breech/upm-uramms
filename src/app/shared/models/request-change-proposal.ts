@@ -10,7 +10,7 @@ export class ChangeProposalRequest{
     private cprequest_to: string;
     private cprequest_response: ReqResponse[];//Response object: stores pm_other_user id, prof name, prof role, response & remarks
     private cprequest_date_created: Date;
-    private cprequest_status: string; 
+    private cprequest_is_approved: boolean; //null-pending 
 
     constructor(cprequest? : any){
         if(cprequest){
@@ -22,7 +22,7 @@ export class ChangeProposalRequest{
             this.cprequest_to = cprequest.cprequest_to ? cprequest.cprequest_to : "";
             this.cprequest_response = cprequest.cprequest_response ? cprequest.cprequest_response : [];
             this.cprequest_date_created = cprequest.cprequest_date_created ? new Date(cprequest.cprequest_date_created) : new Date();
-            this.cprequest_status = cprequest.cprequest_status ? cprequest.cprequest_status : "";
+            this.cprequest_is_approved = cprequest.cprequest_is_approved ? cprequest.cprequest_is_approved : null;
         }
         else{
             this.cprequest_stud_id = "";
@@ -32,7 +32,7 @@ export class ChangeProposalRequest{
             this.cprequest_to = "";
             this.cprequest_response = [];
             this.cprequest_date_created = new Date();
-            this.cprequest_status = "";
+            this.cprequest_is_approved = null;
         }
     }
 
@@ -44,7 +44,7 @@ export class ChangeProposalRequest{
         cprequest_to,
         cprequest_response,
         cprequest_date_created,
-        cprequest_status
+        cprequest_is_approved
     ){
         this.cprequest_stud_id = cprequest_stud_id;
         this.cprequest_proposal_file_name = cprequest_proposal_file_name;
@@ -53,7 +53,7 @@ export class ChangeProposalRequest{
         this.cprequest_to = cprequest_to;
         this.cprequest_response = cprequest_response;
         this.cprequest_date_created = cprequest_date_created;
-        this.cprequest_status = cprequest_status;
+        this.cprequest_is_approved = cprequest_is_approved;
     }
 
     getCPRequestId(){
@@ -80,8 +80,8 @@ export class ChangeProposalRequest{
     getCPRequestDateCreated(){
         return this.cprequest_date_created;
     }
-    getCPRequestStatus(){
-        return this.cprequest_status;
+    getCPRequestIsApproved(){
+        return this.cprequest_is_approved;
     }
 
 
@@ -109,8 +109,8 @@ export class ChangeProposalRequest{
     setCPRequestDateCreated(cprequest_date_created){
         this.cprequest_date_created = cprequest_date_created;
     }
-    setCPRequestStatus(cprequest_status){
-        this.cprequest_status = cprequest_status;
+    setCPRequestIsApproved(cprequest_is_approved){
+        this.cprequest_is_approved = cprequest_is_approved;
     }
     
 }

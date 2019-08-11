@@ -23,7 +23,7 @@ export class PresentationScheduleRequest{
             this.psrequest_pres_place = psrequest.psrequest_pres_place ? psrequest.psrequest_pres_place : "";
             this.psrequest_response = psrequest.psrequest_response ? psrequest.psrequest_response : [];
             this.psrequest_date_created = psrequest.psrequest_date_created ? new Date(psrequest.psrequest_date_created) : new Date();
-            this.psrequest_is_approved = psrequest.psrequest_is_approved ? psrequest.psrequest_is_approved : "";
+            this.psrequest_is_approved = psrequest.psrequest_is_approved ? psrequest.psrequest_is_approved : null;
         }
         else{
             this.psrequest_stud_id = "";

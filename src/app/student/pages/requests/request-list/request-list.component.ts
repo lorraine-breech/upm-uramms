@@ -19,19 +19,41 @@ import { PresentationScheduleComponent } from '../request-details/presentation-s
 import { ID_SEPARATOR } from '@angular/compiler/src/render3/view/util';
 import { ReqResponse } from 'src/app/shared/models/request-response';
 import { Revision } from 'src/app/shared/models/revision';
+import { PresentationScheduleRequest } from 'src/app/shared/models/request-presentation-schedule';
+import { PaperApprovalRequest } from 'src/app/shared/models/request-paper-approval';
+import { ACPanelMemberRequest } from 'src/app/shared/models/request-add-change-pm';
+import { ChangeProposalRequest } from 'src/app/shared/models/request-change-proposal';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { AddChangePanelMemberComponent } from '../request-details/add-change-panel-member/add-change-panel-member.component';
 
 @Component({
-  selector: 'app-request-list',
+  selector: 'app-request-list', 
   templateUrl: './request-list.component.html',
   styleUrls: ['./request-list.component.css']
 })
 export class RequestListComponent implements OnInit {
-  
-  requests = REQUESTS;
+  //Requests shown will depend on the status of the student.
+  //requests = REQUESTS;
+  private is_there_acrequest: boolean = false;
+  private is_there_psrequest: boolean = false;
+  private is_there_parequest: boolean = false;
+  private is_there_cprequest: boolean = false;
+
+  private psrequests: PresentationScheduleRequest[];
+  private parequests: PaperApprovalRequest[];
+  private acrequests: ACPanelMemberRequest[];
+  private cprequests: ChangeProposalRequest[];
+
+  private studentStatus: number; //0-proposal, 1-implementation, 2-manuscript, 3-completed
+  private isImplementation: boolean = false;
+  private isCompleted: boolean = false;
+
+  private requestsForm: FormGroup;
   selectedRequest: Request;
   currentUserTypeId: string = "";
   currentUserType: string = "student";
 
+  requests: Object[];
   loggedInUser: User;
   loggedInStudentUser: StudentUser;
 
@@ -42,8 +64,16 @@ export class RequestListComponent implements OnInit {
     private userService: UserService,
     private studentUserService: StudentUserService,
     private studyService: StudyService,
-    private presentationService: PresentationService 
-  ) { }
+    private presentationService: PresentationService,
+    private formBuilder: FormBuilder
+  ) { 
+    this.requestsForm = formBuilder.group({
+      psrequestStatus: null,
+      parequestStatus: null,
+      cprequestStatus: null,
+      acrequestStatus: null
+    });
+  }
 
   ngOnInit() {
     this.getLoggedInUser(); //get requsts inside this function
@@ -53,17 +83,145 @@ export class RequestListComponent implements OnInit {
     this.studentUserService.getStudentUser(this.loggedInUser.getUserTypeId())
       .subscribe(res=>{
         this.loggedInStudentUser = new StudentUser(res);
+        this.getAndSetStudentStatus();
         this.studentUserService.setLoggedInStudentUser(this.loggedInStudentUser);
         console.warn(this.loggedInStudentUser.getStudentUserFullName());
-        this.getRequests(); //get requests
         this.getLoggedInStudentUserInfo();
       });
   }
-  getRequests(){
-    //this.requestService.getPSRequest()
-    //check if approved, then, create presentation; else do create nothing
+  viewACRequestDetail(acrequest: ACPanelMemberRequest){
+    this.requestService.setSelectedRequest(acrequest);
+    this.router.navigate(['/student/requests/request-details']);
+    
+  }
+  viewCPRequestDetail(cprequest: ChangeProposalRequest){
+    this.requestService.setSelectedRequest(cprequest);
+    this.router.navigate(['/student/requests/request-details']);
+  }
+  viewPSRequestDetail(psrequest: PresentationScheduleRequest){
+    this.requestService.setSelectedRequest(psrequest);
+    this.router.navigate(['/student/requests/request-details']);
+  }
+  viewPARequestDetail(parequest: PaperApprovalRequest){
+    this.requestService.setSelectedRequest(parequest);
+    this.router.navigate(['/student/requests/request-details']);
+  }
 
-  } 
+  getDateOnly(date: Date){
+    let thisDate: Date;
+    thisDate = new Date(date);
+    return thisDate.toLocaleDateString();
+  }
+  getAndSetStudentStatus(){
+    switch(this.loggedInStudentUser.getStudentUserStatus()){
+      case "proposal":
+        this.studentStatus = 0;
+        break;
+      case "implementation":
+        this.studentStatus = 1;
+        break;
+      case "manuscript":
+        this.studentStatus = 2;
+        break;
+      case "completed":
+        this.studentStatus = 3;
+    }
+    if(this.studentStatus == 1){
+      this.isImplementation = true; 
+      return;
+    }
+    else if(this.studentStatus == 3){
+      this.isCompleted = true;
+      return;
+    }
+    else if(this.studentStatus == 0 || this.studentStatus == 2){
+      this.getPSRequests(); //other getRequest function are called in here
+    }
+  }
+  getRequestStatus(isApproved: boolean){
+    if(isApproved == null){
+      return "pending";
+    }
+    else if(isApproved){
+      return "approved";
+    }
+    else{
+      return "disapproved";
+    }
+  }
+  getPARequestStatus(level: number){
+    if(level == 0){
+      return "panel level";
+    }
+    else if(level == 1){
+      return "department chair level";
+    }
+    else if(level == 2){
+      return "dean level";
+    }
+    else if(level == 3){
+      return "college secretary level";
+    }
+    else if(level ==4){
+        return "completed";
+    }
+  }
+  getPSRequests(){
+    this.requestService.getPSRequests(this.loggedInStudentUser.getStudentUserId())
+      .subscribe((res)=>{
+        console.log("FETCHED PSREQUEST: ");
+        console.log(res);
+        if(res.length){
+          this.psrequests = res.map(request => new PresentationScheduleRequest(request));
+          this.is_there_psrequest = true;
+          console.log("YES");
+        }
+        console.log("PSRequest Returned");
+        this.getPARequests();
+      });
+  }
+  getPARequests(){
+    this.requestService.getPARequests(this.loggedInStudentUser.getStudentUserId())
+      .subscribe((res)=>{
+        console.log("FETCHED PAREQUEST: ");
+        console.log(res);
+        if(res.length){
+          this.parequests = res.map(request => new PaperApprovalRequest(request));
+          this.is_there_parequest = true;
+          console.log("YES");
+        }
+        console.log("PARequest Returned");
+        this.getCPRequests();
+      });
+  }
+  getCPRequests(){
+    this.requestService.getCPRequests(this.loggedInStudentUser.getStudentUserId())
+      .subscribe((res)=>{
+        console.log("FETCHED CPREQUEST: ");
+        console.log(res);
+        if(res.length){
+          this.cprequests = res.map(request => new ChangeProposalRequest(request));
+          this.is_there_cprequest = true;
+          console.log("YES");
+        }
+        console.log("CPRequest Returned");
+        this.getACRequests();
+      });
+
+  }
+  getACRequests(){
+    this.requestService.getACRequests(this.loggedInStudentUser.getStudentUserId())
+      .subscribe((res)=>{
+        console.log("FETCHED ACREQUEST: ");
+        console.log(res);
+        if(res.length){
+          this.acrequests = res.map(request=> new ACPanelMemberRequest(request));
+          this.is_there_acrequest = true;
+          console.log("YES");
+        }
+        console.log("ACRequest Returned");
+      })
+  }
   getLoggedInStudentUserInfo(){
     //fetches the student study object to store in StudentService
     //panel object is embedded so no need to fetch it
@@ -75,6 +233,8 @@ export class RequestListComponent implements OnInit {
         //store the study object in StudentService
         this.studentUserService.setLoggedInStudentUserStudy(fetchedStudy);
         console.warn("Study fetched and saved successfully!");
+
+        
       });
   }
 
