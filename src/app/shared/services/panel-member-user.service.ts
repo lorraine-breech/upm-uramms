@@ -41,6 +41,17 @@ export class PanelMemberUserService {
         catchError(this.handleError<PanelMemberUser>(`error panelMemberID=${panelMemberUserId}!`))
     );
   }
+
+  getPanelMemberUserByProfId(professorId: string): Observable<PanelMemberUser>{
+    let params = new HttpParams().set('prof_id', professorId);
+
+    return this._http.get<PanelMemberUser>(this.panelMembersUrl,{
+      params: params
+    }).pipe(
+        tap(_ =>this.log('fetched panel member user by prof_id')),
+        catchError(this.handleError<PanelMemberUser>(`error profID=${professorId}!`))
+    );
+  }
  
 
   addPanelMemberUser(

@@ -59,7 +59,7 @@ export class StudentUserService {
         tap(_ =>this.log('fetched student user')),
         catchError(this.handleError<StudentUser>(`getUser _id=${studentUserId}`))
     );
-  }
+  } 
 
   getStudentUsers (): Observable<StudentUser[]> {
     return this._http.get<StudentUser[]>(this.studentUsersUrl)

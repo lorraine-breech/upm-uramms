@@ -12,6 +12,7 @@ import { PanelMemberUserService } from 'src/app/shared/services/panel-member-use
 import { PanelMemberUser } from 'src/app/shared/models/user-panel-member';
 import { StudyService } from 'src/app/shared/services/study.service';
 import { PresentationService } from 'src/app/shared/services/presentation.service';
+import { PMStudent } from 'src/app/shared/models/panel-member-student';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -191,10 +192,11 @@ export class StudentListComponent implements OnInit {
   }
   removeStudentFromList(panelMember: PanelMemberUser, relation: number, studentUserId: string){
     //relation: 0=adviser, 1=coadviser, 2=panelee
-    let studentArray: string[];
+    /*
+    let studentArray: PMStudent[];
     switch(relation){
       case 0:
-        studentArray = panelMember.getPanelMemberUserAdviseeId();
+        studentArray = panelMember.getPanelMemberUserStudentList();
         studentArray = studentArray.filter(s => s !== studentUserId);
         panelMember.setPanelMemberUserAdviseeId(studentArray);
         break;
@@ -210,6 +212,7 @@ export class StudentListComponent implements OnInit {
         break;
     }
     return panelMember;
+    */
   }
   getCourseName(courseID: string){
     //service function

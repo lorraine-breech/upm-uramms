@@ -8,20 +8,19 @@
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Research Status</th>
-              <th scope="col">Request Type</th>
               <th scope="col">My Role</th>
               <th scope="col">Course</th>
             </tr>
           </thead>
         
+        
           <tbody>
-            <tr>
+            <tr *ngFor="let student of studentList">
               <th scope="row">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Research Status</th>
-              <th scope="col">Request Type</th>
-              <th scope="col">My Role</th>
-              <th scope="col">Course</th>
+              <th scope="col">{{student.getPMStudentStudent().getStudentUserFullName()}}</th>
+              <th scope="col">{{student.getPMStudentStudent().getStudentUserStatus()}}</th>
+              <th scope="col">{{student.getPMStudentMyRole()}}</th>
+              <th scope="col">{{student.getPMStudentStudent().getStudentUserCourse()}}</th>
             </tr>
           </tbody>
         </table>

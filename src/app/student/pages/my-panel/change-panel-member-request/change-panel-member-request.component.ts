@@ -8,6 +8,8 @@ import { RequestService } from 'src/app/shared/services/request.service';
 import { StudentUser } from 'src/app/shared/models/user-student';
 import { Panel } from 'src/app/shared/models/panel';
 import { PanelMemberUser } from 'src/app/shared/models/user-panel-member';
+import { ReqResponse } from 'src/app/shared/models/request-response';
+import { ReqStudent } from 'src/app/shared/models/request-student';
 
 @Component({
   selector: 'app-change-panel-member-request',
@@ -52,28 +54,52 @@ export class ChangePanelMemberRequestComponent implements OnInit {
       reason: null
     });
   }
+  createReqStudent(){
+    let reqStudent: ReqStudent;
+    let currentStudentUser = new StudentUser(JSON.parse(localStorage.getItem('currentStudentUser')));
+    reqStudent = new ReqStudent();
+    reqStudent.setReqStudent(currentStudentUser.getStudentUserId(), currentStudentUser.getStudentUserStudentNumber(), currentStudentUser.getStudentUserCourse(), currentStudentUser.getStudentUserFullNameLF());
+    return reqStudent;
+  }
   onSubmit(){
     this.submitted = true;
     if(this.changePMRequestForm.value.newPanelMember && this.changePMRequestForm.value.semester && this.changePMRequestForm.value.academicYear && this.changePMRequestForm.value.reason){
       this.createChangePanelMemberRequest();
     }
     else{
-      alert('Make sure all the fields are filled.');
+      alert('Make sure all the fields are filled.'); 
     }
   } 
   createChangePanelMemberRequest(){
-    let newPanelMember: PanelMemberUser;
-    newPanelMember = new PanelMemberUser(this.changePMRequestForm.value.newPanelMember);
+    let newPanelMember: Professor, fromPanelMember: PanelMemberUser;
+    newPanelMember = new Professor(this.changePMRequestForm.value.newPanelMember);
+    fromPanelMember = new PanelMemberUser(this.requestService.getCurrentPMToChange()); // panelMemberUser
+    
+    console.warn("ACREQUEST From: "+ fromPanelMember.getPanelMemberUserFullName());
+    let responses: ReqResponse[] = [];
+    let responseFrom: ReqResponse, responseTo: ReqResponse;
+    responseFrom = new ReqResponse();
+    responseTo = new ReqResponse();
+
+
+    responseFrom.setResponseObject(fromPanelMember.getPanelMemberUserId(), fromPanelMember.getPanelMemberUserFullName(), this.requestService.getCurrentRole(), null, null, null);
+    responses.push(responseFrom);
+    responseTo.setResponseObject(newPanelMember.getProfessorIsPanelMemberUser(), newPanelMember.getProfessorFullName(), null, null, null, null);
+    responses.push(responseTo);
+
+    let reqStudent = new ReqStudent(this.createReqStudent());
     this.requestService.addACRequest(
+      reqStudent,
+      responses,
+      new Date(),
+      null, //boolean is_approved
       "change",
-      this.loggedInStudentUser.getStudentUserId(),
       this.requestService.getCurrentRole(),
       this.changePMRequestForm.value.reason,
-      this.requestService.getCurrentPMToChange().getPanelMemberUserId(), 
-      newPanelMember.getPanelMemberUserId(),
-      [],
-      new Date(),
-      null //boolean is_approved
+      this.requestService.getCurrentPMToChange().getPanelMemberUserFullName(), 
+      newPanelMember.getProfessorFullName(),
+      null,
+      
     ).subscribe((newACRequest)=>{
       if(newACRequest){
         //successful

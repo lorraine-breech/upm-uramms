@@ -8,6 +8,8 @@ import { RequestService } from 'src/app/shared/services/request.service';
 import { StudentUser } from 'src/app/shared/models/user-student';
 import { Panel } from 'src/app/shared/models/panel';
 import { ReqResponse } from 'src/app/shared/models/request-response';
+import { ReqStudent } from 'src/app/shared/models/request-student';
+import { StudentNavbarComponent } from 'src/app/student/student-navbar/student-navbar.component';
 
 @Component({
   selector: 'app-create-presentation-schedule-request',
@@ -64,7 +66,13 @@ export class CreatePresentationScheduleRequestComponent implements OnInit {
       place: null
     });
   }
-
+  createReqStudent(){
+    let reqStudent: ReqStudent ;
+    let currentStudentUser = new StudentUser(JSON.parse(localStorage.getItem('currentStudentUser')));
+    reqStudent = new ReqStudent();
+    reqStudent.setReqStudent(currentStudentUser.getStudentUserId(), currentStudentUser.getStudentUserStudentNumber(), currentStudentUser.getStudentUserCourse(), currentStudentUser.getStudentUserFullNameLF());
+    return reqStudent;
+  }
   onSubmit(){
     this.submitted = true;
 
@@ -73,16 +81,19 @@ export class CreatePresentationScheduleRequestComponent implements OnInit {
       responses = this.createReqResponseArray();
       console.log("Student Id : " +this.student.getStudentUserId());
       //Every studentUser should have a panel before this
+      let reqStudent = new ReqStudent(this.createReqStudent());
+
       this.requestService.addPSRequest(
-        this.student.getStudentUserId(),
+        reqStudent,
+        responses,
+        new Date(),
+        null, //is_approved
         this.pres_type,
         this.createPSRequestForm.value.date,
         this.createPSRequestForm.value.timeFrom,
         this.createPSRequestForm.value.timeTo,
-        this.createPSRequestForm.value.place,
-        responses,
-        new Date(),
-        null, //is_approved
+        this.createPSRequestForm.value.place
+        
       ).subscribe(newPSRequest=>{
         if(newPSRequest){
           alert('Presentation Schedule Request Created.');

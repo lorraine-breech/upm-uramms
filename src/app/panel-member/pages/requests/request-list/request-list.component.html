@@ -11,18 +11,22 @@
               <th scope="col">Student Number</th>
               <th scope="col">Request Type</th>
               <th scope="col">Request Status</th>
+              <th scope="col">My Action</th>
             </tr>
           </thead>
         
           <tbody>
-            <tr>
-                <th scope="row">#</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Name</th>
-                <th scope="col">Student Number</th>
-                <th scope="col">Request Type</th>
-                <th scope="col">Request Status</th>
-            </tr>
+            <ng-container *ngIf="is_there_request">
+                <tr *ngFor="let request of requests" (click)="viewRequestDetail(request)">
+                  <th scope="row">1</th>
+                  <td>{{getDateOnly(request.getRequestDateCreated())}} </td>
+                  <td>{{request.getRequestStudent().getReqStudentFullNameLF()}}</td>
+                  <td>{{request.getRequestStudent().getReqStudentNumber()}}</td>
+                  <td>{{request.getRequestType()}}</td>
+                  <td>{{getRequestStatus(request)}}</td>
+                  <td>Approved/Disapproved/No action yet</td>
+                </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

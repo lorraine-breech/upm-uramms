@@ -8,6 +8,7 @@ import { ReqResponse } from 'src/app/shared/models/request-response';
 import { Panel } from 'src/app/shared/models/panel';
 import { StudentUser } from 'src/app/shared/models/user-student';
 import { StudentUserService } from 'src/app/shared/services/student-user.service';
+import { ReqStudent } from 'src/app/shared/models/request-student';
 
 @Component({
   selector: 'app-add-panel-member-request',
@@ -50,7 +51,15 @@ export class AddPanelMemberRequestComponent implements OnInit {
   compareFn(c1: Professor, c2: Professor): boolean {
     return c1 && c2 ? c1.getProfessorId() === c2.getProfessorId() : c1 === c2;
   }
+  createReqStudent(){
+    let reqStudent: ReqStudent;
+    let currentStudentUser = new StudentUser(JSON.parse(localStorage.getItem('currentStudentUser')));
+    reqStudent = new ReqStudent();
+    reqStudent.setReqStudent(currentStudentUser.getStudentUserId(), currentStudentUser.getStudentUserStudentNumber(), currentStudentUser.getStudentUserCourse(), currentStudentUser.getStudentUserFullNameLF());
+    return reqStudent;
+  }
   onSubmit(){
+    //reqResponse stores pm_id not professor
     this.submitted = true;
     let responses: ReqResponse[] = [];
     let response: ReqResponse;
@@ -58,23 +67,26 @@ export class AddPanelMemberRequestComponent implements OnInit {
     professor = new Professor(this.addPanelMemberForm.value.professor);
     //check if this professor exists    
     response = new ReqResponse();
-    response.setResponseObject(professor.getProfessorId(), professor.getProfessorFullName(), null, null, null, null);
+    response.setResponseObject(professor.getProfessorIsPanelMemberUser(), professor.getProfessorFullName(), null, null, null, null);
     responses.push(response);
+    let reqStudent = new ReqStudent(this.createReqStudent());
+
     this.requestService.addACRequest(
+      reqStudent, //reqStudent 
+      responses,
+      new Date(),
+      null, //is_approved
       "add",
-      this.loggedInStudentUser.getStudentUserId(), //student id
       this.addPanelMemberForm.value.role,
       this.addPanelMemberForm.value.message,
       null,
       null,
-      responses,
-      new Date(),
-      null, //is_approved
+      professor.getProfessorFullName() 
     ).subscribe((addedRequest)=>{
       if(addedRequest){
         console.log("Request Successfully made!");
         alert('Request Successfully made.');
-        this.goToMyPanelList();
+        this.goToRequestList();
       }
       else{
         alert('There was an error in submitting the request.');
@@ -90,6 +102,8 @@ export class AddPanelMemberRequestComponent implements OnInit {
   goToMyPanelList(){
     this.router.navigate(['/student/my-panel']);
   }
-
+  goToRequestList(){
+    this.router.navigate(['/student/requests']);
+  }
 }
  

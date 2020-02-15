@@ -2,17 +2,14 @@ import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Injectable } from "@angular/core";
 import { catchError, map, tap } from 'rxjs/operators';
-import { ACPanelMemberRequest } from "../models/request-add-change-pm";
-import { ChangePanelMemberRequestComponent } from "../../student/pages/my-panel/change-panel-member-request/change-panel-member-request.component";
-import { ChangeProposalRequest } from "../models/request-change-proposal";
-import { PresentationScheduleRequest } from "../models/request-presentation-schedule";
-import { PaperApprovalRequest } from "../models/request-paper-approval";
 import { ReqResponse } from 'src/app/shared/models/request-response';
 import { PanelMemberUser } from "../models/user-panel-member";
+import { UPMRequest } from "../models/request-upm";
+import { ReqStudent } from "../models/request-student";
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
+ 
 
 @Injectable()
 export class RequestService {
@@ -20,9 +17,11 @@ export class RequestService {
     private cpRequestsUrl = "api/cprequests";
     private paRequestsUrl = "api/parequests";
     private psRequestsUrl = "api/psrequests";
+    private requestsUrl = "api/requests";
     private currentPanelMember: PanelMemberUser;
     private currentRole: string;
     private selectedRequest: any = undefined;
+    private selectedRequestType: number; //1=psrequest, 2=parequest, 3=cprequest, 4 acrequest
 
     constructor( private _http: HttpClient ) { }
 
@@ -38,167 +37,165 @@ export class RequestService {
     getCurrentPMToChange(){
       return this.currentPanelMember; 
     }
-    setSelectedRequest(selectedRequest:any){
+    setSelectedRequest(selectedRequest: any){
         this.selectedRequest = selectedRequest;
     }
     getSelectedRequest():any{
         return this.selectedRequest;
     }
+    setSelectedRequestType(selectedRequestType: number){
+      this.selectedRequestType = selectedRequestType;
+    }
+    getSelectedRequestType():number{
+        return this.selectedRequestType;
+    }
+    
+    addPSRequest(
+      student: ReqStudent,
+      responses: ReqResponse[],
+      date_created: Date,
+      is_approved: boolean,
+      psrequest_pres_type: string,
+      psrequest_pres_date: Date,
+      psrequest_pres_time_start: string,
+      psrequest_pres_time_end: string,
+      psrequest_pres_place:string,
+      
+    ){
+      const url = this.psRequestsUrl;
+  
+      return this._http.post<UPMRequest>(url, {
+          student,
+          responses,
+          date_created,
+          is_approved, 
+          psrequest_pres_type,
+          psrequest_pres_date,
+          psrequest_pres_time_start,
+          psrequest_pres_time_end,
+          psrequest_pres_place,
+      }).pipe(
+        tap(data => {
+          return data;
+        }),
+        catchError(this.handleError<UPMRequest>(`create psrequest error =${student.getReqStudentFullNameLF()}`))
+      )
+  }
     addACRequest(
-        acrequest_type: string,
-        acrequest_stud_id: string,
-        acrequest_role_type: string,
-        acrequest_stud_remarks: string,
-        acrequest_change_from: string,
-        acrequest_change_to: string,
-        acrequest_responses: ReqResponse[], 
-        acrequest_date_created: Date,
-        acrequest_is_approved: boolean,
+      student: ReqStudent,
+      responses: ReqResponse[],
+      date_created: Date,
+      is_approved: boolean,
+      acrequest_type: string,
+      acrequest_role_type: string,
+      acrequest_student_remarks: string,
+      acrequest_change_from: string,
+      acrequest_change_to: string,
+      acrequest_add: string,
       ){
         const url = this.acRequestsUrl;
     
-        return this._http.post<ACPanelMemberRequest>(url, {
-            acrequest_type,
-            acrequest_stud_id,
-            acrequest_role_type,
-            acrequest_stud_remarks,
-            acrequest_change_from,
-            acrequest_change_to,
-            acrequest_responses,
-            acrequest_date_created,
-            acrequest_is_approved,
+        return this._http.post<UPMRequest>(url, {
+          student,
+          responses,
+          date_created,
+          is_approved,   
+          acrequest_type,
+          acrequest_role_type,
+          acrequest_student_remarks,
+          acrequest_change_from,
+          acrequest_change_to,
+          acrequest_add
         }).pipe(
           tap(data => {
             return data;
           }),
-          catchError(this.handleError<ACPanelMemberRequest>(`create acrequest error =${acrequest_stud_id}`))
+          catchError(this.handleError<UPMRequest>(`create acrequest error =${student.getReqStudentFullNameLF()}`))
         )
     }
-    addPARequest(
-        parequest_stud_id,
-        parequest_paper_type,
-        parequest_presentation_id,
-        parequest_responses,
-        parequest_revisions,
-        parequest_date_created,
-        parequest_level,
-      ){
-        const url = this.paRequestsUrl;
+    addCPRequest(
+      student: ReqStudent,
+      responses: ReqResponse[], 
+      date_created: Date,
+      is_approved: boolean,
+      cprequest_proposal_file_name: string,
+      cprequest_part: string,
+      cprequest_from: string,
+      cprequest_to: string
+    ){
+      const url = this.cpRequestsUrl;
     
-        return this._http.post<PaperApprovalRequest>(url, {
-            parequest_stud_id,
-            parequest_paper_type,
-            parequest_presentation_id, 
-            parequest_responses,
-            parequest_revisions,
-            parequest_date_created,
-            parequest_level,
+        return this._http.post<UPMRequest>(url, {
+          student,
+          responses,
+          date_created,
+          is_approved,   
+          cprequest_proposal_file_name,
+          cprequest_part,
+          cprequest_from,
+          cprequest_to,
         }).pipe(
           tap(data => { 
             return data;
           }),
-          catchError(this.handleError<PaperApprovalRequest>(`create parequest error =${parequest_stud_id}`))
+          catchError(this.handleError<UPMRequest>(`create cprequest error =${student.getReqStudentFullNameLF()}`))
         )
-    } 
-    addPSRequest(
-        psrequest_stud_id: string,
-        psrequest_pres_type: string,
-        psrequest_pres_date: Date,
-        psrequest_pres_time_start: string,
-        psrequest_pres_time_end: string,
-        psrequest_pres_place:string,
-        psrequest_responses: ReqResponse[],
-        psrequest_date_created: Date,
-        psrequest_is_approved: boolean,
+    }
+    addPARequest(
+      student: ReqStudent,
+      responses: ReqResponse[],
+      date_created: Date,
+      is_approved: boolean,
+      parequest_paper_type,
+      parequest_presentation_id,
+      parequest_revisions,
+      parequest_level,
       ){
-        const url = this.psRequestsUrl;
+        const url = this.paRequestsUrl;
     
-        return this._http.post<PresentationScheduleRequest>(url, {
-            psrequest_stud_id,
-            psrequest_pres_type,
-            psrequest_pres_date,
-            psrequest_pres_time_start,
-            psrequest_pres_time_end,
-            psrequest_pres_place,
-            psrequest_responses,
-            psrequest_date_created,
-            psrequest_is_approved, 
+        return this._http.post<UPMRequest>(url, {
+          student,
+          responses,
+          date_created,
+          is_approved,   
+          parequest_paper_type,
+          parequest_presentation_id, 
+          parequest_revisions,
+          parequest_level
         }).pipe(
-          tap(data => {
+          tap(data => { 
             return data;
           }),
-          catchError(this.handleError<PresentationScheduleRequest>(`create psrequest error =${psrequest_stud_id}`))
+          catchError(this.handleError<UPMRequest>(`create parequest error =${student.getReqStudentFullNameLF()}`))
         )
-    }
+    } 
+    
 
-    deletePSRequest(requestId: string): Observable<{}>{
-        const url = `${this.psRequestsUrl}/${requestId}`; 
+    deleteRequest(requestId: string): Observable<{}>{
+        const url = `${this.requestsUrl}/${requestId}`; 
         return this._http.delete(url, httpOptions)
             .pipe(
-                catchError(this.handleError('deleteStudy'))
+                catchError(this.handleError('deleteRequest'))
             );
     }
-    deletePARequest(requestId: string): Observable<{}>{
-        const url = `${this.paRequestsUrl}/${requestId}`; 
-        return this._http.delete(url, httpOptions)
-            .pipe(
-                catchError(this.handleError('deleteStudy'))
-            );
-    }
-    deleteCPRequest(requestId: string): Observable<{}>{
-        const url = `${this.cpRequestsUrl}/${requestId}`; 
-        return this._http.delete(url, httpOptions)
-            .pipe(
-                catchError(this.handleError('deleteStudy'))
-            );
-    }
-    deleteACRequest(requestId: string): Observable<{}>{
-        const url = `${this.acRequestsUrl}/${requestId}`; 
-        return this._http.delete(url, httpOptions)
-            .pipe(
-                catchError(this.handleError('deleteStudy'))
-            );
-    }   
-         
-    getPSRequests(studId: string): Observable<PresentationScheduleRequest[]> {
+    getRequestsByPMOtherID(pmOtherId: string): Observable<UPMRequest[]> {
+      let params = new HttpParams().set('pm_other_id', pmOtherId);
+  
+      return this._http.get<UPMRequest[]>(this.requestsUrl,{
+        params: params
+      }).pipe(
+          tap(_ =>this.log('fetched request by pm_other_id')),
+          catchError(this.handleError('getRequests pmOtherID', []))
+      );
+  }
+    getRequests(studId: string): Observable<UPMRequest[]> {
         let params = new HttpParams().set('id', studId);
     
-        return this._http.get<PresentationScheduleRequest[]>(this.psRequestsUrl,{
+        return this._http.get<UPMRequest[]>(this.requestsUrl,{
           params: params
         }).pipe(
-            tap(_ =>this.log('fetched psrequest by id')),
-            catchError(this.handleError('getPSRequest studentID', []))
-        );
-    }
-    getPARequests(studId: string): Observable<PaperApprovalRequest[]> {
-        let params = new HttpParams().set('id', studId);
-    
-        return this._http.get<PaperApprovalRequest[]>(this.paRequestsUrl,{
-          params: params
-        }).pipe(
-            tap(_ =>this.log('fetched parequest by id')),
-            catchError(this.handleError('getCPRequest studentID', []))
-        );
-    }
-    getCPRequests(studId: string): Observable<ChangeProposalRequest[]> {
-        let params = new HttpParams().set('id', studId);
-    
-        return this._http.get<ChangeProposalRequest[]>(this.cpRequestsUrl,{
-          params: params
-        }).pipe(
-            tap(_ =>this.log('fetched cprequest by id')),
-            catchError(this.handleError('getCPRequest studentID', []))
-        );
-    }
-
-    getACRequests(studId: string): Observable<ACPanelMemberRequest[]> {
-      let params = new HttpParams().set('id', studId);
-
-        return this._http.get<ACPanelMemberRequest[]>(this.acRequestsUrl,{
-          params: params
-        }).pipe(
-            tap(_ => this.log('fetched acrequests')),
-            catchError(this.handleError('getACRequest studentID', []))
+            tap(_ =>this.log('fetched request by id')),
+            catchError(this.handleError('err getRequests studentID', []))
         );
     }
 

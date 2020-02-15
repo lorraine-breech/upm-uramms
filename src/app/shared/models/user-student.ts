@@ -114,6 +114,15 @@ export class StudentUser{
 
         return fullName;
     }
+    
+    getStudentUserFullNameLF(){
+        let firstName: string = this.fname;
+        let middleName: string = this.mname && this.mname.length != 0 ? this.mname[0] + "." : "";
+        let lastName: string = this.lname;
+        let fullName: string = lastName + ", " + firstName + " " + middleName;
+
+        return fullName;
+    }
 
     getStudentUserStudentNumber(){
         return this.stud_num;

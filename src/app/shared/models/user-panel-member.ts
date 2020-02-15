@@ -1,10 +1,13 @@
+import { PMStudent } from "./panel-member-student";
+
 export class PanelMemberUser{
     private _id: string;
     private pm_prof_id: string;
     private pm_full_name: string;
-    private pm_advisee_id: string[];
-    private pm_coadvisee_id: string[];
-    private pm_panelee_id: string[];
+    
+    private pm_student_list: PMStudent[];
+    
+  
     private pm_calendar_id: string;
 
     constructor(panelMemberUser?: any){
@@ -12,17 +15,15 @@ export class PanelMemberUser{
             this._id = panelMemberUser._id ? panelMemberUser._id : "" ;
             this.pm_prof_id = panelMemberUser.pm_prof_id ? panelMemberUser.pm_prof_id : "";
             this.pm_full_name = panelMemberUser.pm_full_name ? panelMemberUser.pm_full_name : "";
-            this.pm_advisee_id = panelMemberUser.pm_advisee_id ? panelMemberUser.pm_advisee_id : null;
-            this.pm_coadvisee_id = panelMemberUser.pm_coadvisee_id ? panelMemberUser.pm_coadvisee_id : null;
-            this.pm_panelee_id = panelMemberUser.pm_panelee_id ? panelMemberUser.pm_panelee_id : null;
+            
+            this.pm_student_list = panelMemberUser.pm_student_list ? panelMemberUser.pm_student_list : null;
             this.pm_calendar_id = panelMemberUser.pm_calendar_id ? panelMemberUser.pm_calendar_id : "";
         }
         else{ 
             this.pm_prof_id = "";
             this.pm_full_name = "";
-            this.pm_advisee_id = null;
-            this.pm_coadvisee_id = null;
-            this.pm_panelee_id = null;
+            this.pm_student_list = null;
+            
             this.pm_calendar_id = "";
         }
     }
@@ -30,16 +31,13 @@ export class PanelMemberUser{
     setPanelMemberUser(
         pm_prof_id,
         pm_full_name,
-        pm_advisee_id,
-        pm_coadvisee_id,
-        pm_panelee_id,
+        pm_student_list,
         pm_calendar_id    
     ){
         this.pm_prof_id = pm_prof_id;
         this.pm_full_name = pm_full_name;
-        this.pm_advisee_id = pm_advisee_id;
-        this.pm_coadvisee_id = pm_coadvisee_id;
-        this.pm_panelee_id = pm_panelee_id;
+        this.pm_student_list = pm_student_list
+        
         this.pm_calendar_id = pm_calendar_id;
     }
 
@@ -52,15 +50,10 @@ export class PanelMemberUser{
     getPanelMemberUserFullName(){
         return this.pm_full_name;
     }
-    getPanelMemberUserAdviseeId(){
-        return this.pm_advisee_id;
+    getPanelMemberUserStudentList(){
+        return this.pm_student_list;
     }
-    getPanelMemberUserCoAdviseeId(){
-        return this.pm_coadvisee_id;
-    }
-    getPanelMemberUserPaneleeId(){
-        return this.pm_panelee_id;
-    }
+
     getPanelMemberUserCalendarId(){
         return this.pm_calendar_id;
     }
@@ -74,14 +67,8 @@ export class PanelMemberUser{
     setPanelMemberUserFullName(pm_full_name){
         this.pm_full_name = pm_full_name;
     }
-    setPanelMemberUserAdviseeId(pm_advisee_id){
-        this.pm_advisee_id = pm_advisee_id;
-    }
-    setPanelMemberUserCoAdviseeId(pm_coadvisee_id){
-        this.pm_coadvisee_id = pm_coadvisee_id;
-    }
-    setPanelMemberUserPaneleeId(pm_panelee_id){
-        this.pm_panelee_id = pm_panelee_id;
+    setPanelMemberUserStudentList(pm_student_list){
+        this.pm_student_list = pm_student_list;
     }
     setPanelMemberUserCalendarId(pm_calendar_id){
         this.pm_calendar_id = pm_calendar_id;

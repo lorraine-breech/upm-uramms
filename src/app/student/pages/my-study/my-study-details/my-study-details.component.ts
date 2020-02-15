@@ -48,7 +48,8 @@ export class MyStudyDetailsComponent implements OnInit {
   }
   isFreeToEdit(){
     if(this.study.getStudyStatus()=="Proposal Writing"){
-      return true;
+    
+      return true; 
     }
     else{
       return false;

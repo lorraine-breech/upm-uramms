@@ -292,18 +292,20 @@ router.post('/presentations', (req, res) => {
 router.post('/psrequests', (req, res) => {
     connection((db) => {
         var newPSRequestObj = {
-            psrequest_stud_id: req.body.psrequest_stud_id,
+            student: req.body.student,
+            type: "psrequest",
+            date_created: req.body.date_created,
+            responses: req.body.responses,
+            is_approved: req.body.is_approved,
+            
             psrequest_pres_type: req.body.psrequest_pres_type,
             psrequest_pres_date: req.body.psrequest_pres_date,
             psrequest_pres_time_start: req.body.psrequest_pres_time_start,
             psrequest_pres_time_end: req.body.psrequest_pres_time_end,
-            psrequest_pres_place: req.body.psrequest_pres_place,
-            psrequest_responses: req.body.psrequest_responses,
-            psrequest_date_created: req.body.psrequest_date_created,
-            psrequest_is_approved: req.body.psrequest_is_approved,
+            psrequest_pres_place: req.body.psrequest_pres_place
         }
         const myDB = db.db('upm-uramms');
-        myDB.collection('psrequests')
+        myDB.collection('requests')
         .insertOne((newPSRequestObj), function (err, result){
             if(err){
                 response.message = err;
@@ -314,104 +316,23 @@ router.post('/psrequests', (req, res) => {
         });    
     });
 });
-
-router.get('/psrequests', (req, res) => {
-    if(req.query.id){
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('psrequests')
-                .find({psrequest_stud_id: req.query.id})
-                .toArray()
-                .then((psrequests) => {
-                    if (psrequests) {
-                        response.data = psrequests;
-                        res.json(psrequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    else{
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('psrequests')
-                .find()
-                .toArray()
-                .then((psrequests) => {
-                    if (psrequests) {
-                        response.data = psrequests;
-                        res.json(psrequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    
-});
-router.get('/acrequests', (req, res) => {
-    if(req.query.id){
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('acrequests')
-                .find({acrequest_stud_id: req.query.id})
-                .toArray()
-                .then((acrequests) => {
-                    if (acrequests) {
-                        response.data = acrequests;
-                        res.json(acrequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    else{
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('acrequests')
-                .find()
-                .toArray()
-                .then((acrequests) => {
-                    if (crequests) {
-                        response.data = acrequests;
-                        res.json(acrequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    
-});
 router.post('/acrequests', (req, res) => {
     connection((db) => {
         var newACRequestObj = {
+            student: req.body.student,
+            type: "acrequest",
+            date_created: req.body.date_created,
+            responses: req.body.responses,
+            is_approved: req.body.is_approved,
             acrequest_type: req.body.acrequest_type,
-            acrequest_stud_id: req.body.acrequest_stud_id,
             acrequest_role_type: req.body.acrequest_role_type,
-            acrequest_stud_remarks: req.body.acrequest_stud_remarks,
+            acrequest_student_remarks: req.body.acrequest_student_remarks,
             acrequest_change_from: req.body.acrequest_change_from,
             acrequest_change_to: req.body.acrequest_change_to,
-            acrequest_responses: req.body.acrequest_responses,
-            acrequest_date_created: req.body.acrequest_date_created,
-            acrequest_is_approved: req.body.acrequest_is_approved,
+            acrequest_add: req.body.acrequest_add
         }
         const myDB = db.db('upm-uramms');
-        myDB.collection('acrequests')
+        myDB.collection('requests')
         .insertOne((newACRequestObj), function (err, result){
             if(err){
                 response.message = err;
@@ -423,20 +344,46 @@ router.post('/acrequests', (req, res) => {
         });    
     });
 });
-
+router.post('/cprequests', (req, res) => {
+    connection((db) => {
+        var newCPRequestObj = {
+            student: req.body.student,
+            type: "cprequest",
+            date_created: req.body.date_created,
+            responses: req.body.responses,
+            is_approved: req.body.is_approved,
+            cprequest_proposal_file_name: req.body.cprequest_proposal_file_name,
+            cprequest_part: req.body.cprequest_part,
+            cprequest_from: req.body.cprequest_from,
+            cprequest_to: req.body.cprequest_to
+        }
+        const myDB = db.db('upm-uramms');
+        myDB.collection('requests')
+        .insertOne((newCPRequestObj), function (err, result){
+            if(err){
+                response.message = err;
+                throw err;
+            }
+            response.data = newCPRequestObj;
+            callback(null, newCPRequestObj);
+        });    
+    });
+});
 router.post('/parequests', (req, res) => {
     connection((db) => {
         var newPARequestObj = {
-            parequest_stud_id: req.body.parequest_stud_id,
+            student: req.body.student,
+            type: "parequest",
+            date_created: req.body.date_created,
+            responses: req.body.responses,
+            is_approved: req.body.is_approved,
             parequest_paper_type: req.body.parequest_paper_type,
             parequest_presentation_id: req.body.parequest_presentation_id, 
-            parequest_responses: req.body.parequest_responses,
             parequest_revisions: req.body.parequest_revisions,
-            parequest_date_created: req.body.parequest_date_created,
             parequest_level: req.body.parequest_level,
         }
         const myDB = db.db('upm-uramms');
-        myDB.collection('parequests')
+        myDB.collection('requests')
         .insertOne((newPARequestObj), function (err, result){
             if(err){
                 response.message = err;
@@ -448,17 +395,36 @@ router.post('/parequests', (req, res) => {
     });
 });
 
-router.get('/parequests', (req, res) => {
+router.get('/requests', (req, res) => {
     if(req.query.id){
         connection((db) => {
             const myDB = db.db('upm-uramms');
-            myDB.collection('parequests')
-                .find({parequest_stud_id: req.query.id})
+            myDB.collection('requests')
+                .find({ "student.student_id" : req.query.id})
                 .toArray()
-                .then((parequests) => {
-                    if (parequests) {
-                        response.data = parequests;
-                        res.json(parequests);
+                .then((requests) => {
+                    if (requests) {
+                        response.data = requests;
+                        res.json(requests);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else if(req.query.pm_other_id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('requests')
+                .find({ responses: { $elemMatch: { pm_other_user_id: req.query.pm_other_id} } })
+                .toArray()
+                .then((requests) => {
+                    if (requests) {
+                        response.data = requests;
+                        res.json(requests);
                     } else {
                         res.json(false);
                     }
@@ -471,13 +437,13 @@ router.get('/parequests', (req, res) => {
     else{
         connection((db) => {
             const myDB = db.db('upm-uramms');
-            myDB.collection('parequests')
+            myDB.collection('requests')
                 .find()
                 .toArray()
-                .then((parequests) => {
-                    if (parequests) {
-                        response.data = parequests;
-                        res.json(parequests);
+                .then((requests) => {
+                    if (requests) {
+                        response.data = requests;
+                        res.json(requests);
                     } else {
                         res.json(false);
                     }
@@ -490,55 +456,13 @@ router.get('/parequests', (req, res) => {
     
 });
 
-
-router.get('/cprequests', (req, res) => {
-    if(req.query.id){
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('cprequests')
-                .find({cprequest_stud_id: req.query.id})
-                .toArray()
-                .then((cprequests) => {
-                    if (cprequests) {
-                        response.data = cprequests;
-                        res.json(cprequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    else{
-        connection((db) => {
-            const myDB = db.db('upm-uramms');
-            myDB.collection('cprequests')
-                .find()
-                .toArray()
-                .then((cprequests) => {
-                    if (cprequests) {
-                        response.data = cprequests;
-                        res.json(cprequests);
-                    } else {
-                        res.json(false);
-                    }
-                })
-                .catch((err) => {
-                    sendError(err, res);
-                });
-        });
-    }
-    
-});
-router.delete('/psrequests/:id', (req, res)=>{
+router.delete('/requests/:id', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
         const id = new ObjectID(req.params.id);
         console.log("REQUEST ID: "+req.params.id);
 
-        myDB.collection('psrequests')
+        myDB.collection('requests')
         .deleteOne(
             {_id: id},
             function (err, results){
@@ -552,66 +476,7 @@ router.delete('/psrequests/:id', (req, res)=>{
         );
     })
 });
-router.delete('/cprequests/:id', (req, res)=>{
-    connection((db) =>{
-        const myDB = db.db('upm-uramms');
-        const id = new ObjectID(req.params.id);
-        console.log("REQUEST ID: "+req.params.id);
 
-        myDB.collection('cprequests')
-        .deleteOne(
-            {_id: id},
-            function (err, results){
-                if (err){
-                    response.message = err;
-                    throw err;
-                }
-                console.log("1 document deleted");
-                db.close();
-            }
-        );
-    })
-});
-router.delete('/acrequests/:id', (req, res)=>{
-    connection((db) =>{
-        const myDB = db.db('upm-uramms');
-        const id = new ObjectID(req.params.id);
-        console.log("REQUEST ID: "+req.params.id);
-
-        myDB.collection('acrequests')
-        .deleteOne(
-            {_id: id},
-            function (err, results){
-                if (err){
-                    response.message = err;
-                    throw err;
-                }
-                console.log("1 document deleted");
-                db.close();
-            }
-        );
-    })
-});
-router.delete('/parequests/:id', (req, res)=>{
-    connection((db) =>{
-        const myDB = db.db('upm-uramms');
-        const id = new ObjectID(req.params.id);
-        console.log("REQUEST ID: "+req.params.id);
-
-        myDB.collection('parequests')
-        .deleteOne(
-            {_id: id},
-            function (err, results){
-                if (err){
-                    response.message = err;
-                    throw err;
-                }
-                console.log("1 document deleted");
-                db.close();
-            }
-        );
-    })
-});
 router.delete('/studies/:id', (req, res)=>{
     connection((db) =>{
         const myDB = db.db('upm-uramms');
@@ -784,9 +649,7 @@ router.put('/panelmemberusers', (req, res)=>{
             { $set: 
                 {
                     pm_prof_id: updatedPanelMember.pm_prof_id,
-                    pm_advisee_id: updatedPanelMember.pm_advisee_id,
-                    pm_coadvisee_id: updatedPanelMember.pm_coadvisee_id,
-                    pm_panelee_id: updatedPanelMember.pm_panelee_id,
+                    pm_student_list: updatedPanelMember.pm_student_list,
                     pm_calendar_id: updatedPanelMember.pm_calendar_id,
                 }
             },
@@ -935,10 +798,7 @@ router.post('/createPanelMemberUser', (req, res) => {
         var newPanelMemberUserObj = {
             pm_prof_id: req.body.pm_prof_id,
             pm_full_name: req.body.pm_full_name,
-            pm_advisee_id: null,
-            pm_coadvisee_id: null,
-            pm_panelee_id: null,
-            pm_calendar_id: null,
+            pm_student_list: null,
         }
 
         async.waterfall([
@@ -1576,6 +1436,25 @@ router.get('/panelmemberusers', (req, res) => {
             const myDB = db.db('upm-uramms');
             myDB.collection('panelmemberusers')
                 .find(ObjectID(req.query.id))
+                .toArray()
+                .then((panelmemberusers) => {
+                    if (panelmemberusers) {
+                        response.data = panelmemberusers[0];
+                        res.json(panelmemberusers[0]);
+                    } else {
+                        res.json(false);
+                    }
+                })
+                .catch((err) => {
+                    sendError(err, res);
+                });
+        });
+    }
+    else if(req.query.prof_id){
+        connection((db) => {
+            const myDB = db.db('upm-uramms');
+            myDB.collection('panelmemberusers')
+                .find({pm_prof_id: req.query.prof_id})
                 .toArray()
                 .then((panelmemberusers) => {
                     if (panelmemberusers) {

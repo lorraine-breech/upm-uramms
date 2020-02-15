@@ -1,54 +1,77 @@
+
 <div class="card">
+  <form [formGroup]="psrequestDetailsForm">
     <h5 class="card-header text-white bg-primary text-center">Presentation Schedule Request</h5>
     
     <div class="card-body">
       <div class="row">
-        <div class="col-2">
-          <p class="h5" >Title of Study: </p>
+        <label for="dateCreated" class="col-sm-2 col-form-label h5">Date Created: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="dateCreated" id="dateCreated" value="Date Created">
         </div>
-        <div class="col">
-          <p class="lead" >Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut.  </p>
-        </div>
-        
       </div>
 
       <div class="row">
-        <div class="col-2">
-          <p class="h5" >Date: </p>
+        <label for="title" class="col-sm-2 col-form-label h5">Title of Study: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="title" id="title" value="Title of Study">
         </div>
-        <div class="col">
-          <p class="lead" > January 10, 2019 </p>
+      </div>
+
+      <div class="row">
+        <label for="type" class="col-sm-2 col-form-label h5">Presentation Type: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="type" id="type" value="Presentation Type">
         </div>
+      </div>
+
+      <div class="row">
+        <label for="date" class="col-sm-2 col-form-label h5">Date: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="date" id="date" value="Date">
+        </div>  
       </div>
     
       <div class="row">
-        <div class="col-2">
-          <p class="h5" >Time: </p>
-        </div>
-        <div class="col">
-          <p class="lead" > 10:00am-12:00nn </p>
-        </div>
-        
+        <label for="time" class="col-sm-2 col-form-label h5">Time: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="time" id="time" value="Time">
+        </div>  
+      </div>
+
+      <div class="row">
+        <label for="place" class="col-sm-2 col-form-label h5">Place: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="place" id="place" value="Place">
+        </div>  
+      </div>
+
+      <div class="row">
+        <label for="approval" class="col-sm-2 col-form-label h5">Approved by: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="approvedBy" id="approval" value="Approved by:">
+        </div> 
       </div>
       <div class="row">
-        <div class="col-2">
-          <p class="h5" >Place: </p>
-        </div>
-        <div class="col">
-          <p class="lead" > CSM </p>
-        </div>
+        <label for="disapproval" class="col-sm-2 col-form-label h5">Disapproved by: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="disapprovedBy" id="disapproval" value="Dispproved by:">
+        </div> 
       </div>
       <div class="row">
-        <div class="col-2">
-          <p class="h5" >Approved by: </p>
-        </div>
-        <div class="col">
-          <p class="lead" > Jon Henly O. Santillan </p>
-        </div>
+        <label for="status" class="col-sm-2 col-form-label h5">Status: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="status" id="status" value="Status:">
+        </div> 
       </div>
-      <div class="text-right">
+
+      <div *ngIf="isPending" class="text-right">
         <a href="#" class="btn btn-danger ">Cancel Request</a>
+      </div>
+      <div *ngIf="isDisapproved" class="text-right">
+        <a href="#" class="btn btn-danger ">Delete Request</a>
       </div>
       
     </div>
-  </div>
+  </form>
+</div>

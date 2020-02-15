@@ -1,3 +1,87 @@
-<p>
-  add-change-panel-member works!
-</p>
+
+<div class="card">
+  <form [formGroup]="acrequestDetailsForm">
+    <h5 class="card-header text-white bg-primary text-center">Add/Change Panel Member Request</h5>
+    
+    <div class="card-body">
+      <div class="row">
+        <label for="dateCreated" class="col-sm-2 col-form-label h5">Date Created: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="dateCreated" id="dateCreated" value="Date Created">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="type" class="col-sm-2 col-form-label h5">Request Type: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="type" id="type" value="Presentation Type">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="role" class="col-sm-2 col-form-label h5">Role: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="role" id="role" value="Role">
+        </div>
+      </div>
+
+      <div *ngIf="isAddRequest; else elseBlock">
+
+        <div class="row">
+          <label for="add" class="col-sm-2 col-form-label h5">Professor: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" formControlName="add" id="add" value="Professor">
+          </div>  
+        </div>
+        
+      </div>
+
+      <ng-template #elseBlock> 
+
+        <div class="row">
+          <label for="ChangeFrom" class="col-sm-2 col-form-label h5">Change From: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" formControlName="changeFrom" id="ChangeFrom" value="ChangeFrom">
+          </div>  
+        </div>
+
+        <div class="row">
+          <label for="ChangeTo" class="col-sm-2 col-form-label h5">Change To: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" formControlName="changeTo" id="ChangeTo" value="ChangeTo">
+          </div>  
+        </div>
+
+        <div class="row">
+          <label for="approval" class="col-sm-2 col-form-label h5">Approved by: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" formControlName="approvedBy" id="approval" value="Approved by:">
+          </div> 
+        </div>
+        <div class="row">
+          <label for="disapproval" class="col-sm-2 col-form-label h5">Disapproved by: </label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" formControlName="disapprovedBy" id="disapproval" value="Approved by:">
+          </div> 
+        </div>
+
+      </ng-template>
+      
+      <div class="row">
+        <label for="status" class="col-sm-2 col-form-label h5">Status: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control-plaintext" formControlName="status" id="status" value="Status:">
+        </div> 
+      </div>
+
+      <div *ngIf="isPending" class="text-right">
+        <a href="#" class="btn btn-danger ">Cancel Request</a>
+      </div>
+      <div *ngIf="isDisapproved" class="text-right">
+        <a href="#" class="btn btn-danger ">Delete Request</a>
+      </div>
+
+    </div>
+  </form>
+</div>
+  

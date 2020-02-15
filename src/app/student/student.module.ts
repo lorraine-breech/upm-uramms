@@ -14,7 +14,6 @@ import { RequestDetailsComponent } from './pages/requests/request-details/reques
 import { CancelAppointmentComponent } from './pages/requests/cancel-appointment/cancel-appointment.component';
 import { SubmitRevisionComponent } from './pages/requests/submit-revision/submit-revision.component';
 import { CancelRequestComponent } from './pages/requests/cancel-request/cancel-request.component';
-import { DataService } from './pages/requests/request-list/dataService';
 import { PresentationScheduleComponent } from './pages/requests/request-details/presentation-schedule/presentation-schedule.component';
 import { PaperApprovalComponent } from './pages/requests/request-details/paper-approval/paper-approval.component';
 import { ChangeProposalComponent } from './pages/requests/request-details/change-proposal/change-proposal.component';
@@ -63,6 +62,6 @@ import { EditStudyComponent } from './pages/my-study/edit-study/edit-study.compo
     EditStudyComponent,
     AddStudyComponent
   ],
-  providers: [ DataService ]
+  providers: [ ]
 })
 export class StudentModule { }

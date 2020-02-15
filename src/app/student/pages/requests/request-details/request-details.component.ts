@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../request-list/dataService';
+import { RequestService } from 'src/app/shared/services/request.service';
 
 @Component({
   selector: 'app-request-details',
@@ -10,13 +10,29 @@ export class RequestDetailsComponent implements OnInit {
   selectedRequest:any;
   private is_psrequest: boolean = false;
   private is_parequest: boolean = false;
+  private is_cprequest: boolean = false;
   private is_acrequest: boolean = false;
-  private is_cpreqeust: boolean = false;
+  
 
-  constructor(private dataService:DataService) { }
+  constructor(
+    private requestService: RequestService
+  ) { }
 
   ngOnInit() {
-    this.is_psrequest=true;
+    
+    if(this.requestService.getSelectedRequestType() == 1 ){
+      this.is_psrequest = true;
+    }
+    else if(this.requestService.getSelectedRequestType() == 2 ){
+      this.is_parequest = true;
+    }
+    else if(this.requestService.getSelectedRequestType() == 3 ){
+      this.is_cprequest = true;
+    }
+    else if(this.requestService.getSelectedRequestType() == 4 ){
+      this.is_acrequest = true;
+    }
+    
 
   }
 
