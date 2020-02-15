@@ -33,7 +33,7 @@ const panelMemberRoutes: Routes = [
               { path: 'acrequest', component: AddChangePanelMemberComponent },
               { path: 'cprequest', component: ChangeProposalComponent },
               { path: 'parequest', component: PaperApprovalComponent },
-              { path: 'psrequest', component: PresentationScheduleComponent }
+              { path: 'psreques-t', component: PresentationScheduleComponent }
 
             ]
           },
